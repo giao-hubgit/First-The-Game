@@ -1,30 +1,44 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpd = 5f;
+    public float moveSpd = 5f;
+    public Rigidbody2D rb;
+    public Camera cam;
 
-    public Rigidbody2D rb;
-    public Camera cam;
+    Vector2 movement;
+    Vector2 mousePos;
 
-    Vector2 mousePos;
-    Vector2 movement;
+    // Hàm nhận tín hiệu di chuyển từ Player Input Component
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        // Đọc giá trị Vector2 
+        movement = context.ReadValue<Vector2>();
+    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+    // Hàm nhận tín hiệu vị trí chuột từ Player Input Component
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        // Đọc vị trí chuột trên màn hình
+        Vector2 screenMousePos = context.ReadValue<Vector2>();
+        
+        // Chuyển đổi vị trí chuột từ màn hình sang tọa độ
+        if (cam != null)
+        {
+            mousePos = cam.ScreenToWorldPoint(screenMousePos);
+        }
+    }
 
-        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-    }
+    void FixedUpdate()
+    {
+        // Di chuyển Player
+        rb.MovePosition(rb.position + movement * moveSpd * Time.fixedDeltaTime);
 
-    void FixedUpdate(){
-        rb.MovePosition(rb.position + movement * moveSpd * Time.fixedDeltaTime);
-
-        Vector2 lookDir = mousePos - rb.position;
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90;
-        rb.rotation = angle;
-    }
+        // Xoay nhân vật hướng về phía chuột
+        Vector2 lookDir = mousePos - rb.position;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        
+        rb.MoveRotation(angle);
+    }
 }
-
