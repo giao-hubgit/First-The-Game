@@ -5,26 +5,34 @@ public class Player : MonoBehaviour
     public int HP = 100;
     public GameObject deathEffect;
     public Entity_VFX playerVFX;
-    [SerializeField] private ParticleSystem DeathParticle; 
+    [SerializeField] private ParticleSystem DeathParticle;
 
-    public void takeDmg(int damage){
+    public void takeDmg(int damage)
+    {
         HP -= damage;
-        if (playerVFX != null){
+
+        if (playerVFX != null)
+        {
             playerVFX.PlayOnDamageVFX();
         }
 
-        if (HP <= 0){
+        if (HP <= 0)
+        {
+            HitStop.Instance?.Stop(0.1f);
             Die();
         }
     }
 
-    private void Die(){
-        if (deathEffect != null) {
+    private void Die()
+    {
+        if (deathEffect != null)
+        {
             GameObject effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
             Destroy(effect, 1f);
         }
 
-        if (DeathParticle != null) {
+        if (DeathParticle != null)
+        {
             ParticleSystem particle = Instantiate(DeathParticle, transform.position, Quaternion.identity);
             particle.Play();
             Destroy(particle.gameObject, 2f);
