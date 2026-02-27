@@ -11,14 +11,19 @@ public class PlayerMovement : MonoBehaviour
 
 
     private bool canDash = true;
-    private bool isDashing;
+    public bool isDashing;
     public float dashPower = 24f;
     public float dashTime = 0.2f;
     public float dashCD = 1f;
+    public int dashDMG = 20;
 
     Vector2 movement;
     Vector2 mousePos;
 
+    void Awake() {
+        if (rb == null) rb = GetComponent<Rigidbody2D>();
+    }
+    
     // Hàm nhận tín hiệu di chuyển từ Player Input Component
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -50,15 +55,24 @@ public class PlayerMovement : MonoBehaviour
         canDash = false;
         isDashing = true;
         rb.linearVelocity = dashDir * dashPower;
-        tr.emitting = true;
+        if (tr != null) tr.emitting = true;
         yield return new WaitForSeconds(dashTime);
 
-        tr.emitting = false;
+        if (tr != null) tr.emitting = false;
         rb.linearVelocity = Vector2.zero;
         isDashing = false;
 
         yield return new WaitForSeconds(dashCD);
         canDash = true;
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision){
+        if (collision.gameObject.CompareTag("Enemy")){
+            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+            if (enemy != null && isDashing){
+                enemy.takeDmg(dashDMG);
+            }
+        }
     }
 
     void FixedUpdate()
@@ -74,7 +88,5 @@ public class PlayerMovement : MonoBehaviour
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         
         rb.MoveRotation(angle);
-
-        // Dash
     }
 }

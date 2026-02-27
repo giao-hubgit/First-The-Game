@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class BulletCollides : MonoBehaviour
 {
+    void Start()
+    {
+        Destroy(gameObject, 5f); 
+    }
+
     public GameObject hitEffect;
     public int damage = 20;
 
