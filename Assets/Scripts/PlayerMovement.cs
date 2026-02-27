@@ -1,11 +1,20 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpd = 5f;
     public Rigidbody2D rb;
     public Camera cam;
+    public TrailRenderer tr;
+
+
+    public bool canDash = true;
+    public bool isDashing;
+    public float dashPower = 24f;
+    public float dashTime = 0.2f;
+    public float dashCD = 1f;
 
     Vector2 movement;
     Vector2 mousePos;
@@ -30,8 +39,33 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void onDash(InputAction.CallbackContext context){
+        if (canDash && context.performed){
+            StartCoroutine(Dash());
+        }
+    }
+
+    public IEnumerator Dash(){
+        Vector2 dashDir = (mousePos - rb.position).normalized;
+        canDash = false;
+        isDashing = true;
+        rb.linearVelocity = dashDir * dashPower;
+        tr.emitting = true;
+        yield return new WaitForSeconds(dashTime);
+
+        tr.emitting = false;
+        rb.linearVelocity = Vector2.zero;
+        isDashing = false;
+
+        yield return new WaitForSeconds(dashCD);
+        canDash = true;
+    }
+
     void FixedUpdate()
     {
+        // Đang dash thì không di chuyển
+        if (isDashing) return;
+
         // Di chuyển Player
         rb.MovePosition(rb.position + movement * moveSpd * Time.fixedDeltaTime);
 
@@ -40,5 +74,7 @@ public class PlayerMovement : MonoBehaviour
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         
         rb.MoveRotation(angle);
+
+        // Dash
     }
 }
