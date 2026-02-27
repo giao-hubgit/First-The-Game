@@ -10,8 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public TrailRenderer tr;
 
 
-    public bool canDash = true;
-    public bool isDashing;
+    private bool canDash = true;
+    private bool isDashing;
     public float dashPower = 24f;
     public float dashTime = 0.2f;
     public float dashCD = 1f;

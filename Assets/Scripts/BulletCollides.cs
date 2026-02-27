@@ -7,7 +7,7 @@ public class BulletCollides : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D hitInfo){
         GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
-        EnemyStat enemy = hitInfo.GetComponent<EnemyStat>();
+        Enemy enemy = hitInfo.GetComponent<Enemy>();
         if (enemy != null){
             enemy.takeDmg(damage);
         }
