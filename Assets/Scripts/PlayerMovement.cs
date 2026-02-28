@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using Unity.Cinemachine;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -16,13 +17,15 @@ public class PlayerMovement : MonoBehaviour
     public float dashTime = 0.2f;
     public float dashCD = 1f;
     public int dashDMG = 20;
+    private CinemachineImpulseSource impulseSource;
 
     Vector2 movement;
     Vector2 mousePos;
 
-    void Awake()
+    private void Awake()
     {
         if (rb == null) rb = GetComponent<Rigidbody2D>();
+        impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
     // Hàm nhận tín hiệu di chuyển từ Player Input Component
@@ -80,6 +83,8 @@ public class PlayerMovement : MonoBehaviour
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
             if (enemy != null && isDashing)
             {
+                HitStop.Instance?.Stop(0.1f);
+                CameraShakeManager.Instance?.CameraShake(impulseSource);
                 enemy.takeDmg(dashDMG);
             }
         }

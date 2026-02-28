@@ -2,25 +2,31 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public int HP = 100;
+    public int maxHP = 100;
     public int CollisionDMG = 20;
+    private int currentHP;
 
     public GameObject deathEffect;
     public Entity_VFX enemyVFX;
     [SerializeField] private ParticleSystem DeathParticle;
 
+    private void Awake()
+    {
+        currentHP = maxHP;
+    }
+
     public void takeDmg(int damage)
     {
-        HP -= damage;
+        currentHP -= damage;
 
         if (enemyVFX != null)
         {
             enemyVFX.PlayOnDamageVFX();
         }
 
-        if (HP <= 0)
+        if (currentHP <= 0)
         {
-            HitStop.Instance?.Stop(0.1f);
+            HitStop.Instance?.Stop(0.075f);
             Die();
         }
     }
