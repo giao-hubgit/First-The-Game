@@ -6,9 +6,9 @@ public class Enemy : MonoBehaviour
     public int CollisionDMG = 20;
     private int currentHP;
 
-    public GameObject deathEffect;
-    public Entity_VFX enemyVFX;
-    [SerializeField] private ParticleSystem DeathParticle;
+    //public GameObject deathEffect;
+    public EntityHurtsVFX enemyHurtsVFX;
+    //[SerializeField] private ParticleSystem DeathParticle;
 
     private void Awake()
     {
@@ -19,21 +19,20 @@ public class Enemy : MonoBehaviour
     {
         currentHP -= damage;
 
-        if (enemyVFX != null)
+        if (enemyHurtsVFX != null)
         {
-            enemyVFX.PlayOnDamageVFX();
+            enemyHurtsVFX.PlayOnDamageVFX();
         }
 
         if (currentHP <= 0)
         {
-            HitStop.Instance?.Stop(0.075f);
             Die();
         }
     }
 
     protected virtual void Die()
     {
-        if (deathEffect != null)
+        /*if (deathEffect != null)
         {
             GameObject effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
             Destroy(effect, 1f);
@@ -44,7 +43,11 @@ public class Enemy : MonoBehaviour
             ParticleSystem particle = Instantiate(DeathParticle, transform.position, Quaternion.identity);
             particle.Play();
             Destroy(particle.gameObject, 2f);
-        }
+        }*/
+
+        ObjectPooler.Instance.SpawnFromPool("EnemyDeathParticle", transform.position, Quaternion.identity);
+
+        ObjectPooler.Instance.SpawnFromPool("EnemyDeathAnimation", transform.position, Quaternion.identity);
 
         Destroy(gameObject);
     }

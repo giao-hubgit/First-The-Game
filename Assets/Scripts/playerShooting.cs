@@ -1,25 +1,37 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Pool;
 
-public class playerShooting : MonoBehaviour
+public class PlayerShooting : MonoBehaviour
 {
-public Transform firePoint;
-public GameObject bulletPrefab;
+    public Transform firePoint;
+    public GameObject bulletPrefab;
+    public float bulletForce = 20f;
+    [SerializeField] private AudioClip bulletSFXClip;
 
-public float bulletForce = 20f;
+    // Object Pool cho đạn
+    private IObjectPool<GameObject> bulletPool;
 
-    // Nhận nút
-    public void onFire(InputAction.CallbackContext context)
+
+    public void OnFire(InputAction.CallbackContext context)
     {
-        if (context.performed){
-            Shoot();
-        }
+        if (context.performed) Shoot();
     }
-    
-    // Bắn
-    void Shoot(){
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+
+    void Shoot()
+    {
+        // Lấy đạn từ Pool thay vì Instantiate
+        GameObject bullet = ObjectPooler.Instance.SpawnFromPool("PlayerBullet", firePoint.position, firePoint.rotation);
+
+        // Đặt vị trí và hướng
+        bullet.transform.position = firePoint.position;
+        bullet.transform.rotation = firePoint.rotation;
+
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        rb.linearVelocity = Vector2.zero;
         rb.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
+
+        // Phát âm thanh
+        SFXManager.Instance?.PlaySFX(bulletSFXClip, transform.position);
     }
 }

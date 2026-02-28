@@ -5,7 +5,7 @@ public class Player : MonoBehaviour
     public int maxHP = 100;
     private int currentHP;
     public GameObject deathEffect;
-    public Entity_VFX playerVFX;
+    public EntityHurtsVFX playerHurtsVFX;
     [SerializeField] private ParticleSystem DeathParticle;
 
     private void Awake()
@@ -17,9 +17,9 @@ public class Player : MonoBehaviour
     {
         currentHP -= damage;
 
-        if (playerVFX != null)
+        if (playerHurtsVFX != null)
         {
-            playerVFX.PlayOnDamageVFX();
+            playerHurtsVFX.PlayOnDamageVFX();
         }
 
         if (currentHP <= 0)
