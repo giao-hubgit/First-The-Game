@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraShakeManager : MonoBehaviour
 {
     public static CameraShakeManager Instance { get; private set; }
+
     [SerializeField] private float globalShakeForce = 1f;
 
     private void Awake()

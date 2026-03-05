@@ -5,9 +5,11 @@ using System.Collections;
 public class SFXManager : MonoBehaviour
 {
     public static SFXManager Instance;
+    public float minPitch = 1f;
+    public float maxPitch = 1.5f;
 
-    [SerializeField] private AudioSource sfxPrefab; // Prefab có sẵn AudioSource
-    [SerializeField] private int poolSize = 10;      // Số lượng tạo sẵn ban đầu
+    [SerializeField] private AudioSource sfxPrefab;
+    [SerializeField] private int poolSize = 10;
 
     private List<AudioSource> sfxPool = new List<AudioSource>();
 
@@ -66,6 +68,7 @@ public class SFXManager : MonoBehaviour
         source.volume = volume;
         source.pitch = pitch;
 
+        source.pitch = Random.Range(minPitch, maxPitch);
         source.gameObject.SetActive(true);
         source.Play();
 

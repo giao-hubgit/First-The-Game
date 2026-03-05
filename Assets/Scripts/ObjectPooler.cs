@@ -45,16 +45,16 @@ public class ObjectPooler : MonoBehaviour
 
     public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
     {
+        // Check xem tag có tồn tại hay 0
         if (!poolDictionary.ContainsKey(tag))
         {
-            Debug.LogWarning("Pool với tag " + tag + " không tồn tại!");
             return null;
         }
 
-        // 1. Lấy thử object đầu tiên trong hàng đợi ra để kiểm tra
+        // Lấy object đầu tiên trong hàng đợi ra để kiểm tra
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
 
-        // 2. KIỂM TRA: Nếu object này đang Active, nghĩa là toàn bộ Pool đều đang bận
+        // KIỂM TRA: Nếu object này đang Active -> toàn bộ Pool đều đang bận
         if (objectToSpawn.activeSelf)
         {
             // Tạo thêm 1 cái mới y hệt để mở rộng Pool

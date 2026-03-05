@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     private int currentHP;
     public GameObject deathEffect;
     public EntityHurtsVFX playerHurtsVFX;
+    [SerializeField] AudioClip hurtVFX;
     [SerializeField] private ParticleSystem DeathParticle;
 
     private void Awake()
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
         if (playerHurtsVFX != null)
         {
             playerHurtsVFX.PlayOnDamageVFX();
+            SFXManager.Instance?.PlaySFX(hurtVFX, transform.position);
         }
 
         if (currentHP <= 0)

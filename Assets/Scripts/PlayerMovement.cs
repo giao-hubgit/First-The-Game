@@ -17,6 +17,10 @@ public class PlayerMovement : MonoBehaviour
     public float dashTime = 0.2f;
     public float dashCD = 1f;
     public int dashDMG = 20;
+    public float crashTimer = 1f;
+    [SerializeField] AudioClip dashCrashSFX;
+    [SerializeField] AudioClip dashSFX;
+
     private CinemachineImpulseSource impulseSource;
 
     Vector2 movement;
@@ -58,6 +62,8 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator Dash()
     {
+        SFXManager.Instance?.PlaySFX(dashSFX, transform.position);
+
         Vector2 dashDir = (mousePos - rb.position).normalized;
         int originalLayer = gameObject.layer;
         gameObject.layer = LayerMask.NameToLayer("Dashing");
@@ -78,15 +84,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
+        if (damageable != null && isDashing)
         {
-            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-            if (enemy != null && isDashing)
-            {
-                HitStop.Instance?.Stop(0.1f);
-                CameraShakeManager.Instance?.CameraShake(impulseSource);
-                enemy.takeDmg(dashDMG);
-            }
+            HitStop.Instance?.Stop(0.1f);
+            SFXManager.Instance?.PlaySFX(dashCrashSFX, transform.position);
+            CameraShakeManager.Instance?.CameraShake(impulseSource);
+            damageable.takeDmg(dashDMG);
         }
     }
 
