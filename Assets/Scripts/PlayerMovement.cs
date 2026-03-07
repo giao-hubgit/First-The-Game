@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] AudioClip dashCrashSFX;
     [SerializeField] AudioClip dashSFX;
 
+
     private CinemachineImpulseSource impulseSource;
 
     Vector2 movement;

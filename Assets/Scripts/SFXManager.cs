@@ -58,7 +58,7 @@ public class SFXManager : MonoBehaviour
         return CreateNewPoolObject();
     }
 
-    public void PlaySFX(AudioClip clip, Vector3 position, float volume = 1f, float pitch = 1f)
+    public void PlaySFX(AudioClip clip, Vector3 position, float volume = 0.3f)
     {
         AudioSource source = GetAvailableSource();
 
@@ -66,7 +66,6 @@ public class SFXManager : MonoBehaviour
         source.transform.position = position;
         source.clip = clip;
         source.volume = volume;
-        source.pitch = pitch;
 
         source.pitch = Random.Range(minPitch, maxPitch);
         source.gameObject.SetActive(true);

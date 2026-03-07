@@ -7,6 +7,9 @@ public class Enemy : MonoBehaviour, IDamageable
 {
     public int maxHP = 100;
     public int CollisionDMG = 20;
+    private float nextDamageTime = 0f;
+    public float damageRate = 1f;
+
     protected int currentHP;
     protected bool isCrashing = false;
     public string DeathParticle = "EnemyDeathParticle";
@@ -15,7 +18,6 @@ public class Enemy : MonoBehaviour, IDamageable
     protected Rigidbody2D rb;
 
     public EntityHurtsVFX enemyHurtsVFX;
-
     [SerializeField] protected AudioClip deathSFX;
     [SerializeField] protected AudioClip crashSFX;
 
@@ -95,6 +97,25 @@ public class Enemy : MonoBehaviour, IDamageable
             else if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable) && collision.gameObject != this.gameObject)
             {
                 damageable.takeDmg(CollisionDMG);
+            }
+        }
+    }
+
+    protected virtual void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
+            Player player = collision.gameObject.GetComponent<Player>();
+
+            if (player != null && playerMovement != null)
+            {
+                // Nếu không lướt VÀ thời gian hiện tại đã vượt qua mốc chờ (cooldown)
+                if (playerMovement.isDashing != true && Time.time >= nextDamageTime)
+                {
+                    player.takeDmg(CollisionDMG);
+                    nextDamageTime = Time.time + damageRate; // Đặt lại mốc thời gian chờ
+                }
             }
         }
     }
