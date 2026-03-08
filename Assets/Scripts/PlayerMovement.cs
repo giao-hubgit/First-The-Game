@@ -65,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
     {
         SFXManager.Instance?.PlaySFX(dashSFX, transform.position);
 
+
         Vector2 dashDir = (mousePos - rb.position).normalized;
         int originalLayer = gameObject.layer;
         gameObject.layer = LayerMask.NameToLayer("Dashing");
@@ -73,6 +74,12 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = dashDir * dashPower;
         if (tr != null) tr.emitting = true;
         yield return new WaitForSeconds(dashTime);
+        Player player = GetComponent<Player>();
+
+        if (player != null)
+        {
+            player.TriggerInvulnerability(0.2f);
+        }
 
         if (tr != null) tr.emitting = false;
         rb.linearVelocity = Vector2.zero;

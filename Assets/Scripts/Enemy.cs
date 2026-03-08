@@ -78,6 +78,7 @@ public class Enemy : MonoBehaviour, IDamageable
                 if (playerMovement.isDashing != true)
                 {
                     player.takeDmg(CollisionDMG);
+                    nextDamageTime = Time.time + damageRate;
                 }
                 else
                 {
@@ -110,11 +111,10 @@ public class Enemy : MonoBehaviour, IDamageable
 
             if (player != null && playerMovement != null)
             {
-                // Nếu không lướt VÀ thời gian hiện tại đã vượt qua mốc chờ (cooldown)
                 if (playerMovement.isDashing != true && Time.time >= nextDamageTime)
                 {
                     player.takeDmg(CollisionDMG);
-                    nextDamageTime = Time.time + damageRate; // Đặt lại mốc thời gian chờ
+                    nextDamageTime = Time.time + damageRate;
                 }
             }
         }

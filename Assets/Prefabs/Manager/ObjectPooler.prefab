@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2909332320510107174
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5535011667622785032}
+  - component: {fileID: 2068984513007296429}
+  m_Layer: 0
+  m_Name: ObjectPooler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5535011667622785032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2909332320510107174}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.38603, y: -0.32252, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2068984513007296429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2909332320510107174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 386298660dc04144eb21c57aa1320e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPooler
+  pools:
+  - tag: PlayerBullet
+    prefab: {fileID: 5387545594179313353, guid: 5a904761a394fbc499551b8743f61c03, type: 3}
+    size: 10
+  - tag: BulletHitVFX
+    prefab: {fileID: 4204003799433540139, guid: 7c3196c5981eead419c7addcffd4553f, type: 3}
+    size: 10
+  - tag: EnemyDeathParticle
+    prefab: {fileID: 867108159493211975, guid: dc9a6c3913dc0784c90eb68c81a2771c, type: 3}
+    size: 10
+  - tag: EnemyDeathAnimation
+    prefab: {fileID: 1975272630176021927, guid: 8d16112458c1e13438ce5766932243dc, type: 3}
+    size: 10
+  - tag: CrateShattered
+    prefab: {fileID: 8938693167364199815, guid: 1773de2e041a8ad4c8fee20c47e984ba, type: 3}
+    size: 20

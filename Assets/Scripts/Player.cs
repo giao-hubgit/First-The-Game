@@ -1,8 +1,11 @@
 using UnityEngine;
+using System.Collections;
 
 public class Player : MonoBehaviour
 {
     public int maxHP = 100;
+    public float invulnerabilityTime = 0.5f;
+    private bool isInvulnerable = false;
     private int currentHP;
     public GameObject deathEffect;
     public EntityHurtsVFX playerHurtsVFX;
@@ -17,6 +20,8 @@ public class Player : MonoBehaviour
     public void takeDmg(int damage)
     {
         currentHP -= damage;
+
+        if (isInvulnerable) return;
 
         if (playerHurtsVFX != null)
         {
@@ -47,5 +52,17 @@ public class Player : MonoBehaviour
         }
 
         Destroy(gameObject);
+    }
+
+    public void TriggerInvulnerability(float duration)
+    {
+        StartCoroutine(BecomeInvulnerable(duration));
+    }
+
+    private IEnumerator BecomeInvulnerable(float duration)
+    {
+        isInvulnerable = true;
+        yield return new WaitForSeconds(duration);
+        isInvulnerable = false;
     }
 }
