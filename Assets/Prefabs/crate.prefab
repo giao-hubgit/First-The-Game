@@ -201,5 +201,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Breakable
   brokenPrefab: CrateShattered
-  explosionForce: 0.05
+  explosionForce: 0.000005
   health: 1
+  breakSFX: {fileID: 8300000, guid: a4adca6af8d548d4ead86504bb897221, type: 3}

@@ -95,7 +95,8 @@ public class Enemy : MonoBehaviour, IDamageable
                 this.takeDmg(CollisionDMG);
                 isCrashing = false;
             }
-            else if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable) && collision.gameObject != this.gameObject)
+            else if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable)
+                        && collision.gameObject != this.gameObject && !collision.gameObject.CompareTag("Player"))
             {
                 damageable.takeDmg(CollisionDMG);
             }

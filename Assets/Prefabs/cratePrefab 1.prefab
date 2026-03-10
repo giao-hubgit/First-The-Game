@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 5763005924723935002}
   - component: {fileID: 5491123252046019793}
   - component: {fileID: 8877667519969779482}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: crate_shatter_5
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,11 +106,11 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
-  m_LinearDamping: 5
-  m_AngularDamping: 5
+  m_Mass: 6
+  m_LinearDamping: 10
+  m_AngularDamping: 10
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 0c7d38eeb2c1e2643b462da730edc2e3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -206,9 +206,9 @@ GameObject:
   - component: {fileID: 8153361115359333867}
   - component: {fileID: 4301235034466168635}
   - component: {fileID: 5039202329923552314}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: crate_shatter_1
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -299,11 +299,11 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
-  m_LinearDamping: 5
-  m_AngularDamping: 5
+  m_Mass: 6
+  m_LinearDamping: 10
+  m_AngularDamping: 10
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 0c7d38eeb2c1e2643b462da730edc2e3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -396,9 +396,9 @@ GameObject:
   - component: {fileID: 5743111420006997500}
   - component: {fileID: 8718719594278955567}
   - component: {fileID: 1982751729537358862}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: crate_shatter_0
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -489,11 +489,11 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
-  m_LinearDamping: 5
-  m_AngularDamping: 5
+  m_Mass: 6
+  m_LinearDamping: 10
+  m_AngularDamping: 10
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 0c7d38eeb2c1e2643b462da730edc2e3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -583,9 +583,9 @@ GameObject:
   - component: {fileID: 961487074842574409}
   - component: {fileID: 1784709393552147672}
   - component: {fileID: 4168336030577885660}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: crate_shatter_6
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -676,11 +676,11 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
-  m_LinearDamping: 5
-  m_AngularDamping: 5
+  m_Mass: 6
+  m_LinearDamping: 10
+  m_AngularDamping: 10
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 0c7d38eeb2c1e2643b462da730edc2e3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -773,9 +773,9 @@ GameObject:
   - component: {fileID: 5027101132181032349}
   - component: {fileID: 37019390299425115}
   - component: {fileID: 3947238964367492161}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: crate_shatter_13
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -866,11 +866,11 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
-  m_LinearDamping: 5
-  m_AngularDamping: 5
+  m_Mass: 6
+  m_LinearDamping: 10
+  m_AngularDamping: 10
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 0c7d38eeb2c1e2643b462da730edc2e3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -960,9 +960,9 @@ GameObject:
   - component: {fileID: 938344724358019345}
   - component: {fileID: 5676795577536456748}
   - component: {fileID: 4676144785739794710}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: crate_shatter_3
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1053,11 +1053,11 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
-  m_LinearDamping: 5
-  m_AngularDamping: 5
+  m_Mass: 6
+  m_LinearDamping: 10
+  m_AngularDamping: 10
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 0c7d38eeb2c1e2643b462da730edc2e3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1152,9 +1152,9 @@ GameObject:
   - component: {fileID: 8663776302259096767}
   - component: {fileID: 5992624439286404673}
   - component: {fileID: 1343356851190573105}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: crate_shatter_7
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1245,11 +1245,11 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
-  m_LinearDamping: 5
-  m_AngularDamping: 5
+  m_Mass: 6
+  m_LinearDamping: 10
+  m_AngularDamping: 10
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 0c7d38eeb2c1e2643b462da730edc2e3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1342,9 +1342,9 @@ GameObject:
   - component: {fileID: 6759542414299332209}
   - component: {fileID: 8114830156220390353}
   - component: {fileID: 1925785910722292691}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: crate_shatter_12
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1435,11 +1435,11 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
-  m_LinearDamping: 5
-  m_AngularDamping: 5
+  m_Mass: 6
+  m_LinearDamping: 10
+  m_AngularDamping: 10
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 0c7d38eeb2c1e2643b462da730edc2e3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1532,9 +1532,9 @@ GameObject:
   - component: {fileID: 8543877818967064371}
   - component: {fileID: 3819523859009456525}
   - component: {fileID: 3447330860650730848}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: crate_shatter_10
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1625,11 +1625,11 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
-  m_LinearDamping: 5
-  m_AngularDamping: 5
+  m_Mass: 6
+  m_LinearDamping: 10
+  m_AngularDamping: 10
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 0c7d38eeb2c1e2643b462da730edc2e3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1725,7 +1725,7 @@ GameObject:
   - component: {fileID: 6418207756145943755}
   - component: {fileID: 3766101146397368175}
   - component: {fileID: 8808633296415388394}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: cratePrefab 1
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -1831,7 +1831,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 0c7d38eeb2c1e2643b462da730edc2e3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1920,4 +1920,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb37706422d158d4a8b5e165caaaf0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PooledObject
-  delay: 4
+  delay: 3
