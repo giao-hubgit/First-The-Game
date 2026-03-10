@@ -8,16 +8,15 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D hitInfo)
     {
-        // 1. VFX: Lấy từ Pool chung, không Instantiate/Destroy nữa
         ObjectPooler.Instance.SpawnFromPool(bulletHitVFX, transform.position, Quaternion.identity);
 
-        // 2. Gây sát thương
-        if (hitInfo.TryGetComponent<Enemy>(out Enemy enemy))
+        // Gây sát thương
+        if (hitInfo.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
-            enemy.takeDmg(damage);
+            damageable.takeDmg(damage);
         }
 
-        // 3. Trả về Pool
+        // Trả về Pool
         gameObject.SetActive(false);
     }
 }

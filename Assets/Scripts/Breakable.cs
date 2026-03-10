@@ -1,15 +1,15 @@
 using System;
 using UnityEngine;
 
-public class Breakable : MonoBehaviour
+public class Breakable : MonoBehaviour, IDamageable
 {
     public string brokenPrefab = "CrateShattered";
     public float explosionForce = 5f;
-    public int health = 1;
+    public int health = 100;
 
     [SerializeField] AudioClip breakSFX;
 
-    public void TakeDamage(int dmg)
+    public void takeDmg(int dmg)
     {
         health -= dmg;
         if (health <= 0) Break();
@@ -19,7 +19,7 @@ public class Breakable : MonoBehaviour
     {
         if (collision.relativeVelocity.magnitude >= 4f)
         {
-            if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
+            if (collision.gameObject.TryGetComponent<Enemy>(out Enemy enemy))
             {
                 Break();
             }

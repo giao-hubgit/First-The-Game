@@ -2,6 +2,7 @@ using System.Xml.Serialization;
 using System;
 using UnityEngine;
 using Unity.VisualScripting;
+using System.Data.Common;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
@@ -11,7 +12,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public float damageRate = 1f;
 
     protected int currentHP;
-    protected bool isCrashing = false;
+    //protected bool isCrashing = false;
     public string DeathParticle = "EnemyDeathParticle";
     public string DeathAnimation = "EnemyDeathAnimation";
 
@@ -80,20 +81,29 @@ public class Enemy : MonoBehaviour, IDamageable
                     player.takeDmg(CollisionDMG);
                     nextDamageTime = Time.time + damageRate;
                 }
-                else
+                /*else
                 {
                     isCrashing = true;
-                }
+                }*/
             }
         }
-        if (isCrashing == true)
+
+        else if (collision.gameObject.TryGetComponent<Breakable>(out Breakable breakable))
+        {
+            if (breakable != null)
+            {
+                breakable.takeDmg(CollisionDMG);
+            }
+        }
+
+        if (collision.relativeVelocity.magnitude >= 4f)
         {
             SFXManager.Instance?.PlaySFX(crashSFX, transform.position);
 
             if (collision.gameObject.CompareTag("Wall"))
             {
                 this.takeDmg(CollisionDMG);
-                isCrashing = false;
+                //isCrashing = false;
             }
             else if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable)
                         && collision.gameObject != this.gameObject && !collision.gameObject.CompareTag("Player"))
@@ -119,16 +129,25 @@ public class Enemy : MonoBehaviour, IDamageable
                 }
             }
         }
-    }
 
-    protected virtual void Update()
-    {
-        if (isCrashing == true)
+        else if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
-            if (rb.linearVelocity.magnitude <= 2f)
+            if (damageable != null && Time.time >= nextDamageTime)
             {
-                isCrashing = false;
+                damageable.takeDmg(CollisionDMG);
+                nextDamageTime = Time.time + damageRate;
             }
         }
     }
+
+    /*protected virtual void Update()
+     {
+         if (isCrashing == true)
+         {
+             if (rb.linearVelocity.magnitude <= 2f)
+             {
+                 isCrashing = false;
+             }
+         }
+     }*/
 }

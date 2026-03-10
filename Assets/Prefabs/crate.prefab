@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 9066770415859842045}
   - component: {fileID: 9186330360608760621}
   - component: {fileID: 5608920794363932330}
-  - component: {fileID: 6740563168919218986}
   - component: {fileID: 5706963664879446533}
   m_Layer: 8
   m_Name: crate
@@ -108,8 +107,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 10
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_LinearDamping: 5
+  m_AngularDamping: 5
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -168,26 +167,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.64, y: 0.64}
   m_EdgeRadius: 0
---- !u!114 &6740563168919218986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8025032154490435672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
-  m_SerializedVersion: 0
-  m_OverrideArea: 1
-  m_Area: 1
-  m_OverrideGenerateLinks: 0
-  m_GenerateLinks: 0
-  m_IgnoreFromBuild: 0
-  m_ApplyToChildren: 1
-  m_AffectedAgents: ffffffff
 --- !u!114 &5706963664879446533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,6 +180,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Breakable
   brokenPrefab: CrateShattered
-  explosionForce: 0.000005
-  health: 1
+  explosionForce: 10
+  health: 60
   breakSFX: {fileID: 8300000, guid: a4adca6af8d548d4ead86504bb897221, type: 3}
