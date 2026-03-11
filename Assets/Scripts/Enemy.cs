@@ -130,7 +130,7 @@ public class Enemy : MonoBehaviour, IDamageable
             }
         }
 
-        else if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
+        else if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable) && !collision.gameObject.TryGetComponent<Explode>(out Explode explode))
         {
             if (damageable != null && Time.time >= nextDamageTime)
             {
