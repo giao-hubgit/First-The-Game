@@ -93,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
     public void OnCollisionEnter2D(Collision2D collision)
     {
         IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
-        if (damageable != null && isDashing)
+        if (damageable != null && isDashing && !collision.gameObject.TryGetComponent<Explode>(out Explode explode))
         {
             HitStop.Instance?.Stop(0.1f);
             SFXManager.Instance?.PlaySFX(dashCrashSFX, transform.position);

@@ -12,7 +12,28 @@ public class Breakable : MonoBehaviour, IDamageable
     public void takeDmg(int dmg)
     {
         health -= dmg;
-        if (health <= 0) Break();
+        if (health <= 0) Break(transform.position);
+    }
+
+    public void Break(Vector2 explosionSource)
+    {
+        GameObject brokenObj = ObjectPooler.Instance.SpawnFromPool(brokenPrefab, transform.position, Quaternion.identity);
+        Rigidbody2D[] fragments = brokenObj.GetComponentsInChildren<Rigidbody2D>();
+
+        foreach (Rigidbody2D rb in fragments)
+        {
+            Vector2 direction = (Vector2)rb.transform.position - explosionSource;
+
+            if (direction == Vector2.zero)
+                direction = UnityEngine.Random.insideUnitCircle;
+
+            rb.AddForce(direction.normalized * explosionForce, ForceMode2D.Impulse);
+
+            rb.AddTorque(UnityEngine.Random.Range(-10f, 10f), ForceMode2D.Impulse);
+        }
+
+        SFXManager.Instance?.PlaySFX(breakSFX, transform.position);
+        Destroy(gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -21,31 +42,8 @@ public class Breakable : MonoBehaviour, IDamageable
         {
             if (collision.gameObject.TryGetComponent<Enemy>(out Enemy enemy))
             {
-                Break();
+                Break(collision.transform.position);
             }
         }
-    }
-
-    void Break()
-    {
-        // Tạo ra đối tượng chứa các mảnh
-        GameObject brokenObj = ObjectPooler.Instance.SpawnFromPool(brokenPrefab, transform.position, Quaternion.identity);
-
-        // Tạo lực nổ cho từng mảnh
-        Rigidbody2D[] fragments = brokenObj.GetComponentsInChildren<Rigidbody2D>();
-        foreach (Rigidbody2D rb in fragments)
-        {
-            // bay ngẫu nhiên
-            Vector2 randomDirection = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(0.5f, 1f));
-            rb.AddForce(randomDirection * (explosionForce / 100), ForceMode2D.Impulse);
-
-            // Xoayyyyyy
-            rb.AddTorque(UnityEngine.Random.Range(-10f, 10f), ForceMode2D.Impulse);
-        }
-
-        SFXManager.Instance?.PlaySFX(breakSFX, transform.position);
-
-        // Xóa cái thùng chính
-        Destroy(gameObject);
     }
 }

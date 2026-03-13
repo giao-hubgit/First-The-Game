@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4177921677317657740}
   - component: {fileID: -1119476245234685938}
   m_Layer: 0
-  m_Name: Explosion
+  m_Name: Shockwave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,7 @@ ParticleSystem:
   m_GameObject: {fileID: 867108159493211975}
   serializedVersion: 8
   lengthInSec: 2
-  simulationSpeed: 3
+  simulationSpeed: 4
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -117,7 +117,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 2
+      scalar: 3
       minScalar: 0.0001
       maxCurve:
         serializedVersion: 2
@@ -170,7 +170,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 50
       minScalar: 18
       maxCurve:
         serializedVersion: 2
@@ -669,7 +669,7 @@ ParticleSystem:
     angle: 8
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
-    radiusThickness: 1
+    radiusThickness: 0
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
@@ -752,7 +752,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 14
+      value: 1
       mode: 0
       spread: 0
       speed:
@@ -981,7 +981,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 200
+        scalar: 1000
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -4868,7 +4868,7 @@ ParticleSystemRenderer:
   m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
-  m_MaxParticleSize: 0.01
+  m_MaxParticleSize: 0.007
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2
@@ -4907,4 +4907,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb37706422d158d4a8b5e165caaaf0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PooledObject
-  delay: 1.5
+  delay: 2
