@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Data;
 using UnityEngine;
+using Unity.Cinemachine;
 
 public class Explode : MonoBehaviour, IDamageable
 {
@@ -15,8 +16,14 @@ public class Explode : MonoBehaviour, IDamageable
     private bool isExploded = false;
     public string shockwaveVFX = "Shockwave";
     public string explosionVFX = "Explosion";
+    private CinemachineImpulseSource impulseSource;
 
     [SerializeField] AudioClip breakSFX;
+
+    private void Awake()
+    {
+        impulseSource = GetComponent<CinemachineImpulseSource>();
+    }
 
     public void takeDmg(int dmg)
     {
@@ -36,6 +43,7 @@ public class Explode : MonoBehaviour, IDamageable
         if (TryGetComponent<Collider2D>(out Collider2D col)) col.enabled = false;
 
         SFXManager.Instance?.PlaySFX(breakSFX, transform.position);
+        CameraShakeManager.Instance?.CameraShake(impulseSource, 1f);
         ObjectPooler.Instance?.SpawnFromPool(shockwaveVFX, transform.position, Quaternion.identity);
         ObjectPooler.Instance?.SpawnFromPool(explosionVFX, transform.position, Quaternion.identity);
 

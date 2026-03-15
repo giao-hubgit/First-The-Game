@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 417782138f401ea45872569b76c645b6
+guid: 2c78d5c2fe9d2174fa2e2a4b4047d463
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4298056599330406823
-    second: none_0
+      213: 5563834874152655688
+    second: enemy2_deathe1_0
+  - first:
+      213: 4404448112957266487
+    second: enemy2_deathe1_1
+  - first:
+      213: -7995390139984216296
+    second: enemy2_deathe1_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -100,12 +106,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: none_0
+      name: enemy2_deathe1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
+        width: 17
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -115,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 95e33648b4c3a54c0800000000000000
-      internalID: -4298056599330406823
+      spriteID: 84b9ccee656b63d40800000000000000
+      internalID: 5563834874152655688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy2_deathe1_1
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 19
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73a1574193ebf1d30800000000000000
+      internalID: 4404448112957266487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy2_deathe1_2
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 0
+        width: 17
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81f7491770baa0190800000000000000
+      internalID: -7995390139984216296
       vertices: []
       indices: 
       edges: []
@@ -135,7 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      none_0: -4298056599330406823
+      enemy2_deathe1_0: 5563834874152655688
+      enemy2_deathe1_1: 4404448112957266487
+      enemy2_deathe1_2: -7995390139984216296
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -5,11 +5,11 @@ using UnityEngine.Pool;
 public class PlayerShooting : MonoBehaviour
 {
     public Transform firePoint;
+    public string bulletPrefabS = "PlayerBullet";
     public GameObject bulletPrefab;
     public float bulletForce = 20f;
     [SerializeField] private AudioClip bulletSFXClip;
 
-    // Object Pool cho đạn
     private IObjectPool<GameObject> bulletPool;
 
 
@@ -20,10 +20,8 @@ public class PlayerShooting : MonoBehaviour
 
     void Shoot()
     {
-        // Lấy đạn từ Pool thay vì Instantiate
-        GameObject bullet = ObjectPooler.Instance.SpawnFromPool("PlayerBullet", firePoint.position, firePoint.rotation);
+        GameObject bullet = ObjectPooler.Instance.SpawnFromPool(bulletPrefabS, firePoint.position, firePoint.rotation);
 
-        // Đặt vị trí và hướng
         bullet.transform.position = firePoint.position;
         bullet.transform.rotation = firePoint.rotation;
 
@@ -31,7 +29,6 @@ public class PlayerShooting : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         rb.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
 
-        // Phát âm thanh
         SFXManager.Instance?.PlaySFX(bulletSFXClip, transform.position);
     }
 }

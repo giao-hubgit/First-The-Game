@@ -6,8 +6,8 @@ public class FadingFragment : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
 
-    [SerializeField] private float waitBeforeFade = 2f; // Chờ 2 giây rồi mới mờ
-    [SerializeField] private float fadeDuration = 1f;   // Thời gian mờ dần trong 1 giây
+    [SerializeField] private float waitBeforeFade = 2f;
+    [SerializeField] private float fadeDuration = 1f;
 
     void Awake()
     {
@@ -15,7 +15,6 @@ public class FadingFragment : MonoBehaviour
         originalColor = spriteRenderer.color;
     }
 
-    // Khi được lấy ra từ Pool, Reset lại mọi thứ
     void OnEnable()
     {
         spriteRenderer.color = originalColor;

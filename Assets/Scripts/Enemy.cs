@@ -22,14 +22,14 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] protected AudioClip deathSFX;
     [SerializeField] protected AudioClip crashSFX;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         currentHP = maxHP;
 
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void takeDmg(int damage)
+    public virtual void takeDmg(int damage)
     {
         currentHP -= damage;
 
@@ -106,7 +106,7 @@ public class Enemy : MonoBehaviour, IDamageable
                 //isCrashing = false;
             }
             else if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable)
-                        && collision.gameObject != this.gameObject && !collision.gameObject.CompareTag("Player"))
+                    && !collision.gameObject.CompareTag("Player"))
             {
                 damageable.takeDmg(CollisionDMG);
             }
@@ -130,7 +130,9 @@ public class Enemy : MonoBehaviour, IDamageable
             }
         }
 
-        else if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable) && !collision.gameObject.TryGetComponent<Explode>(out Explode explode))
+        else if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable)
+                && !collision.gameObject.CompareTag("Enemy")
+                && !collision.gameObject.TryGetComponent<Explode>(out Explode explode))
         {
             if (damageable != null && Time.time >= nextDamageTime)
             {

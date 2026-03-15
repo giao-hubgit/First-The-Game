@@ -6,19 +6,18 @@ public class ObjectPooler : MonoBehaviour
     [System.Serializable]
     public class Pool
     {
-        public string tag;          // Tên định danh (VD: "Bullet", "EnemyDeathVFX")
-        public GameObject prefab;   // Prefab thực tế
-        public int size;            // Số lượng khởi tạo sẵn
+        public string tag;
+        public GameObject prefab;
+        public int size;
     }
 
-    public static ObjectPooler Instance; // Singleton
+    public static ObjectPooler Instance;
 
     public List<Pool> pools;
     public Dictionary<string, Queue<GameObject>> poolDictionary;
 
     private void Awake()
     {
-        // Khởi tạo Singleton
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
@@ -35,7 +34,7 @@ public class ObjectPooler : MonoBehaviour
             {
                 GameObject obj = Instantiate(pool.prefab);
                 obj.SetActive(false);
-                obj.transform.SetParent(this.transform); // Gom nhóm vào Pooler cho gọn Hierarchy
+                obj.transform.SetParent(this.transform);
                 objectPool.Enqueue(obj);
             }
 
@@ -45,39 +44,29 @@ public class ObjectPooler : MonoBehaviour
 
     public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
     {
-        // Check xem tag có tồn tại hay 0
         if (!poolDictionary.ContainsKey(tag))
         {
             return null;
         }
 
-        // Lấy object đầu tiên trong hàng đợi ra để kiểm tra
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
 
-        // KIỂM TRA: Nếu object này đang Active -> toàn bộ Pool đều đang bận
         if (objectToSpawn.activeSelf)
         {
-            // Tạo thêm 1 cái mới y hệt để mở rộng Pool
-            // Tìm lại thông tin pool từ list 'pools' dựa vào tag
             Pool poolInfo = pools.Find(p => p.tag == tag);
 
-            // Tạo thêm bản sao
             GameObject newObj = Instantiate(poolInfo.prefab);
             newObj.transform.SetParent(this.transform);
 
-            // Đẩy object cũ (đang bận) ngược lại vào hàng đợi để không làm mất nó
             poolDictionary[tag].Enqueue(objectToSpawn);
 
-            // Gán objectToSpawn thành cái mới vừa tạo
             objectToSpawn = newObj;
         }
 
-        // 3. Thiết lập thông số và kích hoạt
         objectToSpawn.SetActive(true);
         objectToSpawn.transform.position = position;
         objectToSpawn.transform.rotation = rotation;
 
-        // 4. Đẩy lại vào cuối hàng đợi để tái sử dụng
         poolDictionary[tag].Enqueue(objectToSpawn);
 
         return objectToSpawn;

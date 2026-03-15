@@ -6,7 +6,6 @@ public class PooledObject : MonoBehaviour
 
     private void OnEnable()
     {
-        // Quan trọng: Reset lại thời gian mỗi khi lấy ra từ Pool
         Invoke(nameof(Deactivate), delay);
     }
 
@@ -17,7 +16,6 @@ public class PooledObject : MonoBehaviour
 
     private void OnDisable()
     {
-        // Hủy các lệnh Invoke để tránh lỗi khi object bị tắt đột ngột
         CancelInvoke();
     }
 }

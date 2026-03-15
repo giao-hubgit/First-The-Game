@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.Pool; // Cần dùng thư viện này
+using UnityEngine.Pool;
 
 public class Bullet : MonoBehaviour
 {
@@ -10,13 +10,11 @@ public class Bullet : MonoBehaviour
     {
         ObjectPooler.Instance.SpawnFromPool(bulletHitVFX, transform.position, Quaternion.identity);
 
-        // Gây sát thương
         if (hitInfo.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
             damageable.takeDmg(damage);
         }
 
-        // Trả về Pool
         gameObject.SetActive(false);
     }
 }
