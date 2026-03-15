@@ -69,7 +69,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        /*if (collision.gameObject.CompareTag("Player"))
         {
             PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
             Player player = collision.gameObject.GetComponent<Player>();
@@ -81,26 +81,22 @@ public class Enemy : MonoBehaviour, IDamageable
                     player.takeDmg(CollisionDMG);
                     nextDamageTime = Time.time + damageRate;
                 }
-                /*else
-                {
-                    isCrashing = true;
-                }*/
             }
-        }
+        }*/
 
-        else if (collision.gameObject.TryGetComponent<Breakable>(out Breakable breakable))
+        /*else if (collision.gameObject.TryGetComponent<Breakable>(out Breakable breakable))
         {
             if (breakable != null)
             {
                 breakable.takeDmg(CollisionDMG);
             }
-        }
+        }*/
 
         if (collision.relativeVelocity.magnitude >= 4f)
         {
             SFXManager.Instance?.PlaySFX(crashSFX, transform.position);
 
-            if (collision.gameObject.CompareTag("Wall"))
+            if (collision.gameObject.CompareTag("Wall") && !collision.gameObject.TryGetComponent<Explode>(out Explode explosion_barrel))
             {
                 this.takeDmg(CollisionDMG);
                 //isCrashing = false;

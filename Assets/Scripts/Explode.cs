@@ -74,7 +74,8 @@ public class Explode : MonoBehaviour, IDamageable
         var explosionDir = rb.position - explosionPosition;
         var explosionDistance = explosionDir.magnitude;
         var wearoff = 1 - (explosionDistance / radius);
-        rb.AddForce(explosionDir.normalized * force * wearoff, ForceMode2D.Impulse);
+        rb.AddForce(explosionDir.normalized * force * wearoff * rb.mass, ForceMode2D.Impulse);
+        rb.AddTorque(UnityEngine.Random.Range(-10f, 10f), ForceMode2D.Impulse);
     }
 
     void OnDrawGizmosSelected()

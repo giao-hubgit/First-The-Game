@@ -23,10 +23,8 @@ public class FadingFragment : MonoBehaviour
 
     IEnumerator FadeOutAndDisable()
     {
-        // 1. Đứng yên một lúc cho người chơi thấy mảnh vỡ
         yield return new WaitForSeconds(waitBeforeFade);
 
-        // 2. Bắt đầu mờ dần
         float elapsedTime = 0f;
         while (elapsedTime < fadeDuration)
         {
@@ -35,9 +33,5 @@ public class FadingFragment : MonoBehaviour
             spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
             yield return null;
         }
-
-        // 3. Sau khi mờ hẳn, nếu cha của nó không còn tác dụng, ta có thể tắt nó đi.
-        // Lưu ý: Vì bạn đang dùng Object Pool cho cả Cụm (brokenObj), 
-        // nên ta cần báo cho cụm cha biết khi nào nên tắt.
     }
 }
