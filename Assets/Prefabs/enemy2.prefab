@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5727216b46c3337448ca6b3c5d2db1d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  maxHP: 100
+  maxHP: 120
   CollisionDMG: 20
   damageRate: 1
   DeathParticle: EnemyDeathParticle
@@ -244,10 +244,10 @@ MonoBehaviour:
   firePoint: {fileID: 8146531628736502725}
   bulletPrefabS: EnemyBullet
   bulletPrefab: {fileID: 5387545594179313353, guid: 36032a60096730c4dae317f42e08f2f0, type: 3}
-  bulletForce: 10
+  bulletForce: 12
   bulletSFXClip: {fileID: 8300000, guid: 6d7730b6892b7624aab93edc6daa803f, type: 3}
-  visionRange: 8
-  fireRate: 1.5
+  visionRange: 10
+  fireRate: 2
   lineOfSightLayer:
     serializedVersion: 2
     m_Bits: 3328
