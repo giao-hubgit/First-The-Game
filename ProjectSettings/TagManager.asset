@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - CrashDMGObject
   - SpawnPoint
+  - Room
   layers:
   - Default
   - TransparentFX
