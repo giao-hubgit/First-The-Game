@@ -255,6 +255,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4115315654725509998}
+  - component: {fileID: -3187212867877503787}
   m_Layer: 0
   m_Name: TB
   m_TagString: Untagged
@@ -288,6 +289,18 @@ Transform:
   - {fileID: 6899918205321960944}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-3187212867877503787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618822260160079438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08c3d1d7b1745ea45a2b816897bd3b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AddRooms
 --- !u!1 &1773748553104864019
 GameObject:
   m_ObjectHideFlags: 0
@@ -694,6 +707,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomSpawner
   openingDir: 0
+  waitTime: 4
 --- !u!1 &3096986162048617423
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,6 +828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomSpawner
   openingDir: 2
+  waitTime: 4
 --- !u!1 &6487139720128792748
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,6 +949,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomSpawner
   openingDir: 1
+  waitTime: 4
 --- !u!1 &7110694982937392693
 GameObject:
   m_ObjectHideFlags: 0

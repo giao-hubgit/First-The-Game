@@ -9,6 +9,7 @@ TagManager:
   - CrashDMGObject
   - SpawnPoint
   - Room
+  - DestroyPoint
   layers:
   - Default
   - TransparentFX

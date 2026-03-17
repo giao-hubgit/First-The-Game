@@ -322,8 +322,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1739297142349431987, guid: cdfb1c609c054d245b6b54fda52160bd, type: 3}
+      propertyPath: boss
+      value: 
+      objectReference: {fileID: 472798152072479262, guid: cd3e9fdfd8ecad74b98dcdddb28e18af, type: 3}
+    - target: {fileID: 1739297142349431987, guid: cdfb1c609c054d245b6b54fda52160bd, type: 3}
       propertyPath: maxRooms
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739297142349431987, guid: cdfb1c609c054d245b6b54fda52160bd, type: 3}
+      propertyPath: waitTime
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1739297142349431987, guid: cdfb1c609c054d245b6b54fda52160bd, type: 3}
       propertyPath: closedRoom

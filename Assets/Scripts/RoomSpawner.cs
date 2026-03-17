@@ -3,12 +3,13 @@ using UnityEngine;
 
 public class RoomSpawner : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public int openingDir;
     private int rand;
     private bool spawned = false;
 
     private RoomTemplate template;
+
+    public float waitTime = 4f;
 
     void Awake()
     {
@@ -17,7 +18,7 @@ public class RoomSpawner : MonoBehaviour
 
     void Start()
     {
-        // Mẹo nhỏ: Cộng thêm một chút thời gian ngẫu nhiên để tránh các spawner chạy cùng 1 frame
+        Destroy(gameObject, waitTime);
         float randomDelay = 0.1f + UnityEngine.Random.Range(-0.02f, 0.02f);
         Invoke("Spawn", randomDelay);
     }
@@ -62,30 +63,19 @@ public class RoomSpawner : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        // 1. Kiểm tra xem Object chạm vào có tag SpawnPoint không
         if (collision.CompareTag("SpawnPoint"))
         {
-            // 2. Lấy script RoomSpawner từ Object chạm vào
             RoomSpawner otherSpawner = collision.GetComponent<RoomSpawner>();
 
-            // 3. Kiểm tra AN TOÀN: Đảm bảo script thực sự tồn tại (không bị Null)
             if (otherSpawner != null)
             {
-                // Nếu cả 2 đều chưa sinh phòng
                 if (otherSpawner.spawned == false && spawned == false)
                 {
-                    // Sinh ra phòng đóng (cụt) và tiêu hủy bản thân
                     Instantiate(template.closedRoom, transform.position, Quaternion.identity);
                     Destroy(gameObject);
                 }
 
-                // Đánh dấu là đã xử lý xong để không sinh thêm phòng đè lên
                 spawned = true;
-            }
-            else
-            {
-                // Cảnh báo trên Console nếu bạn vô tình gắn nhầm tag
-                Debug.LogWarning("Có một Object mang tag 'SpawnPoint' nhưng không có script RoomSpawner: " + collision.gameObject.name);
             }
         }
     }
