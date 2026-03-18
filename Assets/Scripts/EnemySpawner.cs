@@ -5,12 +5,14 @@ public class EnemySpawner : MonoBehaviour
     private bool spawned = false;
     private EnemyTemplate template;
     private BoxCollider2D roomCollider;
+    private RoomTemplate roomTemplate;
 
     void Awake()
     {
         if (roomCollider == null) print("roomCollider == null");
         if (template == null) print("template == null");
         template = GameObject.FindGameObjectWithTag("EnemyTemplate").GetComponent<EnemyTemplate>();
+        roomTemplate = GameObject.FindGameObjectWithTag("Room").GetComponent<RoomTemplate>();
         roomCollider = GetComponent<BoxCollider2D>();
     }
 
@@ -28,8 +30,11 @@ public class EnemySpawner : MonoBehaviour
         int enemyToSpawn = Random.Range(3, 4);
         for (int i = 0; i < enemyToSpawn; i++)
         {
+            GameObject lastRoom = roomTemplate.rooms[roomTemplate.rooms.Count - 1];
             //if (template.currentEnemy < template.maxEnemy)
             //{
+            if (transform.IsChildOf(lastRoom.transform)) return;
+
             Vector2 randomPosition = GetRandomPos();
 
             GameObject meleePrefab = template.Melee[Random.Range(0, template.Melee.Length)];
