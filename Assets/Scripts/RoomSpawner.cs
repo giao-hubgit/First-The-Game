@@ -9,7 +9,7 @@ public class RoomSpawner : MonoBehaviour
 
     private RoomTemplate template;
 
-    public float waitTime = 4f;
+    public float waitTime = 2f;
 
     void Awake()
     {

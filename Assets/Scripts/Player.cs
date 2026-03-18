@@ -12,8 +12,11 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] AudioClip hurtVFX;
     [SerializeField] private ParticleSystem DeathParticle;
 
+    public static Transform Instance;
+
     private void Awake()
     {
+        Instance = this.transform;
         currentHP = maxHP;
     }
 

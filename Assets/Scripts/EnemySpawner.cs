@@ -25,7 +25,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Spawn()
     {
-        int enemyToSpawn = Random.Range(1, 3);
+        int enemyToSpawn = Random.Range(3, 4);
         for (int i = 0; i < enemyToSpawn; i++)
         {
             //if (template.currentEnemy < template.maxEnemy)
