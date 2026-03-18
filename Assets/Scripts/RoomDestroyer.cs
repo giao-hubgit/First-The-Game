@@ -1,9 +1,12 @@
+using System.Collections;
 using UnityEngine;
 
 public class RoomDestroyer : MonoBehaviour
 {
-    void OnTriggerEnter2D(Collider2D other)
+    IEnumerator OnTriggerEnter2D(Collider2D other)
     {
         Destroy(other.gameObject);
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
 }
