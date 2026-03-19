@@ -8,8 +8,9 @@ public class RoomDestroyer : MonoBehaviour
         if (other.CompareTag("Wall"))
         {
             Destroy(other.gameObject);
-            yield return new WaitForSeconds(1f);
-            Destroy(gameObject);
         }
+        yield return new WaitForSeconds(1f);
+
+        Destroy(gameObject);
     }
 }

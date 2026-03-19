@@ -504,6 +504,7 @@ Transform:
   - {fileID: 1242142227109220554}
   - {fileID: 2236328318913665368}
   - {fileID: 8570738000863756283}
+  - {fileID: 9177416892182338843}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-7996276610237761081
@@ -987,8 +988,8 @@ Transform:
   m_GameObject: {fileID: 6992882061142583179}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 1}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0}
+  m_LocalScale: {x: 19, y: 20, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3149995655519725936}
@@ -1110,6 +1111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f37aeaa7d638b04aafbe9f56441bc49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
+  doors:
+  - {fileID: 6102851432047871277}
+  spawnDelay: 2
 --- !u!1 &7178880532390776000
 GameObject:
   m_ObjectHideFlags: 0
@@ -1352,3 +1356,74 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomSpawner
   openingDir: 0
   waitTime: 4
+--- !u!1001 &7811012719050109813
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3149995655519725936}
+    m_Modifications:
+    - target: {fileID: 1385691023383506542, guid: 65156eac42f31d8469b047eff7efd2b2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385691023383506542, guid: 65156eac42f31d8469b047eff7efd2b2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385691023383506542, guid: 65156eac42f31d8469b047eff7efd2b2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385691023383506542, guid: 65156eac42f31d8469b047eff7efd2b2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385691023383506542, guid: 65156eac42f31d8469b047eff7efd2b2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385691023383506542, guid: 65156eac42f31d8469b047eff7efd2b2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385691023383506542, guid: 65156eac42f31d8469b047eff7efd2b2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385691023383506542, guid: 65156eac42f31d8469b047eff7efd2b2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385691023383506542, guid: 65156eac42f31d8469b047eff7efd2b2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385691023383506542, guid: 65156eac42f31d8469b047eff7efd2b2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4095994887163917912, guid: 65156eac42f31d8469b047eff7efd2b2, type: 3}
+      propertyPath: m_Name
+      value: VerticalDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 4095994887163917912, guid: 65156eac42f31d8469b047eff7efd2b2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 65156eac42f31d8469b047eff7efd2b2, type: 3}
+--- !u!1 &6102851432047871277 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4095994887163917912, guid: 65156eac42f31d8469b047eff7efd2b2, type: 3}
+  m_PrefabInstance: {fileID: 7811012719050109813}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &9177416892182338843 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1385691023383506542, guid: 65156eac42f31d8469b047eff7efd2b2, type: 3}
+  m_PrefabInstance: {fileID: 7811012719050109813}
+  m_PrefabAsset: {fileID: 0}
