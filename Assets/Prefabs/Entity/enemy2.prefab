@@ -198,6 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
   target: {fileID: 0}
+  aggroRange: 16
 --- !u!195 &9149298390124085699
 NavMeshAgent:
   m_ObjectHideFlags: 0

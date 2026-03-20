@@ -16,6 +16,9 @@ public class EnemySpawner : MonoBehaviour
     private RoomTemplate roomTemplate;
 
     private string spawnparticlePrefab = "EnemySpawnParticle";
+    private string spawnparticlePrefab1 = "EnemySpawnParticle2";
+    [SerializeField] AudioClip spawnSFX;
+    [SerializeField] AudioClip doorSFX;
 
     public GameObject[] doors;
 
@@ -80,11 +83,20 @@ public class EnemySpawner : MonoBehaviour
             {
                 Vector2 randomPosition1 = GetRandomPos();
                 Vector2 randomPosition2 = GetRandomPos();
+                Vector2 randomPos1SpawnLaser = randomPosition1;
+                randomPos1SpawnLaser.y += 1;
+                Vector2 randomPos2SpawnLaser = randomPosition2;
+                randomPos2SpawnLaser.y += 1;
 
                 ObjectPooler.Instance?.SpawnFromPool(spawnparticlePrefab, randomPosition1, quaternion.identity);
                 ObjectPooler.Instance?.SpawnFromPool(spawnparticlePrefab, randomPosition2, quaternion.identity);
 
                 yield return new WaitForSeconds(spawnDelay);
+
+                SFXManager.Instance?.PlaySFX(spawnSFX, randomPosition1);
+                SFXManager.Instance?.PlaySFX(spawnSFX, randomPosition2);
+                ObjectPooler.Instance?.SpawnFromPool(spawnparticlePrefab1, randomPos1SpawnLaser, quaternion.identity);
+                ObjectPooler.Instance?.SpawnFromPool(spawnparticlePrefab1, randomPos2SpawnLaser, quaternion.identity);
 
                 GameObject meleePrefab = template.Melee[UnityEngine.Random.Range(0, template.Melee.Length)];
                 GameObject spawnedMelee = Instantiate(meleePrefab, randomPosition1, Quaternion.identity);
@@ -126,10 +138,12 @@ public class EnemySpawner : MonoBehaviour
 
     void closeDoors()
     {
+
         foreach (GameObject door in doors)
         {
             if (door != null)
             {
+                SFXManager.Instance?.PlaySFX(doorSFX, door.transform.position);
                 door.SetActive(true);
             }
         }
@@ -141,6 +155,7 @@ public class EnemySpawner : MonoBehaviour
         {
             if (door != null)
             {
+                SFXManager.Instance?.PlaySFX(doorSFX, door.transform.position);
                 door.SetActive(false);
             }
         }
