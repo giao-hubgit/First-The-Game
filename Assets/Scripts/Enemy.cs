@@ -71,29 +71,6 @@ public class Enemy : MonoBehaviour, IDamageable
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        /*if (collision.gameObject.CompareTag("Player"))
-        {
-            PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
-            Player player = collision.gameObject.GetComponent<Player>();
-
-            if (player != null && playerMovement != null)
-            {
-                if (playerMovement.isDashing != true)
-                {
-                    player.takeDmg(CollisionDMG);
-                    nextDamageTime = Time.time + damageRate;
-                }
-            }
-        }*/
-
-        /*else if (collision.gameObject.TryGetComponent<Breakable>(out Breakable breakable))
-        {
-            if (breakable != null)
-            {
-                breakable.takeDmg(CollisionDMG);
-            }
-        }*/
-
         if (collision.relativeVelocity.magnitude >= 4f)
         {
             SFXManager.Instance?.PlaySFX(crashSFX, transform.position);

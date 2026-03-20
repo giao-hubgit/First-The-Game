@@ -6,6 +6,7 @@ public class Player : MonoBehaviour, IDamageable
     public int maxHP = 100;
     public float invulnerabilityTime = 0.5f;
     private bool isInvulnerable = false;
+    public int collisionDMG = 20;
     private int currentHP;
     public GameObject deathEffect;
     public EntityHurtsVFX playerHurtsVFX;
