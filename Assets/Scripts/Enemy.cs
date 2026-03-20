@@ -1,8 +1,10 @@
+using System.Numerics;
 using System.Xml.Serialization;
 using System;
 using UnityEngine;
 using Unity.VisualScripting;
 using System.Data.Common;
+using Unity.Mathematics;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
@@ -60,9 +62,9 @@ public class Enemy : MonoBehaviour, IDamageable
         }*/
         SFXManager.Instance?.PlaySFX(deathSFX, transform.position);
 
-        ObjectPooler.Instance.SpawnFromPool(DeathParticle, transform.position, Quaternion.identity);
+        ObjectPooler.Instance.SpawnFromPool(DeathParticle, transform.position, UnityEngine.Quaternion.identity);
 
-        ObjectPooler.Instance.SpawnFromPool(DeathAnimation, transform.position, Quaternion.identity);
+        ObjectPooler.Instance.SpawnFromPool(DeathAnimation, transform.position, transform.rotation);
 
         Destroy(gameObject);
     }

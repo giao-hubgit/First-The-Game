@@ -43,7 +43,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (deathEffect != null)
         {
-            GameObject effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
+            GameObject effect = Instantiate(deathEffect, transform.position, transform.rotation);
             Destroy(effect, 1f);
         }
 

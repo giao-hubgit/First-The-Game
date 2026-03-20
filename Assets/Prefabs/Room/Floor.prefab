@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   spawnSFX: {fileID: 8300000, guid: ba1d9c88fec619241ba3e4799ce842c2, type: 3}
-  doorSFX: {fileID: 8300000, guid: c787b599f9974c347b9966a51f18e594, type: 3}
+  doorSFX: {fileID: 8300000, guid: 14b9f96a3106ec64f8b32cfc5fa898cf, type: 3}
   doors:
   - {fileID: 0}
   spawnDelay: 2
