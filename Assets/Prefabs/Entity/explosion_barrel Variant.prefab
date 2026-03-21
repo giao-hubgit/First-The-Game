@@ -102,7 +102,7 @@ MonoBehaviour:
   health: 100
   HitTarget:
     serializedVersion: 2
-    m_Bits: 15105
+    m_Bits: 31489
   shockwaveVFX: Shockwave
   explosionVFX: Explosion
   breakSFX: {fileID: 8300000, guid: acf154785ec36dd44896c325c521974c, type: 3}

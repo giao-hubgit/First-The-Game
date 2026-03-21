@@ -53,6 +53,13 @@ public class Explode : MonoBehaviour, IDamageable
         {
             if (hitCollider.gameObject == gameObject) continue;
 
+            Landmine lm = hitCollider.GetComponent<Landmine>();
+            if (lm != null && lm.touched == false)
+            {
+                lm.touched = true;
+                lm.BoomImmediatly();
+            }
+
             IDamageable damageable = hitCollider.GetComponent<IDamageable>();
             if (damageable != null)
             {
