@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public float damageRate = 1f;
 
     protected int currentHP;
-    //protected bool isCrashing = false;
+    public bool isCrashing = false;
     public string DeathParticle = "EnemyDeathParticle";
     public string DeathAnimation = "EnemyDeathAnimation";
 
@@ -71,14 +71,13 @@ public class Enemy : MonoBehaviour, IDamageable
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.relativeVelocity.magnitude >= 4f)
+        if (collision.relativeVelocity.magnitude >= 4f && isCrashing == true)
         {
             SFXManager.Instance?.PlaySFX(crashSFX, transform.position);
 
             if (collision.gameObject.CompareTag("Wall") && !collision.gameObject.TryGetComponent<Explode>(out Explode explosion_barrel))
             {
                 this.takeDmg(CollisionDMG);
-                //isCrashing = false;
             }
             else if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable)
                     && !collision.gameObject.CompareTag("Player"))
@@ -117,14 +116,14 @@ public class Enemy : MonoBehaviour, IDamageable
         }
     }
 
-    /*protected virtual void Update()
-     {
-         if (isCrashing == true)
-         {
-             if (rb.linearVelocity.magnitude <= 2f)
-             {
-                 isCrashing = false;
-             }
-         }
-     }*/
+    protected virtual void Update()
+    {
+        if (isCrashing == true)
+        {
+            if (rb.linearVelocity.magnitude < 4f)
+            {
+                isCrashing = false;
+            }
+        }
+    }
 }

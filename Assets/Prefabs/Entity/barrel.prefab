@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7962765606277284457}
   - component: {fileID: 749802518332538076}
   - component: {fileID: 1291107046181400346}
+  - component: {fileID: -3812350179220731152}
   m_Layer: 8
   m_Name: barrel
   m_TagString: Wall
@@ -166,3 +167,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.41468132, y: 0.64}
   m_EdgeRadius: 0
+--- !u!114 &-3812350179220731152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6683949519079706881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf3d4a048cfc6794f9d5aac4206f7772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  isFlying: 0
+  ObstacleCollisionDMG: 20
+  rb: {fileID: 749802518332538076}

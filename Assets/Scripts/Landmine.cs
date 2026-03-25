@@ -91,6 +91,12 @@ public class Landmine : MonoBehaviour
             {
                 AddExplosionForce(rb, explosionForce, transform.position, explosionRadius);
             }
+
+            Enemy enemy = hitCollider.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                enemy.isCrashing = true;
+            }
         }
 
         Destroy(gameObject);

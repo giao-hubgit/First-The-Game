@@ -94,6 +94,12 @@ public class PlayerMovement : MonoBehaviour
             SFXManager.Instance?.PlaySFX(dashCrashSFX, transform.position);
             CameraShakeManager.Instance?.CameraShake(impulseSource, 0.25f);
             damageable.takeDmg(dashDMG);
+
+            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                enemy.isCrashing = true;
+            }
         }
     }
 

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9186330360608760621}
   - component: {fileID: 5608920794363932330}
   - component: {fileID: 5706963664879446533}
+  - component: {fileID: -4790782093669189534}
   m_Layer: 8
   m_Name: crate
   m_TagString: Wall
@@ -106,8 +107,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
-  m_LinearDamping: 2
+  m_Mass: 4
+  m_LinearDamping: 0.1
   m_AngularDamping: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -183,3 +184,18 @@ MonoBehaviour:
   explosionForce: 10
   health: 60
   breakSFX: {fileID: 8300000, guid: a4adca6af8d548d4ead86504bb897221, type: 3}
+--- !u!114 &-4790782093669189534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8025032154490435672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf3d4a048cfc6794f9d5aac4206f7772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObstacleImpact
+  isFlying: 0
+  ObstacleCollisionDMG: 20
+  rb: {fileID: 9186330360608760621}
