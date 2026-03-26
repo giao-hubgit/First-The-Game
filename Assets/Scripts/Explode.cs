@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using UnityEngine;
 using Unity.Cinemachine;
+using Unity.Mathematics;
 
 public class Explode : MonoBehaviour, IDamageable
 {
@@ -11,11 +12,14 @@ public class Explode : MonoBehaviour, IDamageable
     public float explosionForce = 500f;
     public int explosionDmg = 100;
     public int health = 100;
+    private int state = 0;
 
     public LayerMask HitTarget;
     private bool isExploded = false;
     public string shockwaveVFX = "Shockwave";
     public string explosionVFX = "Explosion";
+    public GameObject FireUp;
+    public GameObject SmokeUp;
     private CinemachineImpulseSource impulseSource;
 
     [SerializeField] AudioClip breakSFX;
@@ -95,5 +99,20 @@ public class Explode : MonoBehaviour, IDamageable
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, explosionRadius);
+    }
+
+    void Update()
+    {
+        if (health <= 60 && health > 30 && state == 0)
+        {
+            state = 1;
+            if (SmokeUp != null) SmokeUp.SetActive(true);
+        }
+
+        if (health <= 30 && state != 2)
+        {
+            state = 2;
+            if (FireUp != null) FireUp.SetActive(true);
+        }
     }
 }
