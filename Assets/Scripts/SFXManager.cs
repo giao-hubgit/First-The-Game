@@ -5,8 +5,6 @@ using System.Collections;
 public class SFXManager : MonoBehaviour
 {
     public static SFXManager Instance;
-    public float minPitch = 1f;
-    public float maxPitch = 1.5f;
 
     [SerializeField] private AudioSource sfxPrefab;
     [SerializeField] private int poolSize = 10;
@@ -58,7 +56,7 @@ public class SFXManager : MonoBehaviour
         return CreateNewPoolObject();
     }
 
-    public void PlaySFX(AudioClip clip, Vector3 position, float volume = 0.3f, bool randPitch = true)
+    public void PlaySFX(AudioClip clip, Vector3 position, float volume = 0.3f, bool randPitch = true, float minP = 1f, float maxP = 1f)
     {
         AudioSource source = GetAvailableSource();
 
@@ -69,7 +67,7 @@ public class SFXManager : MonoBehaviour
 
         if (randPitch == true)
         {
-            source.pitch = Random.Range(minPitch, maxPitch);
+            source.pitch = Random.Range(minP, maxP);
         }
         else source.pitch = 1f;
 

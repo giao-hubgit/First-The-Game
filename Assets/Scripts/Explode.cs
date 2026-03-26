@@ -83,6 +83,8 @@ public class Explode : MonoBehaviour, IDamageable
             }
         }
 
+        DetachAndDestroyVFX(SmokeUp);
+        DetachAndDestroyVFX(FireUp);
         Destroy(gameObject);
     }
 
@@ -99,6 +101,22 @@ public class Explode : MonoBehaviour, IDamageable
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, explosionRadius);
+    }
+
+    private void DetachAndDestroyVFX(GameObject vfx)
+    {
+        if (vfx != null && vfx.activeSelf)
+        {
+            vfx.transform.SetParent(null);
+
+            ParticleSystem ps = vfx.GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                ps.Stop();
+            }
+
+            Destroy(vfx, 2f);
+        }
     }
 
     void Update()
