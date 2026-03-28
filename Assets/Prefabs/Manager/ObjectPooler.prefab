@@ -47,16 +47,34 @@ MonoBehaviour:
   pools:
   - tag: PlayerBullet
     prefab: {fileID: 5387545594179313353, guid: 5a904761a394fbc499551b8743f61c03, type: 3}
-    size: 10
+    size: 20
   - tag: BulletHitVFX
     prefab: {fileID: 4204003799433540139, guid: 7c3196c5981eead419c7addcffd4553f, type: 3}
-    size: 10
+    size: 20
   - tag: EnemyDeathParticle
     prefab: {fileID: 867108159493211975, guid: dc9a6c3913dc0784c90eb68c81a2771c, type: 3}
-    size: 10
+    size: 20
   - tag: EnemyDeathAnimation
     prefab: {fileID: 1975272630176021927, guid: 8d16112458c1e13438ce5766932243dc, type: 3}
-    size: 10
+    size: 20
   - tag: CrateShattered
     prefab: {fileID: 8938693167364199815, guid: 1773de2e041a8ad4c8fee20c47e984ba, type: 3}
     size: 20
+  - tag: Shockwave
+    prefab: {fileID: 867108159493211975, guid: 45972d529a17c6f4cb334b72d767c301, type: 3}
+    size: 20
+  - tag: Explosion
+    prefab: {fileID: 867108159493211975, guid: 5e2345d9a0412ca47bc458b41937b64a, type: 3}
+    size: 20
+  - tag: Enemy2DeathAnimation
+    prefab: {fileID: 3335942513222298019, guid: 52bff651e0c44a94999952f0e7b8b5ae, type: 3}
+    size: 20
+  - tag: EnemyBullet
+    prefab: {fileID: 5387545594179313353, guid: 36032a60096730c4dae317f42e08f2f0, type: 3}
+    size: 40
+  - tag: EnemySpawnParticle
+    prefab: {fileID: 5739485469600557303, guid: 1ee92807ffc0c214a9720e4903606619, type: 3}
+    size: 40
+  - tag: EnemySpawnParticle2
+    prefab: {fileID: 2676394996533991894, guid: 64e493b581b52114abcb53874d530e54, type: 3}
+    size: 40

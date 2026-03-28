@@ -182,7 +182,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   isFlying: 0
   ObstacleCollisionDMG: 20
-  rb: {fileID: 749802518332538076}
 --- !u!114 &7635666522765072102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,4 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16de239a93f532e488f075fcb0fb6609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleHitSFX
+  isFlying: 0
+  ObstacleCollisionDMG: 20
   hitSFX: {fileID: 8300000, guid: 45d9cca552787524e848fec3714b65c8, type: 3}
+  enemyHitSFX: {fileID: 8300000, guid: 3fb4736daf8e59942bfa0d947f5d5366, type: 3}

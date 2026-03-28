@@ -10,6 +10,13 @@ public class PlayerMovement : MonoBehaviour
     public Camera cam;
     public TrailRenderer tr;
 
+    public float pushForce = 25f;
+    public float pushRadius = 0.6f;
+    public float pushOffset = 1f;
+    public float pushCD = 0.5f;
+    private bool canPush = true;
+    [SerializeField] AudioClip pushSFX;
+
 
     private bool canDash = true;
     public bool isDashing;
@@ -83,6 +90,57 @@ public class PlayerMovement : MonoBehaviour
 
         yield return new WaitForSeconds(dashCD);
         canDash = true;
+    }
+
+    public void OnPush(InputAction.CallbackContext context)
+    {
+        if (canPush && context.performed)
+        {
+            StartCoroutine(PushFrontRoutine());
+        }
+    }
+
+    private IEnumerator PushFrontRoutine()
+    {
+        canPush = false;
+
+        if (pushSFX != null) SFXManager.Instance?.PlaySFX(pushSFX, transform.position);
+
+        Vector2 pushCenter = rb.position + (Vector2)transform.up * pushOffset;
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(pushCenter, pushRadius);
+        bool hitSomething = false;
+
+        foreach (Collider2D hit in hits)
+        {
+            if (hit.gameObject == gameObject) continue;
+
+            if (hit.GetComponent<Enemy>() != null) continue;
+
+            Rigidbody2D targetRb = hit.GetComponent<Rigidbody2D>();
+            if (targetRb != null)
+            {
+                hitSomething = true;
+
+                targetRb.AddForce(transform.up * pushForce * (targetRb.mass * 0.5f), ForceMode2D.Impulse);
+                targetRb.AddTorque(UnityEngine.Random.Range(-6f, 6f), ForceMode2D.Impulse);
+            }
+        }
+
+        if (hitSomething)
+        {
+            CameraShakeManager.Instance?.CameraShake(impulseSource, 0.15f);
+        }
+
+        yield return new WaitForSeconds(pushCD);
+        canPush = true;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Vector3 pushCenter = transform.position + transform.up * pushOffset;
+        Gizmos.DrawWireSphere(pushCenter, pushRadius);
     }
 
     public void OnCollisionEnter2D(Collision2D collision)

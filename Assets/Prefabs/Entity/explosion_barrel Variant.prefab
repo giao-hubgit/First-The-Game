@@ -64,6 +64,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 7635666522765072102, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 2574354692694243304}
+    - target: {fileID: 7635666522765072102, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
+      propertyPath: enemyHitSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 3fb4736daf8e59942bfa0d947f5d5366, type: 3}
     - target: {fileID: 7962765606277284457, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -85,6 +93,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1075015362086832516}
   m_SourcePrefab: {fileID: 100100000, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
+--- !u!50 &2574354692694243304 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 749802518332538076, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
+  m_PrefabInstance: {fileID: 3016889065216740148}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7088096076418952584 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5441436098176460476, guid: 73b742a878c671a428297e0c138b6e82, type: 3}

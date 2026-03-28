@@ -41,9 +41,9 @@ public class ObtacleSpawner : MonoBehaviour
             if (!transform.IsChildOf(lastRoom.transform))
             {
                 Vector2 randomPosition = GetRandomPos();
-
+                Quaternion randomRotation = GetRandomRot();
                 GameObject obstaclePrefab = template.Obstacles[UnityEngine.Random.Range(0, template.Obstacles.Length)];
-                GameObject spawnedObstacle = Instantiate(obstaclePrefab, randomPosition, Quaternion.identity);
+                GameObject spawnedObstacle = Instantiate(obstaclePrefab, randomPosition, randomRotation);
                 template.currentObstacle++;
             }
         }
@@ -59,5 +59,14 @@ public class ObtacleSpawner : MonoBehaviour
         float randomY = UnityEngine.Random.Range(bounds.min.y + padding, bounds.max.y - padding);
 
         return new Vector2(randomX, randomY);
+    }
+
+    Quaternion GetRandomRot()
+    {
+        float randomAngle = UnityEngine.Random.Range(0f, 360f);
+
+        Quaternion randomRotation = Quaternion.Euler(0f, 0f, randomAngle);
+
+        return randomRotation;
     }
 }

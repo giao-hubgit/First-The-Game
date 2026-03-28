@@ -5,7 +5,7 @@ public class ObstacleImpact : MonoBehaviour
 {
     public bool isFlying = false;
     public int ObstacleCollisionDMG = 20;
-    [SerializeField] Rigidbody2D rb;
+    private Rigidbody2D rb;
 
     void Awake()
     {
@@ -19,12 +19,21 @@ public class ObstacleImpact : MonoBehaviour
             if (this.gameObject.TryGetComponent<IDamageable>(out IDamageable this_damageable))
             {
                 this_damageable.takeDmg(ObstacleCollisionDMG);
-
             }
 
             if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable that_damageable))
             {
-                that_damageable.takeDmg(ObstacleCollisionDMG);
+                if (collision.gameObject.TryGetComponent<PlayerMovement>(out PlayerMovement pMovement))
+                {
+                    if (pMovement.isDashing == false)
+                    {
+                        that_damageable.takeDmg(ObstacleCollisionDMG);
+                    }
+                }
+                else
+                {
+                    that_damageable.takeDmg(ObstacleCollisionDMG);
+                }
             }
         }
     }
