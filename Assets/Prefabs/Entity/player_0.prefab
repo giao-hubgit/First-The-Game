@@ -190,6 +190,11 @@ MonoBehaviour:
   rb: {fileID: 228276911573623026}
   cam: {fileID: 0}
   tr: {fileID: 4615007863749595623}
+  pushForce: 25
+  pushRadius: 0.6
+  pushOffset: 1
+  pushCD: 0.5
+  pushSFX: {fileID: 8300000, guid: b976c6828917a0248a9e6a9b7443d441, type: 3}
   isDashing: 0
   dashPower: 16
   dashTime: 0.2
@@ -344,6 +349,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: caa9c0bc-1a3a-4908-8805-131827b541c7
     m_ActionName: 'Player/Dash[/Keyboard/shift]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2053570681162633130}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnPush
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 05674ddf-ac7a-44f7-89d1-cd08ac9dd84a
+    m_ActionName: 'Player/Push[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -471,8 +492,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed10daaea2bec7e46b651e96d2cff180, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  maxHP: 100
+  maxHP: 1000
   invulnerabilityTime: 0.5
+  collisionDMG: 20
   deathEffect: {fileID: 8823204220847342576, guid: b0541696c4f4d7742937e12dbcb4d08f, type: 3}
   playerHurtsVFX: {fileID: 696576110766296481}
   hurtVFX: {fileID: 8300000, guid: 2e4be5df0d8faa143b81eee7a5bf9e61, type: 3}
