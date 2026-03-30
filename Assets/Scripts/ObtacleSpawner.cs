@@ -11,7 +11,6 @@ public class ObtacleSpawner : MonoBehaviour
     private BoxCollider2D roomCollider;
     private RoomTemplate roomTemplate;
 
-
     private List<GameObject> rooms = new List<GameObject>();
 
     void Awake()

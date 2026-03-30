@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1291107046181400346}
   - component: {fileID: -3812350179220731152}
   - component: {fileID: 7635666522765072102}
+  - component: {fileID: -4562458492267001980}
   m_Layer: 8
   m_Name: barrel
   m_TagString: Wall
@@ -198,3 +199,19 @@ MonoBehaviour:
   ObstacleCollisionDMG: 20
   hitSFX: {fileID: 8300000, guid: 45d9cca552787524e848fec3714b65c8, type: 3}
   enemyHitSFX: {fileID: 8300000, guid: 3fb4736daf8e59942bfa0d947f5d5366, type: 3}
+--- !u!208 &-4562458492267001980
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6683949519079706881}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.32000002, y: 0.32000002, z: 0.1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

@@ -185,6 +185,7 @@ MonoBehaviour:
   maxHP: 200
   CollisionDMG: 20
   damageRate: 1
+  isCrashing: 0
   DeathParticle: EnemyDeathParticle
   DeathAnimation: EnemyDeathAnimation
   enemyHurtsVFX: {fileID: 2584516349395757536}
