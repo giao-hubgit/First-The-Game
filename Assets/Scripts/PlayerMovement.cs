@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using Unity.Cinemachine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,7 +16,9 @@ public class PlayerMovement : MonoBehaviour
     public float pushOffset = 1f;
     public float pushCD = 0.5f;
     private bool canPush = true;
+    public bool isPushing = false;
     [SerializeField] AudioClip pushSFX;
+    [SerializeField] Image pushBar;
 
 
     private bool canDash = true;
@@ -27,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     public float crashTimer = 1f;
     [SerializeField] AudioClip dashCrashSFX;
     [SerializeField] AudioClip dashSFX;
+    [SerializeField] Image dashBar;
 
 
     private CinemachineImpulseSource impulseSource;
@@ -86,9 +90,22 @@ public class PlayerMovement : MonoBehaviour
         if (tr != null) tr.emitting = false;
         rb.linearVelocity = Vector2.zero;
         gameObject.layer = originalLayer;
+
+        if (dashBar != null) dashBar.fillAmount = 0f;
         isDashing = false;
 
-        yield return new WaitForSeconds(dashCD);
+        float timer = 0f;
+        while (timer < dashCD)
+        {
+            timer += Time.deltaTime;
+            if (dashBar != null)
+            {
+                dashBar.fillAmount = timer / dashCD;
+            }
+            yield return null;
+        }
+
+        if (dashBar != null) dashBar.fillAmount = 1f;
         canDash = true;
     }
 
@@ -103,6 +120,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator PushFrontRoutine()
     {
         canPush = false;
+        isPushing = true;
 
         if (pushSFX != null) SFXManager.Instance?.PlaySFX(pushSFX, transform.position);
 
@@ -116,6 +134,8 @@ public class PlayerMovement : MonoBehaviour
             if (hit.gameObject == gameObject) continue;
 
             if (hit.GetComponent<Enemy>() != null) continue;
+
+            if (hit.GetComponent<Bullet_e>() != null) continue;
 
             Rigidbody2D targetRb = hit.GetComponent<Rigidbody2D>();
             if (targetRb != null)
@@ -132,7 +152,18 @@ public class PlayerMovement : MonoBehaviour
             CameraShakeManager.Instance?.CameraShake(impulseSource, 0.15f);
         }
 
-        yield return new WaitForSeconds(pushCD);
+        if (pushBar != null) pushBar.fillAmount = 0f;
+
+        float pushTimer = 0f;
+        while (pushTimer < pushCD)
+        {
+            pushTimer += Time.deltaTime;
+            if (pushBar != null) pushBar.fillAmount = pushTimer / pushCD;
+            yield return null;
+        }
+
+        if (pushBar != null) pushBar.fillAmount = 1f;
+        isPushing = false;
         canPush = true;
     }
 

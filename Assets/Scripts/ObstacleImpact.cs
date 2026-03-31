@@ -25,7 +25,7 @@ public class ObstacleImpact : MonoBehaviour
             {
                 if (collision.gameObject.TryGetComponent<PlayerMovement>(out PlayerMovement pMovement))
                 {
-                    if (pMovement.isDashing == false)
+                    if (pMovement.isDashing == false && pMovement.isPushing == false)
                     {
                         that_damageable.takeDmg(ObstacleCollisionDMG);
                     }

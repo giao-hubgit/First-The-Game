@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour, IDamageable
 {
@@ -8,10 +9,12 @@ public class Player : MonoBehaviour, IDamageable
     private bool isInvulnerable = false;
     public int collisionDMG = 20;
     private int currentHP;
+
     public GameObject deathEffect;
     public EntityHurtsVFX playerHurtsVFX;
     [SerializeField] AudioClip hurtVFX;
     [SerializeField] private ParticleSystem DeathParticle;
+    [SerializeField] Image hpBar;
 
     public static Transform Instance;
 
@@ -24,6 +27,8 @@ public class Player : MonoBehaviour, IDamageable
     public void takeDmg(int damage)
     {
         currentHP -= damage;
+
+        if (hpBar != null) hpBar.fillAmount = (float)currentHP / maxHP;
 
         if (isInvulnerable) return;
 

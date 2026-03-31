@@ -19,12 +19,12 @@ public class ObstacleHitSFX : ObstacleImpact
         {
             if (this.gameObject.TryGetComponent<IDamageable>(out IDamageable this_damageable))
             {
-                SFXManager.Instance?.PlaySFX(enemyHitSFX, transform.position, 0.15f, true, 2f, 3f);
+                SFXManager.Instance?.PlaySFX(enemyHitSFX, transform.position, 0.3f, true, 0.5f, 1.5f);
             }
 
             if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable that_damageable))
             {
-                SFXManager.Instance?.PlaySFX(enemyHitSFX, transform.position, 0.15f, true, 2f, 3f);
+                SFXManager.Instance?.PlaySFX(enemyHitSFX, transform.position, 0.3f, true, 0.5f, 1.5f);
             }
         }
     }
