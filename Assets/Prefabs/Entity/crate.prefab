@@ -215,7 +215,7 @@ MonoBehaviour:
   isFlying: 0
   ObstacleCollisionDMG: 20
   hitSFX: {fileID: 8300000, guid: 3ac12859a64351843970aa376ea276a9, type: 3}
-  enemyHitSFX: {fileID: 8300000, guid: 3fb4736daf8e59942bfa0d947f5d5366, type: 3}
+  enemyHitSFX: {fileID: 8300000, guid: 3ac12859a64351843970aa376ea276a9, type: 3}
 --- !u!208 &7019365046326661471
 NavMeshObstacle:
   m_ObjectHideFlags: 0

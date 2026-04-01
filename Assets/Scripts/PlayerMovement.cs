@@ -71,7 +71,6 @@ public class PlayerMovement : MonoBehaviour
     {
         SFXManager.Instance?.PlaySFX(dashSFX, transform.position);
 
-
         Vector2 dashDir = (mousePos - rb.position).normalized;
         int originalLayer = gameObject.layer;
         gameObject.layer = LayerMask.NameToLayer("Dashing");

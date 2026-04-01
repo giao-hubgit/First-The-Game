@@ -71,7 +71,7 @@ PrefabInstance:
     - target: {fileID: 7635666522765072102, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
       propertyPath: enemyHitSFX
       value: 
-      objectReference: {fileID: 8300000, guid: 3fb4736daf8e59942bfa0d947f5d5366, type: 3}
+      objectReference: {fileID: 8300000, guid: 45d9cca552787524e848fec3714b65c8, type: 3}
     - target: {fileID: 7962765606277284457, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
       propertyPath: m_Sprite
       value: 

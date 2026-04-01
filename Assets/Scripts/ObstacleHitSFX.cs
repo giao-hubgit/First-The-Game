@@ -15,17 +15,9 @@ public class ObstacleHitSFX : ObstacleImpact
 
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.relativeVelocity.magnitude >= 4f && isFlying == true)
+        if (collision.relativeVelocity.magnitude >= 6f || isFlying == true)
         {
-            if (this.gameObject.TryGetComponent<IDamageable>(out IDamageable this_damageable))
-            {
-                SFXManager.Instance?.PlaySFX(enemyHitSFX, transform.position, 0.3f, true, 0.5f, 1.5f);
-            }
-
-            if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable that_damageable))
-            {
-                SFXManager.Instance?.PlaySFX(enemyHitSFX, transform.position, 0.3f, true, 0.5f, 1.5f);
-            }
+            SFXManager.Instance?.PlaySFX(enemyHitSFX, transform.position, 0.3f, true, 0.5f, 1.0f);
         }
     }
 }
