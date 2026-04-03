@@ -6,12 +6,8 @@ public class PlayerShooting : MonoBehaviour
 {
     public Transform firePoint;
     public string bulletPrefabS = "PlayerBullet";
-    public GameObject bulletPrefab;
     public float bulletForce = 20f;
     [SerializeField] private AudioClip bulletSFXClip;
-
-    private IObjectPool<GameObject> bulletPool;
-
 
     public void OnFire(InputAction.CallbackContext context)
     {

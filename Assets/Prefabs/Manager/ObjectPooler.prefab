@@ -78,3 +78,6 @@ MonoBehaviour:
   - tag: EnemySpawnParticle2
     prefab: {fileID: 2676394996533991894, guid: 64e493b581b52114abcb53874d530e54, type: 3}
     size: 40
+  - tag: TrapBullet
+    prefab: {fileID: 6392329148958985657, guid: 07b368762dbfaaf49b8dc850ac4cc493, type: 3}
+    size: 40

@@ -14,12 +14,14 @@ public class Flamthrower_Trap : MonoBehaviour
 
     [SerializeField] AudioClip flamethrowerSFX;
     [SerializeField] ParticleSystem flameParticles;
+    [SerializeField] GameObject NavMeshHitBox;
 
     private float currentHitboxLength = 0f;
 
     void Start()
     {
         if (flameParticles != null) flameParticles.Stop();
+        if (NavMeshHitBox != null) NavMeshHitBox.SetActive(false);
         StartCoroutine(TrapCycleRoutine());
     }
 
@@ -30,7 +32,8 @@ public class Flamthrower_Trap : MonoBehaviour
             yield return new WaitForSeconds(CD);
 
             if (flameParticles != null) flameParticles.Play();
-            if (flamethrowerSFX != null) SFXManager.Instance?.PlaySFX(flamethrowerSFX, transform.position);
+            if (flamethrowerSFX != null) SFXManager.Instance?.PlaySFX(flamethrowerSFX, transform.position, 0.2f);
+            if (NavMeshHitBox != null) NavMeshHitBox.SetActive(true);
 
             float timer = 0f;
             float nextTickTime = 0f;
@@ -59,6 +62,7 @@ public class Flamthrower_Trap : MonoBehaviour
             }
 
             if (flameParticles != null) flameParticles.Stop();
+            if (NavMeshHitBox != null) NavMeshHitBox.SetActive(false);
             currentHitboxLength = 0f;
         }
     }
