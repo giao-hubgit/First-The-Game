@@ -5,7 +5,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-
 public class EnemySpawner : MonoBehaviour
 {
     private bool spawned = false;
@@ -27,6 +26,12 @@ public class EnemySpawner : MonoBehaviour
     private List<GameObject> aliveEnemies = new List<GameObject>();
 
     [SerializeField] float spawnDelay = 2f;
+
+    [Header("Collision Checks")]
+    [Tooltip("Chọn layer của Tường và Chướng ngại vật")]
+    public LayerMask obstacleMask;
+    [Tooltip("Độ lớn của quái để quét tìm khoảng trống (0.5 - 1f)")]
+    public float enemyRadius = 0.5f;
 
     void Awake()
     {
@@ -82,8 +87,9 @@ public class EnemySpawner : MonoBehaviour
 
             if (!transform.IsChildOf(lastRoom.transform))
             {
-                Vector2 randomPosition1 = GetRandomPos();
-                Vector2 randomPosition2 = GetRandomPos();
+                Vector2 randomPosition1 = GetValidSpawnPosition();
+                Vector2 randomPosition2 = GetValidSpawnPosition();
+
                 Vector2 randomPos1SpawnLaser = randomPosition1;
                 randomPos1SpawnLaser.y += 1;
                 Vector2 randomPos2SpawnLaser = randomPosition2;
@@ -114,10 +120,33 @@ public class EnemySpawner : MonoBehaviour
         isSpawningFinished = true;
     }
 
+    Vector2 GetValidSpawnPosition()
+    {
+        Vector2 spawnPos = Vector2.zero;
+        bool isValid = false;
+        int attempts = 0;
+        int maxAttempts = 50;
+
+        while (!isValid && attempts < maxAttempts)
+        {
+            spawnPos = GetRandomPos();
+
+            Collider2D hit = Physics2D.OverlapCircle(spawnPos, enemyRadius, obstacleMask);
+
+            if (hit == null || hit.isTrigger)
+            {
+                isValid = true;
+            }
+
+            attempts++;
+        }
+
+        return spawnPos;
+    }
+
     Vector2 GetRandomPos()
     {
         Bounds bounds = roomCollider.bounds;
-
         float padding = 1.5f;
 
         float randomX = UnityEngine.Random.Range(bounds.min.x + padding, bounds.max.x - padding);
@@ -139,7 +168,6 @@ public class EnemySpawner : MonoBehaviour
 
     void closeDoors()
     {
-
         foreach (GameObject door in doors)
         {
             if (door != null)

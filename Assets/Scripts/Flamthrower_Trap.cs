@@ -18,7 +18,7 @@ public class Flamthrower_Trap : MonoBehaviour
 
     private float currentHitboxLength = 0f;
 
-    void Start()
+    void OnEnable()
     {
         if (flameParticles != null) flameParticles.Stop();
         if (NavMeshHitBox != null) NavMeshHitBox.SetActive(false);

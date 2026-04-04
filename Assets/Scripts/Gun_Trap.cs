@@ -12,7 +12,7 @@ public class Gun_Trap : MonoBehaviour
     [SerializeField] private AudioClip bulletSFXClip;
     [SerializeField] Animator anim;
 
-    void Start()
+    void OnEnable()
     {
         StartCoroutine(TrapCycleRoutine());
     }

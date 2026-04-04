@@ -1722,7 +1722,6 @@ GameObject:
   - component: {fileID: 273269425012565658}
   - component: {fileID: 377632990317226617}
   - component: {fileID: 7351201782669762814}
-  - component: {fileID: 6418207756145943755}
   - component: {fileID: 3766101146397368175}
   - component: {fileID: 8808633296415388394}
   m_Layer: 9
@@ -1842,26 +1841,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6418207756145943755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8938693167364199815}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
-  m_SerializedVersion: 0
-  m_OverrideArea: 1
-  m_Area: 1
-  m_OverrideGenerateLinks: 0
-  m_GenerateLinks: 0
-  m_IgnoreFromBuild: 0
-  m_ApplyToChildren: 1
-  m_AffectedAgents: ffffffff
 --- !u!61 &3766101146397368175
 BoxCollider2D:
   m_ObjectHideFlags: 0

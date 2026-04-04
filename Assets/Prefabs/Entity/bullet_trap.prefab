@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 272671564529953386}
   - component: {fileID: 5471469262985950479}
   - component: {fileID: 9077833182516264897}
-  m_Layer: 12
+  m_Layer: 16
   m_Name: bullet_trap
   m_TagString: Untagged
   m_Icon: {fileID: 0}

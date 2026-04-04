@@ -115,7 +115,7 @@ MonoBehaviour:
   duration: 2
   CD: 8
   tickRate: 0.1
-  bulletSFXClip: {fileID: 8300000, guid: e92c7a235ab5cc7458a5d415534f6feb, type: 3}
+  bulletSFXClip: {fileID: 8300000, guid: c3d06fb3997d3a04fa793223325d3352, type: 3}
   anim: {fileID: 9118098596963583572}
 --- !u!61 &2921035231712105247
 BoxCollider2D:

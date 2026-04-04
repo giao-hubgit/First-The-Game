@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5706963664879446533}
   - component: {fileID: -4790782093669189534}
   - component: {fileID: -6966142740768621996}
-  - component: {fileID: 7019365046326661471}
+  - component: {fileID: 5630125603984285088}
   m_Layer: 8
   m_Name: crate
   m_TagString: Wall
@@ -216,7 +216,7 @@ MonoBehaviour:
   ObstacleCollisionDMG: 20
   hitSFX: {fileID: 8300000, guid: 3ac12859a64351843970aa376ea276a9, type: 3}
   enemyHitSFX: {fileID: 8300000, guid: 3ac12859a64351843970aa376ea276a9, type: 3}
---- !u!208 &7019365046326661471
+--- !u!208 &5630125603984285088
 NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -227,7 +227,7 @@ NavMeshObstacle:
   serializedVersion: 3
   m_Shape: 1
   m_Extents: {x: 0.32000002, y: 0.32000002, z: 0.1}
-  m_MoveThreshold: 0.05
+  m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}

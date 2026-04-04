@@ -157,6 +157,10 @@ MonoBehaviour:
   doors:
   - {fileID: 0}
   spawnDelay: 2
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 17664
+  enemyRadius: 0.5
 --- !u!114 &2061883622944990204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,4 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 270ec9484f6264a4cb7eb136163ceda2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  navSurface: {fileID: 0}
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 17408
+  obstacleRadius: 0.5
