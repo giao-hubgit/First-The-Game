@@ -42,7 +42,7 @@ public class RoomRoof : MonoBehaviour
             {
                 StopAllCoroutines();
 
-                if (smoothFade)
+                if (smoothFade && gameObject.activeInHierarchy)
                 {
                     StartCoroutine(FadeInFog());
                 }
