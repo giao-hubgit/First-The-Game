@@ -64,7 +64,7 @@ GameObject:
   - component: {fileID: 1841672844746547054}
   - component: {fileID: 8189106416277783522}
   - component: {fileID: 3783459607615788838}
-  - component: {fileID: 661742246014375334}
+  - component: {fileID: 6584640184458857104}
   m_Layer: 10
   m_Name: flamethrower
   m_TagString: Untagged
@@ -216,22 +216,22 @@ MonoBehaviour:
   flamethrowerSFX: {fileID: 8300000, guid: 38af85f6bc62c7347a530e69ff52e1aa, type: 3}
   flameParticles: {fileID: 6097990134446586884}
   NavMeshHitBox: {fileID: 444228790843716992}
---- !u!114 &661742246014375334
-MonoBehaviour:
+--- !u!208 &6584640184458857104
+NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7045284897896385028}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: NavMeshPlus::NavMeshPlus.Components.NavMeshModifier
-  m_OverrideArea: 1
-  m_Area: 1
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: ffffffff
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.32000002, y: 0.32000002, z: 0.1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &8098920018422278693
 GameObject:
   m_ObjectHideFlags: 0

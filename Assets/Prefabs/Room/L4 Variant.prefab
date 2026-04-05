@@ -358,6 +358,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2402170105595843994, guid: 0acffb67b15a5e04ab778e076c615553, type: 3}
+      propertyPath: fogCover
+      value: 
+      objectReference: {fileID: 6092471076872539322}
     - target: {fileID: 3628714996828465240, guid: 0acffb67b15a5e04ab778e076c615553, type: 3}
       propertyPath: m_Name
       value: L4 Variant
@@ -384,5 +388,10 @@ PrefabInstance:
 --- !u!4 &1357482967448860821 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1683868970694274377, guid: 0acffb67b15a5e04ab778e076c615553, type: 3}
+  m_PrefabInstance: {fileID: 398835169767085532}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6092471076872539322 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5837857344371956070, guid: 0acffb67b15a5e04ab778e076c615553, type: 3}
   m_PrefabInstance: {fileID: 398835169767085532}
   m_PrefabAsset: {fileID: 0}

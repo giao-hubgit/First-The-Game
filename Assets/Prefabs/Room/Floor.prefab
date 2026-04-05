@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8945430740712508335}
   - component: {fileID: 4427720569483341037}
   - component: {fileID: 2061883622944990204}
+  - component: {fileID: 6585042818368435773}
   m_Layer: 7
   m_Name: Floor
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 18.000599, y: 18.000599, z: 1}
+  m_LocalScale: {x: 20, y: 20, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -128,7 +129,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.000000014901161}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -138,7 +139,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9000001, y: 0.9000001}
   m_EdgeRadius: 0
 --- !u!114 &4427720569483341037
 MonoBehaviour:
@@ -177,3 +178,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 17408
   obstacleRadius: 0.5
+--- !u!114 &6585042818368435773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429954682109795668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b97aaadbca2258745b5ca8527e1a93ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  fogCover: {fileID: 3186542920752723747, guid: 26852b539ed0e5a49bec327a2745fe69, type: 3}
+  smoothFade: 1
+  fadeSpeed: 3
