@@ -8,15 +8,15 @@ public class RedCubeRanged : Enemy
     public GameObject bulletPrefab;
     public float bulletForce = 10f;
 
-    [SerializeField] AudioClip bulletSFXClip;
+    [SerializeField] protected AudioClip bulletSFXClip;
 
     public float visionRange = 8f;
     public float fireRate = 1.5f;
-    private float nextFireTime = 0f;
+    protected float nextFireTime = 0f;
 
     public LayerMask lineOfSightLayer;
 
-    void Start()
+    virtual protected void Start()
     {
         if (target == null)
         {
@@ -36,7 +36,7 @@ public class RedCubeRanged : Enemy
         }
     }
 
-    void RotateTowardsPlayer()
+    virtual protected void RotateTowardsPlayer()
     {
         Vector2 direction = target.position - transform.position;
 
@@ -45,7 +45,7 @@ public class RedCubeRanged : Enemy
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
-    void CheckLineOfSightAndShoot()
+    virtual protected void CheckLineOfSightAndShoot()
     {
         float distanceToPlayer = Vector2.Distance(transform.position, target.position);
 
@@ -66,7 +66,7 @@ public class RedCubeRanged : Enemy
         }
     }
 
-    void Shoot(Vector2 shootDirection)
+    virtual protected void Shoot(Vector2 shootDirection)
     {
         GameObject bullet = ObjectPooler.Instance?.SpawnFromPool(bulletPrefabS, firePoint.position, firePoint.rotation);
 
@@ -82,7 +82,7 @@ public class RedCubeRanged : Enemy
         }
     }
 
-    private void OnDrawGizmosSelected()
+    virtual protected void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, visionRange);

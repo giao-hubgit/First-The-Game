@@ -516,7 +516,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 34
-    OrthographicSize: 40
+    OrthographicSize: 4
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -543,7 +543,7 @@ Transform:
   m_GameObject: {fileID: 314518396}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 96, y: 0.42201608, z: -12}
+  m_LocalPosition: {x: 98, y: 0.42201608, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -972,7 +972,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 40
+  orthographic size: 4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -997,7 +997,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 96, y: 0.42201608, z: -12}
+  m_LocalPosition: {x: 98, y: 0.42201608, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1435,7 +1435,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8979743728882136191, guid: 070747395c4aa7f478af3794bec1556f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 96
+      value: 98
       objectReference: {fileID: 0}
     - target: {fileID: 8979743728882136191, guid: 070747395c4aa7f478af3794bec1556f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1728,20 +1728,32 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
       propertyPath: pools.Array.size
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
       propertyPath: pools.Array.data[11].tag
       value: TrapBullet
       objectReference: {fileID: 0}
     - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
+      propertyPath: pools.Array.data[12].tag
+      value: EnemyDeath3Animation
+      objectReference: {fileID: 0}
+    - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
       propertyPath: pools.Array.data[11].size
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
+      propertyPath: pools.Array.data[12].size
       value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
       propertyPath: pools.Array.data[11].prefab
       value: 
       objectReference: {fileID: 6392329148958985657, guid: 07b368762dbfaaf49b8dc850ac4cc493, type: 3}
+    - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
+      propertyPath: pools.Array.data[12].prefab
+      value: 
+      objectReference: {fileID: 5176290130226638213, guid: 959cd80b6ebf0494ab38d42fa64c5da3, type: 3}
     - target: {fileID: 2909332320510107174, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
       propertyPath: m_Name
       value: ObjectPooler
@@ -2494,6 +2506,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8777982509641955913, guid: e3f61784e852db14ba52c0c89f1f9b1b, type: 3}
+      propertyPath: Ranged.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8777982509641955913, guid: e3f61784e852db14ba52c0c89f1f9b1b, type: 3}
+      propertyPath: 'Ranged.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1943046773742670504, guid: fb252cf9fff58ca47bd28c1a49569cdb, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
