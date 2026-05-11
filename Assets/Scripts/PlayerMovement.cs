@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public float pushCD = 0.5f;
     private bool canPush = true;
     public bool isPushing = false;
+    public string BulletPlayer = "PlayerBullet";
     [SerializeField] AudioClip pushSFX;
     [SerializeField] Image pushBar;
 
@@ -134,7 +136,21 @@ public class PlayerMovement : MonoBehaviour
 
             if (hit.GetComponent<Enemy>() != null) continue;
 
-            if (hit.GetComponent<Bullet_e>() != null) continue;
+            if (hit.GetComponent<Bullet_e>() != null)
+            {
+
+                GameObject reflected_bullet = ObjectPooler.Instance.SpawnFromPool(BulletPlayer, hit.transform.position, Quaternion.identity);
+
+                Rigidbody2D bulletRb = reflected_bullet.GetComponent<Rigidbody2D>();
+                if (bulletRb != null)
+                {
+                    bulletRb.linearVelocity = Vector2.zero;
+                    bulletRb.AddTorque(UnityEngine.Random.Range(-6f, 6f), ForceMode2D.Impulse);
+                }
+
+                hit.gameObject.SetActive(false);
+                continue;
+            }
 
             Rigidbody2D targetRb = hit.GetComponent<Rigidbody2D>();
             if (targetRb != null)

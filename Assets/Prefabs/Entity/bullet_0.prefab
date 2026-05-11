@@ -195,7 +195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb37706422d158d4a8b5e165caaaf0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PooledObject
-  delay: 0.5
+  delay: 2
+  fadeDuration: 2
 --- !u!96 &5472355840654311421
 TrailRenderer:
   serializedVersion: 4
