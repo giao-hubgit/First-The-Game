@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
   target: {fileID: 0}
-  aggroRange: 16
+  data: {fileID: 11400000, guid: 94417a2d314203c4b92a564851f79f94, type: 2}
 --- !u!195 &6912582259906519021
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -233,26 +233,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81c85762dc0f7ab448f77f13563a9239, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  maxHP: 120
-  CollisionDMG: 20
-  damageRate: 1
+  data: {fileID: 11400000, guid: 94417a2d314203c4b92a564851f79f94, type: 2}
   isCrashing: 0
-  DeathParticle: EnemyDeathParticle
-  DeathAnimation: EnemyDeath3Animation
   enemyHurtsVFX: {fileID: 3615778373529710142}
-  deathSFX: {fileID: 8300000, guid: 7012821bbf3e894458d8da223dafc11a, type: 3}
-  crashSFX: {fileID: 8300000, guid: eca835397b1ddc0468406add3ae25102, type: 3}
   target: {fileID: 0}
   firePoint: {fileID: 521113822824098380}
-  bulletPrefabS: EnemyBullet
-  bulletPrefab: {fileID: 5387545594179313353, guid: 36032a60096730c4dae317f42e08f2f0, type: 3}
-  bulletForce: 8
-  bulletSFXClip: {fileID: 8300000, guid: 6d7730b6892b7624aab93edc6daa803f, type: 3}
-  visionRange: 5
-  fireRate: 5
-  lineOfSightLayer:
-    serializedVersion: 2
-    m_Bits: 3328
 --- !u!1 &6548870014000342098
 GameObject:
   m_ObjectHideFlags: 0

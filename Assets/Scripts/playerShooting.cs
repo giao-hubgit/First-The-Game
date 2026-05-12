@@ -5,26 +5,67 @@ using UnityEngine.Pool;
 public class PlayerShooting : MonoBehaviour
 {
     public Transform firePoint;
-    public string bulletPrefabS = "PlayerBullet";
-    public float bulletForce = 20f;
-    [SerializeField] private AudioClip bulletSFXClip;
+    // public SpriteRenderer weaponVisual;
+    public WeaponData currentWeapon;
+
+    private float nextFireTime = 0f;
+    public bool isFiring = false;
 
     public void OnFire(InputAction.CallbackContext context)
     {
-        if (context.performed) Shoot();
+        if (currentWeapon == null) return;
+
+        if (currentWeapon.isAutomatic)
+        {
+            if (context.started || context.performed) isFiring = true;
+            if (context.canceled) isFiring = false;
+        }
+        else
+        {
+            isFiring = false;
+            if (context.performed) Shoot();
+        }
     }
 
     void Shoot()
     {
-        GameObject bullet = ObjectPooler.Instance.SpawnFromPool(bulletPrefabS, firePoint.position, firePoint.rotation);
+        if (!currentWeapon.isAutomatic && Time.time < nextFireTime) return;
 
-        bullet.transform.position = firePoint.position;
-        bullet.transform.rotation = firePoint.rotation;
+        for (int i = 0; i < currentWeapon.burstCount; i++)
+        {
+            float randomSpread = Random.Range(-currentWeapon.spread, currentWeapon.spread);
+            Quaternion bulletRotation = firePoint.rotation * Quaternion.Euler(0, 0, randomSpread);
 
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        rb.linearVelocity = Vector2.zero;
-        rb.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
+            GameObject bullet = ObjectPooler.Instance.SpawnFromPool(
+                currentWeapon.bulletTag,
+                firePoint.position,
+                bulletRotation
+            );
 
-        SFXManager.Instance?.PlaySFX(bulletSFXClip, transform.position);
+            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+            rb.linearVelocity = bullet.transform.up * currentWeapon.bulletForce;
+        }
+
+        SFXManager.Instance?.PlaySFX(currentWeapon.shootSFX, transform.position);
+
+        nextFireTime = Time.time + currentWeapon.fireRate;
+    }
+
+    void Update()
+    {
+        if (isFiring && currentWeapon != null && currentWeapon.isAutomatic)
+        {
+            if (Time.time >= nextFireTime)
+            {
+                Shoot();
+                nextFireTime = Time.time + currentWeapon.fireRate;
+            }
+        }
+    }
+
+    public void ChangeWeapon(WeaponData newWeapon)
+    {
+        currentWeapon = newWeapon;
+        // if (weaponVisual != null) weaponVisual.sprite = newWeapon.weaponSprite;
     }
 }

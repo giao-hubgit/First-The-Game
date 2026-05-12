@@ -8,26 +8,19 @@ using Unity.Mathematics;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
-    public int maxHP = 100;
-    public int CollisionDMG = 20;
+    public EnemyData data;
     private float nextDamageTime = 0f;
-    public float damageRate = 1f;
 
     protected int currentHP;
     public bool isCrashing = false;
-    public string DeathParticle = "EnemyDeathParticle";
-    public string DeathAnimation = "EnemyDeathAnimation";
 
     protected Rigidbody2D rb;
 
     public EntityHurtsVFX enemyHurtsVFX;
-    [SerializeField] protected AudioClip deathSFX;
-    [SerializeField] protected AudioClip crashSFX;
 
     protected virtual void Awake()
     {
-        currentHP = maxHP;
-
+        if (data != null) currentHP = data.maxHP;
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -60,11 +53,11 @@ public class Enemy : MonoBehaviour, IDamageable
             particle.Play();
             Destroy(particle.gameObject, 2f);
         }*/
-        SFXManager.Instance?.PlaySFX(deathSFX, transform.position);
+        SFXManager.Instance?.PlaySFX(data.deathSFX, transform.position);
 
-        ObjectPooler.Instance.SpawnFromPool(DeathParticle, transform.position, UnityEngine.Quaternion.identity);
+        ObjectPooler.Instance.SpawnFromPool(data.deathParticle, transform.position, UnityEngine.Quaternion.identity);
 
-        ObjectPooler.Instance.SpawnFromPool(DeathAnimation, transform.position, transform.rotation);
+        ObjectPooler.Instance.SpawnFromPool(data.deathAnimation, transform.position, transform.rotation);
 
         Destroy(gameObject);
     }
@@ -73,16 +66,16 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         if (collision.relativeVelocity.magnitude >= 4f && isCrashing == true)
         {
-            SFXManager.Instance?.PlaySFX(crashSFX, transform.position);
+            SFXManager.Instance?.PlaySFX(data.crashSFX, transform.position);
 
             if (collision.gameObject.CompareTag("Wall") && !collision.gameObject.TryGetComponent<Explode>(out Explode explosion_barrel))
             {
-                this.takeDmg(CollisionDMG);
+                this.takeDmg(data.collisionDMG);
             }
             else if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable)
                     && !collision.gameObject.CompareTag("Player"))
             {
-                damageable.takeDmg(CollisionDMG);
+                damageable.takeDmg(data.collisionDMG);
             }
         }
     }
@@ -98,8 +91,8 @@ public class Enemy : MonoBehaviour, IDamageable
             {
                 if (playerMovement.isDashing != true && Time.time >= nextDamageTime)
                 {
-                    player.takeDmg(CollisionDMG);
-                    nextDamageTime = Time.time + damageRate;
+                    player.takeDmg(data.collisionDMG);
+                    nextDamageTime = Time.time + data.damageRate;
                 }
             }
         }
@@ -110,8 +103,8 @@ public class Enemy : MonoBehaviour, IDamageable
         {
             if (damageable != null && Time.time >= nextDamageTime)
             {
-                damageable.takeDmg(CollisionDMG);
-                nextDamageTime = Time.time + damageRate;
+                damageable.takeDmg(data.collisionDMG);
+                nextDamageTime = Time.time + data.damageRate;
             }
         }
     }

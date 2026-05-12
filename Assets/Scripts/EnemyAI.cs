@@ -10,7 +10,7 @@ public class EnemyAI : MonoBehaviour
     private NavMeshAgent agent;
     private Rigidbody2D rb;
 
-    public float aggroRange = 12f;
+    public EnemyData data;
 
     void Start()
     {
@@ -21,6 +21,11 @@ public class EnemyAI : MonoBehaviour
 
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+
+        if (data != null && agent != null)
+        {
+            agent.speed = data.moveSpeed;
+        }
     }
 
     void Update()
@@ -34,7 +39,7 @@ public class EnemyAI : MonoBehaviour
         {
             float distanceToPlayer = Vector2.Distance(transform.position, target.position);
 
-            if (distanceToPlayer <= aggroRange)
+            if (distanceToPlayer <= data.aggroRange)
             {
                 agent.isStopped = false;
                 agent.SetDestination(target.position);
@@ -43,11 +48,6 @@ public class EnemyAI : MonoBehaviour
             {
                 agent.isStopped = true;
             }
-        }
-
-        if (target != null && !isKnockedBack && agent.enabled)
-        {
-            agent.SetDestination(target.position);
         }
     }
 
@@ -67,6 +67,6 @@ public class EnemyAI : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, aggroRange);
+        Gizmos.DrawWireSphere(transform.position, data.aggroRange);
     }
 }

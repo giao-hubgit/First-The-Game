@@ -4,17 +4,8 @@ public class RedCubeRanged : Enemy
 {
     public Transform target;
     public Transform firePoint;
-    public string bulletPrefabS = "EnemyBullet";
-    public GameObject bulletPrefab;
-    public float bulletForce = 10f;
 
-    [SerializeField] protected AudioClip bulletSFXClip;
-
-    public float visionRange = 8f;
-    public float fireRate = 1.5f;
     protected float nextFireTime = 0f;
-
-    public LayerMask lineOfSightLayer;
 
     virtual protected void Start()
     {
@@ -49,18 +40,18 @@ public class RedCubeRanged : Enemy
     {
         float distanceToPlayer = Vector2.Distance(transform.position, target.position);
 
-        if (distanceToPlayer <= visionRange)
+        if (distanceToPlayer <= data.visionRange)
         {
             Vector2 directionToPlayer = (target.position - transform.position).normalized;
 
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, visionRange, lineOfSightLayer);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, data.visionRange, data.lineOfSightLayer);
 
             if (hit.collider != null && hit.collider.CompareTag("Player"))
             {
                 if (Time.time >= nextFireTime)
                 {
                     Shoot(directionToPlayer);
-                    nextFireTime = Time.time + fireRate;
+                    nextFireTime = Time.time + data.fireRate;
                 }
             }
         }
@@ -68,23 +59,23 @@ public class RedCubeRanged : Enemy
 
     virtual protected void Shoot(Vector2 shootDirection)
     {
-        GameObject bullet = ObjectPooler.Instance?.SpawnFromPool(bulletPrefabS, firePoint.position, firePoint.rotation);
+        GameObject bullet = ObjectPooler.Instance?.SpawnFromPool(data.bulletPrefabS, firePoint.position, firePoint.rotation);
 
         Rigidbody2D rbBullet = bullet.GetComponent<Rigidbody2D>();
         if (rbBullet != null)
         {
-            rbBullet.linearVelocity = shootDirection * bulletForce;
+            rbBullet.linearVelocity = shootDirection * data.bulletForce;
         }
 
-        if (bulletSFXClip != null)
+        if (data.bulletSFXClip != null)
         {
-            SFXManager.Instance?.PlaySFX(bulletSFXClip, transform.position);
+            SFXManager.Instance?.PlaySFX(data.bulletSFXClip, transform.position);
         }
     }
 
     virtual protected void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, visionRange);
+        Gizmos.DrawWireSphere(transform.position, data.visionRange);
     }
 }

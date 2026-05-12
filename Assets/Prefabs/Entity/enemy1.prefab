@@ -182,15 +182,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7f738766ea5b2438f670de3a5fcc3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Common_Enemy
-  maxHP: 200
-  CollisionDMG: 20
-  damageRate: 1
+  data: {fileID: 11400000, guid: 4e84ca5112972da48be0c853a4842874, type: 2}
   isCrashing: 0
-  DeathParticle: EnemyDeathParticle
-  DeathAnimation: EnemyDeathAnimation
   enemyHurtsVFX: {fileID: 2584516349395757536}
-  deathSFX: {fileID: 8300000, guid: 7012821bbf3e894458d8da223dafc11a, type: 3}
-  crashSFX: {fileID: 8300000, guid: eca835397b1ddc0468406add3ae25102, type: 3}
 --- !u!114 &2584516349395757536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,7 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
   target: {fileID: 0}
-  aggroRange: 16
+  data: {fileID: 11400000, guid: 4e84ca5112972da48be0c853a4842874, type: 2}
 --- !u!195 &3902884808144980289
 NavMeshAgent:
   m_ObjectHideFlags: 0
