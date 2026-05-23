@@ -31,3 +31,6 @@ MonoBehaviour:
     m_Bits: 0
   maxBullets: 0
   spreadAngle: 0
+  bulletsPerBurst: 0
+  timeBetweenBullets: 0
+  bulletSpread: 0

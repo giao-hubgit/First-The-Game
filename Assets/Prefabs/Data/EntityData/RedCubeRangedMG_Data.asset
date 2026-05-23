@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1dc5179fa4e50254f924f9a481ade332, type: 3}
-  m_Name: RedCubeRanged_Data
+  m_Name: RedCubeRangedMG_Data
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   maxHP: 120
   collisionDMG: 20
@@ -18,16 +18,19 @@ MonoBehaviour:
   aggroRange: 12
   moveSpeed: 4
   deathParticle: EnemyDeathParticle
-  deathAnimation: Enemy2DeathAnimation
+  deathAnimation: EnemyDeath4Animation
   deathSFX: {fileID: 8300000, guid: 7012821bbf3e894458d8da223dafc11a, type: 3}
   crashSFX: {fileID: 8300000, guid: eca835397b1ddc0468406add3ae25102, type: 3}
   bulletPrefabS: EnemyBullet
   bulletForce: 8
   bulletSFXClip: {fileID: 8300000, guid: 6d7730b6892b7624aab93edc6daa803f, type: 3}
   visionRange: 10
-  fireRate: 2
+  fireRate: 4
   lineOfSightLayer:
     serializedVersion: 2
     m_Bits: 3328
-  maxBullets: 5
-  spreadAngle: 45
+  maxBullets: 0
+  spreadAngle: 0
+  bulletsPerBurst: 5
+  timeBetweenBullets: 0.1
+  bulletSpread: 10

@@ -27,4 +27,9 @@ public class EnemyData : ScriptableObject
     [Header("Shotgun Stats")]
     public int maxBullets = 5;
     public float spreadAngle = 45f;
+
+    [Header("Machine Gun Stats")]
+    public int bulletsPerBurst = 3;
+    public float timeBetweenBullets = 0.1f;
+    public float bulletSpread = 10f;
 }

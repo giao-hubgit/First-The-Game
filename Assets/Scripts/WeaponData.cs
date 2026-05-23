@@ -8,6 +8,7 @@ public class WeaponData : ScriptableObject
     public string bulletTag;
     public float bulletForce = 20f;
     public float recoil;
+    public int maxAmmo = 30;
     public float fireRate = 0.2f;
     public int burstCount = 1;
     public float spread = 0f;
