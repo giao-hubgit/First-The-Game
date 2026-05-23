@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1181133369290314739}
   - component: {fileID: 8355941689437775272}
   - component: {fileID: 6039647137803539920}
-  m_Layer: 7
+  m_Layer: 17
   m_Name: MG_Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,8 +80,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 152325453
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 0f34796219d9a9e43b3a0575280cd671, type: 3}
@@ -109,6 +109,7 @@ MonoBehaviour:
   weaponToGive: {fileID: 11400000, guid: 29619429c1489384e8824ec058b61b39, type: 2}
   floatingTextPrefab: {fileID: 7499672102873699750, guid: 43804aa08377e5c47b4a0ce24b2f8d20, type: 3}
   chestSFX: {fileID: 8300000, guid: dd4351aa64a974f419fdc094403381f4, type: 3}
+  outlineMaterial: {fileID: 2100000, guid: d122880de17c0a141a6e9d16187a375d, type: 2}
 --- !u!50 &8355941689437775272
 Rigidbody2D:
   serializedVersion: 5
@@ -121,9 +122,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_Mass: 4
+  m_LinearDamping: 0.1
+  m_AngularDamping: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -170,7 +171,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.000667572, y: -0.001170516}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -180,5 +181,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.6609726, y: 0.43777013}
   m_EdgeRadius: 0

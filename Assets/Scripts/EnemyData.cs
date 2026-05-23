@@ -10,11 +10,12 @@ public class EnemyData : ScriptableObject
     public float aggroRange = 12f;
     public float moveSpeed = 4f;
 
-    [Header("Effects")]
+    [Header("Misc")]
     public string deathParticle = "EnemyDeathParticle";
     public string deathAnimation = "EnemyDeathAnimation";
     public AudioClip deathSFX;
     public AudioClip crashSFX;
+    public string itemDrop = "Pistol Pickup";
 
     [Header("Ranged Stats")]
     public string bulletPrefabS = "EnemyBullet";

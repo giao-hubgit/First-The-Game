@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     protected int currentHP;
     public bool isCrashing = false;
+    private bool isDead = false;
 
     protected Rigidbody2D rb;
 
@@ -26,6 +27,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public virtual void takeDmg(int damage)
     {
+        if (isDead) return;
+
         currentHP -= damage;
 
         if (enemyHurtsVFX != null)
@@ -35,6 +38,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
         if (currentHP <= 0)
         {
+            isDead = true;
             Die();
         }
     }
@@ -58,6 +62,8 @@ public class Enemy : MonoBehaviour, IDamageable
         ObjectPooler.Instance.SpawnFromPool(data.deathParticle, transform.position, UnityEngine.Quaternion.identity);
 
         ObjectPooler.Instance.SpawnFromPool(data.deathAnimation, transform.position, transform.rotation);
+
+        ObjectPooler.Instance.SpawnFromPool(data.itemDrop, transform.position, transform.rotation);
 
         Destroy(gameObject);
     }

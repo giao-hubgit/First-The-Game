@@ -21,6 +21,7 @@ MonoBehaviour:
   deathAnimation: EnemyDeath4Animation
   deathSFX: {fileID: 8300000, guid: 7012821bbf3e894458d8da223dafc11a, type: 3}
   crashSFX: {fileID: 8300000, guid: eca835397b1ddc0468406add3ae25102, type: 3}
+  itemDrop: Machine Gun Pickup
   bulletPrefabS: EnemyBullet
   bulletForce: 8
   bulletSFXClip: {fileID: 8300000, guid: 6d7730b6892b7624aab93edc6daa803f, type: 3}

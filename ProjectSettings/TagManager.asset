@@ -30,7 +30,7 @@ TagManager:
   - Landmine
   - RoomTrigger
   - Trap Bullet
-  - 
+  - Pickup Item
   - 
   - 
   - 
@@ -57,6 +57,9 @@ TagManager:
     locked: 0
   - name: Roof
     uniqueID: 3349101969
+    locked: 0
+  - name: Text UI
+    uniqueID: 1335423225
     locked: 0
   m_RenderingLayers:
   - Default

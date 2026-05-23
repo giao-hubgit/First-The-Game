@@ -7,10 +7,13 @@ using TMPro;
 public class PlayerWeapon : MonoBehaviour
 {
     public Transform firePoint;
+    [SerializeField] private GameObject weaponUIContainer;
     [SerializeField] private Image weaponIconUI;
     [SerializeField] private TextMeshProUGUI ammoTextUI;
 
     public WeaponData currentWeapon;
+    public WeaponData nullWeapon;
+    private WeaponPickup currentInteractableWeapon;
     private int currentAmmo;
 
     private float nextFireTime = 0f;
@@ -25,7 +28,7 @@ public class PlayerWeapon : MonoBehaviour
 
     public void OnFire(InputAction.CallbackContext context)
     {
-        if (currentWeapon == null) return;
+        if (currentWeapon == null || currentWeapon == nullWeapon) return;
 
         if (currentWeapon.isAutomatic)
         {
@@ -37,6 +40,19 @@ public class PlayerWeapon : MonoBehaviour
             isFiring = false;
             if (context.performed) Shoot();
         }
+    }
+
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (context.performed && currentInteractableWeapon != null)
+        {
+            currentInteractableWeapon.Interact(this);
+        }
+    }
+
+    public void SetInteractableWeapon(WeaponPickup weapon)
+    {
+        currentInteractableWeapon = weapon;
     }
 
     void Shoot()
@@ -93,7 +109,8 @@ public class PlayerWeapon : MonoBehaviour
 
     private void OutOfAmmoLogic()
     {
-        currentWeapon = null;
+        isFiring = false;
+        ChangeWeapon(nullWeapon);
         UpdateWeaponUI();
     }
 
@@ -117,8 +134,10 @@ public class PlayerWeapon : MonoBehaviour
 
     private void UpdateWeaponUI()
     {
-        if (currentWeapon != null)
+        if (currentWeapon != null && currentWeapon != nullWeapon)
         {
+            if (weaponUIContainer != null) weaponUIContainer.SetActive(true);
+
             if (weaponIconUI != null)
             {
                 weaponIconUI.sprite = currentWeapon.weaponSprite;
@@ -133,6 +152,7 @@ public class PlayerWeapon : MonoBehaviour
         }
         else
         {
+            if (weaponUIContainer != null) weaponUIContainer.SetActive(false);
             if (weaponIconUI != null) weaponIconUI.enabled = false;
             if (ammoTextUI != null) ammoTextUI.enabled = false;
         }

@@ -21,6 +21,7 @@ MonoBehaviour:
   deathAnimation: EnemyDeathAnimation
   deathSFX: {fileID: 8300000, guid: 7012821bbf3e894458d8da223dafc11a, type: 3}
   crashSFX: {fileID: 8300000, guid: eca835397b1ddc0468406add3ae25102, type: 3}
+  itemDrop: 
   bulletPrefabS: 
   bulletForce: 0
   bulletSFXClip: {fileID: 0}

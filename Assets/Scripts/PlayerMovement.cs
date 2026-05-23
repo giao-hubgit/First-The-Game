@@ -144,6 +144,8 @@ public class PlayerMovement : MonoBehaviour
 
             if (hit.GetComponent<Enemy>() != null) continue;
 
+            if (hit.GetComponent<WeaponPickup>() != null) continue;
+
             if (hit.GetComponent<Bullet_e>() != null)
             {
 
