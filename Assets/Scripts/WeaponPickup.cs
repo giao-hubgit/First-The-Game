@@ -13,10 +13,10 @@ public class WeaponPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PlayerShooting playerShooting = other.GetComponentInChildren<PlayerShooting>();
-            if (playerShooting != null)
+            PlayerWeapon pw = other.GetComponentInChildren<PlayerWeapon>();
+            if (pw != null)
             {
-                playerShooting.ChangeWeapon(weaponToGive);
+                pw.ChangeWeapon(weaponToGive);
 
                 SFXManager.Instance?.PlaySFX(chestSFX, transform.position);
 

@@ -21,4 +21,4 @@ MonoBehaviour:
   spread: 45
   isAutomatic: 0
   shootSFX: {fileID: 8300000, guid: 2c1c2e6f9b89f8c4b92ff7e6b5eca8c2, type: 3}
-  weaponSprite: {fileID: 1275589539659018210, guid: 8f2694c36c044544a8c045153bee80dd, type: 3}
+  weaponSprite: {fileID: 21300000, guid: 8f2694c36c044544a8c045153bee80dd, type: 3}
