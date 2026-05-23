@@ -4,16 +4,12 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour, IDamageable
 {
-    public int maxHP = 100;
-    public float invulnerabilityTime = 0.5f;
+    [SerializeField] PlayerData data;
     private bool isInvulnerable = false;
-    public int collisionDMG = 20;
     private int currentHP;
 
-    public GameObject deathEffect;
     public EntityHurtsVFX playerHurtsVFX;
-    [SerializeField] AudioClip hurtVFX;
-    [SerializeField] private ParticleSystem DeathParticle;
+
     [SerializeField] Image hpBar;
 
     public static Transform Instance;
@@ -21,21 +17,24 @@ public class Player : MonoBehaviour, IDamageable
     private void Awake()
     {
         Instance = this.transform;
-        currentHP = maxHP;
+        currentHP = data.maxHP;
     }
 
     public void takeDmg(int damage)
     {
+        if (isInvulnerable) return;
+
         currentHP -= damage;
 
-        if (hpBar != null) hpBar.fillAmount = (float)currentHP / maxHP;
-
-        if (isInvulnerable) return;
+        if (hpBar != null)
+        {
+            hpBar.fillAmount = Mathf.Max(0f, (float)currentHP / data.maxHP);
+        }
 
         if (playerHurtsVFX != null)
         {
             playerHurtsVFX.PlayOnDamageVFX();
-            SFXManager.Instance?.PlaySFX(hurtVFX, transform.position);
+            SFXManager.Instance?.PlaySFX(data.hurtVFX, transform.position);
         }
 
         if (currentHP <= 0)
@@ -47,15 +46,15 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        if (deathEffect != null)
+        if (data.deathEffect != null)
         {
-            GameObject effect = Instantiate(deathEffect, transform.position, transform.rotation);
+            GameObject effect = Instantiate(data.deathEffect, transform.position, transform.rotation);
             Destroy(effect, 1f);
         }
 
-        if (DeathParticle != null)
+        if (data.DeathParticle != null)
         {
-            ParticleSystem particle = Instantiate(DeathParticle, transform.position, Quaternion.identity);
+            ParticleSystem particle = Instantiate(data.DeathParticle, transform.position, Quaternion.identity);
             particle.Play();
             Destroy(particle.gameObject, 2f);
         }

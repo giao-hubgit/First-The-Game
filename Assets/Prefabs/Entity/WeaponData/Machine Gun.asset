@@ -15,8 +15,10 @@ MonoBehaviour:
   weaponName: Machine Gun
   bulletTag: PlayerBullet
   bulletForce: 20
+  recoil: 1
   fireRate: 0.1
   burstCount: 1
   spread: 20
   isAutomatic: 1
   shootSFX: {fileID: 8300000, guid: e92c7a235ab5cc7458a5d415534f6feb, type: 3}
+  weaponSprite: {fileID: -5229011682876759249, guid: 0f34796219d9a9e43b3a0575280cd671, type: 3}

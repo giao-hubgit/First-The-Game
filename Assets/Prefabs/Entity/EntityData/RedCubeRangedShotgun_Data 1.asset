@@ -18,7 +18,7 @@ MonoBehaviour:
   aggroRange: 12
   moveSpeed: 4
   deathParticle: EnemyDeathParticle
-  deathAnimation: Enemy2DeathAnimation
+  deathAnimation: Enemy3DeathAnimation
   deathSFX: {fileID: 8300000, guid: 7012821bbf3e894458d8da223dafc11a, type: 3}
   crashSFX: {fileID: 8300000, guid: eca835397b1ddc0468406add3ae25102, type: 3}
   bulletPrefabS: EnemyBullet

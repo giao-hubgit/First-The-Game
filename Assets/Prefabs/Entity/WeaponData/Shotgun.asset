@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponName: Shotgun
-  bulletTag: PlayerBullet
+  bulletTag: PlayerShotgunBullet
   bulletForce: 20
+  recoil: 10
   fireRate: 1
   burstCount: 5
   spread: 45
   isAutomatic: 0
-  shootSFX: {fileID: 8300000, guid: e92c7a235ab5cc7458a5d415534f6feb, type: 3}
+  shootSFX: {fileID: 8300000, guid: 2c1c2e6f9b89f8c4b92ff7e6b5eca8c2, type: 3}
+  weaponSprite: {fileID: 1275589539659018210, guid: 8f2694c36c044544a8c045153bee80dd, type: 3}

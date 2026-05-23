@@ -108,8 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6223392b4dac00947bad98ed33f5948f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  damage: 20
-  bulletHitVFX: BulletHitVFX
+  data: {fileID: 11400000, guid: 7b61f85da8522d148ae39bced3619608, type: 2}
 --- !u!61 &3395317772772936775
 BoxCollider2D:
   m_ObjectHideFlags: 0

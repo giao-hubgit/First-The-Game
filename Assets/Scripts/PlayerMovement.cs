@@ -40,6 +40,14 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movement;
     Vector2 mousePos;
 
+    private Vector2 recoilVelocity;
+    [SerializeField] float recoilDecaySpeed = 25f;
+
+    public void ApplyRecoil(Vector2 force)
+    {
+        recoilVelocity += force;
+    }
+
     private void Awake()
     {
         if (rb == null) rb = GetComponent<Rigidbody2D>();
@@ -211,7 +219,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDashing) return;
 
-        rb.MovePosition(rb.position + movement * moveSpd * Time.fixedDeltaTime);
+        Vector2 finalMovement = (movement * moveSpd) + recoilVelocity;
+        rb.MovePosition(rb.position + finalMovement * Time.fixedDeltaTime);
+
+        recoilVelocity = Vector2.MoveTowards(recoilVelocity, Vector2.zero, recoilDecaySpeed * Time.fixedDeltaTime);
 
         Vector2 lookDir = mousePos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;

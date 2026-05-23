@@ -182,6 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PooledObject
   delay: 2
+  fadeDuration: 0.3
 --- !u!114 &3968343933808217352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947ffc9c899830a42a0d1285e3fa538d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet_e
-  damage: 5
+  data: {fileID: 11400000, guid: c66d3b125352dad42acc11f2e16ad398, type: 2}
 --- !u!96 &4486075081208209681
 TrailRenderer:
   serializedVersion: 4

@@ -31,6 +31,18 @@ public class PlayerShooting : MonoBehaviour
     {
         if (!currentWeapon.isAutomatic && Time.time < nextFireTime) return;
 
+        if (currentWeapon.recoil > 0)
+        {
+            PlayerMovement pm = GetComponent<PlayerMovement>();
+
+            if (pm != null)
+            {
+                Vector2 recoilForce = -transform.up * currentWeapon.recoil;
+
+                pm.ApplyRecoil(recoilForce);
+            }
+        }
+
         for (int i = 0; i < currentWeapon.burstCount; i++)
         {
             float randomSpread = Random.Range(-currentWeapon.spread, currentWeapon.spread);

@@ -3,14 +3,14 @@ using UnityEngine.Pool;
 
 public class bullet_trap : MonoBehaviour
 {
-    public int damage = 5;
+    public BulletData data;
 
     private void OnTriggerEnter2D(Collider2D hitInfo)
     {
 
         if (hitInfo.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
-            damageable.takeDmg(damage);
+            damageable.takeDmg(data.damage);
         }
 
         gameObject.SetActive(false);
