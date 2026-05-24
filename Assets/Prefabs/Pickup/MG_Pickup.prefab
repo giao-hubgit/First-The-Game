@@ -61,7 +61,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d122880de17c0a141a6e9d16187a375d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,7 +109,6 @@ MonoBehaviour:
   weaponToGive: {fileID: 11400000, guid: 29619429c1489384e8824ec058b61b39, type: 2}
   floatingTextPrefab: {fileID: 7499672102873699750, guid: 43804aa08377e5c47b4a0ce24b2f8d20, type: 3}
   chestSFX: {fileID: 8300000, guid: dd4351aa64a974f419fdc094403381f4, type: 3}
-  outlineMaterial: {fileID: 2100000, guid: d122880de17c0a141a6e9d16187a375d, type: 2}
 --- !u!50 &8355941689437775272
 Rigidbody2D:
   serializedVersion: 5
@@ -171,15 +170,15 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.000667572, y: -0.001170516}
+  m_Offset: {x: 0.0051193237, y: -0.001170516}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
+    oldSize: {x: 0.8, y: 0.64}
     newSize: {x: 0.64, y: 0.64}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.6609726, y: 0.43777013}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0

@@ -7,29 +7,25 @@ public class WeaponPickup : MonoBehaviour
     public GameObject floatingTextPrefab;
     public AudioClip chestSFX;
 
-    [SerializeField] private Material outlineMaterial;
-
     private SpriteRenderer spriteRenderer;
-    private Material originalMaterial;
+    private MaterialPropertyBlock propBlock;
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        originalMaterial = spriteRenderer.material;
+        propBlock = new MaterialPropertyBlock();
+
+        ToggleOutline(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            PlayerWeapon pw = other.GetComponentInChildren<PlayerWeapon>();
+            PlayerWeapon pw = other.GetComponent<PlayerWeapon>();
             if (pw != null)
             {
-                pw.SetInteractableWeapon(this);
-            }
-
-            if (outlineMaterial != null && spriteRenderer != null)
-            {
-                spriteRenderer.material = outlineMaterial;
+                pw.AddInteractableWeapon(this);
             }
         }
     }
@@ -38,15 +34,10 @@ public class WeaponPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PlayerWeapon pw = other.GetComponentInChildren<PlayerWeapon>();
+            PlayerWeapon pw = other.GetComponent<PlayerWeapon>();
             if (pw != null)
             {
-                pw.SetInteractableWeapon(null);
-            }
-
-            if (spriteRenderer != null)
-            {
-                spriteRenderer.material = originalMaterial;
+                pw.RemoveInteractableWeapon(this);
             }
         }
     }
@@ -64,7 +55,8 @@ public class WeaponPickup : MonoBehaviour
     {
         if (floatingTextPrefab != null)
         {
-            GameObject popup = Instantiate(floatingTextPrefab, Vector3.up, Quaternion.identity);
+            Vector3 spawnPos = transform.position + Vector3.up;
+            GameObject popup = Instantiate(floatingTextPrefab, spawnPos, Quaternion.identity);
 
             FloatingText ftScript = popup.GetComponent<FloatingText>();
             if (ftScript != null)
@@ -76,9 +68,20 @@ public class WeaponPickup : MonoBehaviour
 
     private void OnEnable()
     {
-        if (spriteRenderer != null && originalMaterial != null)
-        {
-            spriteRenderer.material = originalMaterial;
-        }
+        ToggleOutline(false);
+    }
+
+    private void OnDisable()
+    {
+        ToggleOutline(false);
+    }
+
+    public void ToggleOutline(bool isActive)
+    {
+        if (spriteRenderer == null) return;
+
+        spriteRenderer.GetPropertyBlock(propBlock);
+        propBlock.SetFloat("_Thickness", isActive ? 2f : 0f);
+        spriteRenderer.SetPropertyBlock(propBlock);
     }
 }

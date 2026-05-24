@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Pool;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic; // ⭐ Bắt buộc thêm dòng này để dùng List
 
 public class PlayerWeapon : MonoBehaviour
 {
@@ -13,12 +14,12 @@ public class PlayerWeapon : MonoBehaviour
 
     public WeaponData currentWeapon;
     public WeaponData nullWeapon;
-    private WeaponPickup currentInteractableWeapon;
+
+    private List<WeaponPickup> nearbyWeapons = new List<WeaponPickup>();
     private int currentAmmo;
 
     private float nextFireTime = 0f;
     public bool isFiring = false;
-
 
     void Start()
     {
@@ -44,36 +45,64 @@ public class PlayerWeapon : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (context.performed && currentInteractableWeapon != null)
+        if (context.performed && nearbyWeapons.Count > 0)
         {
-            currentInteractableWeapon.Interact(this);
+            WeaponPickup weaponToPick = nearbyWeapons[nearbyWeapons.Count - 1];
+
+            RemoveInteractableWeapon(weaponToPick);
+
+            weaponToPick.Interact(this);
         }
     }
 
-    public void SetInteractableWeapon(WeaponPickup weapon)
+    public void AddInteractableWeapon(WeaponPickup weapon)
     {
-        currentInteractableWeapon = weapon;
+        if (!nearbyWeapons.Contains(weapon))
+        {
+            nearbyWeapons.Add(weapon);
+        }
+        UpdateOutlines();
+    }
+
+    public void RemoveInteractableWeapon(WeaponPickup weapon)
+    {
+        if (nearbyWeapons.Contains(weapon))
+        {
+            weapon.ToggleOutline(false);
+            nearbyWeapons.Remove(weapon);
+        }
+        UpdateOutlines();
+    }
+
+    private void UpdateOutlines()
+    {
+        foreach (WeaponPickup w in nearbyWeapons)
+        {
+            if (w != null) w.ToggleOutline(false);
+        }
+
+        if (nearbyWeapons.Count > 0)
+        {
+            WeaponPickup topWeapon = nearbyWeapons[nearbyWeapons.Count - 1];
+            if (topWeapon != null)
+            {
+                topWeapon.ToggleOutline(true);
+            }
+        }
     }
 
     void Shoot()
     {
         if (currentWeapon == null) return;
-
-        if (currentAmmo <= 0)
-        {
-            return;
-        }
-
+        if (currentAmmo <= 0) return;
         if (!currentWeapon.isAutomatic && Time.time < nextFireTime) return;
 
         if (currentWeapon.recoil > 0)
         {
             PlayerMovement pm = GetComponent<PlayerMovement>();
-
             if (pm != null)
             {
                 Vector2 recoilForce = -transform.up * currentWeapon.recoil;
-
                 pm.ApplyRecoil(recoilForce);
             }
         }
@@ -96,9 +125,7 @@ public class PlayerWeapon : MonoBehaviour
         SFXManager.Instance?.PlaySFX(currentWeapon.shootSFX, transform.position);
 
         nextFireTime = Time.time + currentWeapon.fireRate;
-
         currentAmmo--;
-
         UpdateWeaponUI();
 
         if (currentAmmo <= 0)
