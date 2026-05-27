@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Pool;
 using UnityEngine.UI;
 using TMPro;
-using System.Collections.Generic; // ⭐ Bắt buộc thêm dòng này để dùng List
+using System.Collections.Generic;
 
 public class PlayerWeapon : MonoBehaviour
 {
@@ -11,6 +11,7 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private GameObject weaponUIContainer;
     [SerializeField] private Image weaponIconUI;
     [SerializeField] private TextMeshProUGUI ammoTextUI;
+    [SerializeField] private AudioClip outOfAmmoSFX;
 
     public WeaponData currentWeapon;
     public WeaponData nullWeapon;
@@ -137,6 +138,7 @@ public class PlayerWeapon : MonoBehaviour
     private void OutOfAmmoLogic()
     {
         isFiring = false;
+        SFXManager.Instance?.PlaySFX(outOfAmmoSFX, transform.position);
         ChangeWeapon(nullWeapon);
         UpdateWeaponUI();
     }

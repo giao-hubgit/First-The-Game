@@ -43,7 +43,6 @@ public class SFXManager : MonoBehaviour
 
     private AudioSource GetAvailableSource()
     {
-        // Tìm AudioSource nào đang rảnh
         foreach (var source in sfxPool)
         {
             if (!source.gameObject.activeInHierarchy)
@@ -52,7 +51,6 @@ public class SFXManager : MonoBehaviour
             }
         }
 
-        // Nếu hết chỗ trong pool, tạo thêm cái mới
         return CreateNewPoolObject();
     }
 
@@ -60,7 +58,6 @@ public class SFXManager : MonoBehaviour
     {
         AudioSource source = GetAvailableSource();
 
-        // Thiết lập vị trí và thông số
         source.transform.position = position;
         source.clip = clip;
         source.volume = volume;
@@ -74,16 +71,13 @@ public class SFXManager : MonoBehaviour
         source.gameObject.SetActive(true);
         source.Play();
 
-        // Tự động thu hồi sau khi chạy xong clip
         StartCoroutine(ReturnObject(source, clip.length));
     }
 
     private IEnumerator ReturnObject(AudioSource source, float duration)
     {
-        // Đợi theo thời gian thực để tránh bị ảnh hưởng bởi Pause game (Time.timeScale = 0)
         yield return new WaitForSeconds(duration);
 
-        // Dừng âm thanh chắc chắn trước khi tắt
         source.Stop();
         source.gameObject.SetActive(false);
     }

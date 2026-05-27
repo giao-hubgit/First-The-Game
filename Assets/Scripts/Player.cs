@@ -39,7 +39,7 @@ public class Player : MonoBehaviour, IDamageable
 
         if (currentHP <= 0)
         {
-            HitStop.Instance?.Stop(0.075f);
+            HitStop.Instance?.Stop(0.075f, null);
             Die();
         }
     }

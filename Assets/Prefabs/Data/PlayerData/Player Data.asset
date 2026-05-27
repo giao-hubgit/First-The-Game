@@ -18,3 +18,21 @@ MonoBehaviour:
   deathEffect: {fileID: 8823204220847342576, guid: 2d41d7c00741c29469f7c89f7168dd3e, type: 3}
   hurtVFX: {fileID: 8300000, guid: 2e4be5df0d8faa143b81eee7a5bf9e61, type: 3}
   DeathParticle: {fileID: 631531847556192649, guid: 5771ebda4c9c8a64b955ffceef8b4999, type: 3}
+  moveSpd: 5
+  BulletPlayer: PlayerBullet
+  Slowmo: {fileID: 8300000, guid: 77c1a7207bc8c5842a4ca2cfc7e8e5b5, type: 3}
+  SlowmoAlready: {fileID: 8300000, guid: 2b4e59e944e65b144943a1383b3eeb98, type: 3}
+  pushForce: 25
+  pushRadius: 0.6
+  pushOffset: 1
+  pushCD: 0.5
+  pushSFX: {fileID: 8300000, guid: b976c6828917a0248a9e6a9b7443d441, type: 3}
+  dashPower: 24
+  dashTime: 0.2
+  dashCD: 1
+  dashDMG: 20
+  dashCrashSFX: {fileID: 8300000, guid: eca835397b1ddc0468406add3ae25102, type: 3}
+  dashSFX: {fileID: 8300000, guid: bdd4202b395bf4b469afd729ccf89232, type: 3}
+  slowMoTimeScale: 0.3
+  slowMoDuration: 3
+  slowMoCooldown: 5

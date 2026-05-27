@@ -69,7 +69,7 @@ public class RedCubeRanged : Enemy
 
         if (data.bulletSFXClip != null)
         {
-            SFXManager.Instance?.PlaySFX(data.bulletSFXClip, transform.position);
+            SFXManager.Instance?.PlaySFX(data.bulletSFXClip, transform.position, 0.3f, true, 0.75f, 1.25f);
         }
     }
 

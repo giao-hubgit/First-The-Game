@@ -17,7 +17,7 @@ public class RedCubeRangedShotgun : RedCubeRanged
     {
         if (data.bulletSFXClip != null)
         {
-            SFXManager.Instance?.PlaySFX(data.bulletSFXClip, transform.position);
+            SFXManager.Instance?.PlaySFX(data.bulletSFXClip, transform.position, 0.3f, true, 0.75f, 1.25f);
         }
 
         float baseAngle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;

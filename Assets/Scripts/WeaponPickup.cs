@@ -25,7 +25,14 @@ public class WeaponPickup : MonoBehaviour
             PlayerWeapon pw = other.GetComponent<PlayerWeapon>();
             if (pw != null)
             {
-                pw.AddInteractableWeapon(this);
+                if (pw.currentWeapon != null && pw.currentWeapon != pw.nullWeapon)
+                {
+                    pw.AddInteractableWeapon(this);
+                }
+                else
+                {
+                    Interact(pw);
+                }
             }
         }
     }
