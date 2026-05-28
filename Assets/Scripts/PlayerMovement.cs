@@ -15,14 +15,12 @@ public class PlayerMovement : MonoBehaviour
     private bool canPush = true;
     public bool isPushing = false;
 
-
-    [SerializeField] Image pushBar;
-
-
     private bool canDash = true;
     public bool isDashing;
 
     [SerializeField] Image dashBar;
+    [SerializeField] Image pushBar;
+    [SerializeField] Image slowmoBar;
 
     private CinemachineImpulseSource impulseSource;
 
@@ -88,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
     {
         IsSlowMoActive = true;
         isCooldown = true;
+        if (slowmoBar != null) slowmoBar.fillAmount = 0f;
 
         SFXManager.Instance?.PlaySFX(data.Slowmo, transform.position, 0.3f, true, 0.75f, 1.25f);
 
@@ -126,6 +125,19 @@ public class PlayerMovement : MonoBehaviour
         IsSlowMoActive = false;
 
         yield return new WaitForSecondsRealtime(data.slowMoCooldown);
+        float timer = 0f;
+        while (timer < data.slowMoCooldown)
+        {
+            timer += Time.deltaTime;
+            if (slowmoBar != null)
+            {
+                slowmoBar.fillAmount = timer / data.slowMoCooldown;
+            }
+            yield return null;
+        }
+
+        if (slowmoBar != null) slowmoBar.fillAmount = 1f;
+
         SFXManager.Instance?.PlaySFX(data.SlowmoAlready, transform.position, 0.3f, true, 0.75f, 1.25f);
         isCooldown = false;
     }
@@ -169,7 +181,7 @@ public class PlayerMovement : MonoBehaviour
         float timer = 0f;
         while (timer < data.dashCD)
         {
-            timer += Time.deltaTime;
+            timer += Time.unscaledDeltaTime;
             if (dashBar != null)
             {
                 dashBar.fillAmount = timer / data.dashCD;
@@ -245,7 +257,7 @@ public class PlayerMovement : MonoBehaviour
         float pushTimer = 0f;
         while (pushTimer < data.pushCD)
         {
-            pushTimer += Time.deltaTime;
+            pushTimer += Time.unscaledDeltaTime;
             if (pushBar != null) pushBar.fillAmount = pushTimer / data.pushCD;
             yield return null;
         }
@@ -286,7 +298,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDashing) return;
 
-        Vector2 finalMovement = (movement * data.moveSpd) + recoilVelocity;
+        float adaptiveSpeed = IsSlowMoActive ? (data.moveSpd / Time.timeScale) : data.moveSpd;
+
+        Vector2 finalMovement = (movement * adaptiveSpeed) + recoilVelocity;
         rb.MovePosition(rb.position + finalMovement * Time.fixedDeltaTime);
 
         recoilVelocity = Vector2.MoveTowards(recoilVelocity, Vector2.zero, recoilDecaySpeed * Time.fixedDeltaTime);

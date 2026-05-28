@@ -33,6 +33,6 @@ MonoBehaviour:
   dashDMG: 20
   dashCrashSFX: {fileID: 8300000, guid: eca835397b1ddc0468406add3ae25102, type: 3}
   dashSFX: {fileID: 8300000, guid: bdd4202b395bf4b469afd729ccf89232, type: 3}
-  slowMoTimeScale: 0.3
+  slowMoTimeScale: 0.1
   slowMoDuration: 3
   slowMoCooldown: 5

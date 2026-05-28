@@ -96,7 +96,7 @@ public class PlayerWeapon : MonoBehaviour
     {
         if (currentWeapon == null) return;
         if (currentAmmo <= 0) return;
-        if (!currentWeapon.isAutomatic && Time.time < nextFireTime) return;
+        if (!currentWeapon.isAutomatic && Time.unscaledTime < nextFireTime) return;
 
         if (currentWeapon.recoil > 0)
         {
@@ -125,7 +125,7 @@ public class PlayerWeapon : MonoBehaviour
 
         SFXManager.Instance?.PlaySFX(currentWeapon.shootSFX, transform.position);
 
-        nextFireTime = Time.time + currentWeapon.fireRate;
+        nextFireTime = Time.unscaledTime + currentWeapon.fireRate;
         currentAmmo--;
         UpdateWeaponUI();
 
@@ -147,7 +147,7 @@ public class PlayerWeapon : MonoBehaviour
     {
         if (isFiring && currentWeapon != null && currentWeapon.isAutomatic)
         {
-            if (Time.time >= nextFireTime)
+            if (Time.unscaledTime >= nextFireTime)
             {
                 Shoot();
             }
