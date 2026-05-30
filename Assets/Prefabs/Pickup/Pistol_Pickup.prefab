@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4b5ffdc23575bc4eb4d04fa5923a887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponPickup
-  weaponToGive: {fileID: 11400000, guid: 749df8d2b80cdc8418febee7ac9b7bad, type: 2}
+  weaponData: {fileID: 11400000, guid: e090f697db0a5d04aa409c9d8f7afb26, type: 2}
   floatingTextPrefab: {fileID: 7499672102873699750, guid: 43804aa08377e5c47b4a0ce24b2f8d20, type: 3}
   chestSFX: {fileID: 8300000, guid: dd4351aa64a974f419fdc094403381f4, type: 3}
 --- !u!50 &8180456376643587866

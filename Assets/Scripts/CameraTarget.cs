@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // ⭐ Bắt buộc phải thêm dòng này
+using UnityEngine.InputSystem;
 
 public class CameraTarget : MonoBehaviour
 {

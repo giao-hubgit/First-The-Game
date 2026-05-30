@@ -9,10 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7d01880682ca46478b25021d18837ef, type: 3}
+  m_Script: {fileID: 11500000, guid: e57e5d5ddca8edb40bf91a6045ba6e73, type: 3}
   m_Name: Pistol
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponRangedData
   weaponName: Pistol
+  weaponType: 0
+  weaponPrefab: {fileID: 0}
+  baseDamage: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  weaponIcon: {fileID: 21300000, guid: a0de07deea98a074f96532817e952295, type: 3}
   bulletTag: PlayerBullet
   bulletForce: 20
   recoil: 1
@@ -22,4 +27,3 @@ MonoBehaviour:
   spread: 0
   isAutomatic: 0
   shootSFX: {fileID: 8300000, guid: e92c7a235ab5cc7458a5d415534f6feb, type: 3}
-  weaponSprite: {fileID: 21300000, guid: a0de07deea98a074f96532817e952295, type: 3}

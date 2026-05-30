@@ -3,7 +3,9 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class WeaponPickup : MonoBehaviour
 {
-    public WeaponData weaponToGive;
+    // ⭐ ĐỔI THÀNH LỚP CHA: Giờ bạn kéo thả RangedWeaponData hay MeleeWeaponData vào ô này đều được!
+    public WeaponData weaponData;
+
     public GameObject floatingTextPrefab;
     public AudioClip chestSFX;
 
@@ -22,16 +24,18 @@ public class WeaponPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PlayerWeapon pw = other.GetComponent<PlayerWeapon>();
-            if (pw != null)
+            PlayerInteraction interaction = other.GetComponent<PlayerInteraction>();
+            PlayerWeaponManager weaponManager = other.GetComponent<PlayerWeaponManager>();
+
+            if (interaction != null && weaponManager != null)
             {
-                if (pw.currentWeapon != null && pw.currentWeapon != pw.nullWeapon)
+                if (weaponManager.IsSlotEmpty(weaponData.weaponType))
                 {
-                    pw.AddInteractableWeapon(this);
+                    Interact(other.gameObject);
                 }
                 else
                 {
-                    Interact(pw);
+                    interaction.AddInteractableWeapon(this);
                 }
             }
         }
@@ -41,26 +45,32 @@ public class WeaponPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PlayerWeapon pw = other.GetComponent<PlayerWeapon>();
-            if (pw != null)
+            PlayerInteraction interaction = other.GetComponent<PlayerInteraction>();
+            if (interaction != null)
             {
-                pw.RemoveInteractableWeapon(this);
+                interaction.RemoveInteractableWeapon(this);
             }
         }
     }
 
-    public void Interact(PlayerWeapon playerWeapon)
+    public void Interact(GameObject player)
     {
-        playerWeapon.ChangeWeapon(weaponToGive);
-        SFXManager.Instance?.PlaySFX(chestSFX, transform.position);
-        SpawnFloatingText();
+        PlayerWeaponManager weaponManager = player.GetComponent<PlayerWeaponManager>();
 
-        gameObject.SetActive(false);
+        if (weaponManager != null)
+        {
+            weaponManager.EquipWeapon(weaponData);
+
+            SFXManager.Instance?.PlaySFX(chestSFX, transform.position);
+            SpawnFloatingText();
+
+            gameObject.SetActive(false);
+        }
     }
 
     void SpawnFloatingText()
     {
-        if (floatingTextPrefab != null)
+        if (floatingTextPrefab != null && weaponData != null)
         {
             Vector3 spawnPos = transform.position + Vector3.up;
             GameObject popup = Instantiate(floatingTextPrefab, spawnPos, Quaternion.identity);
@@ -68,7 +78,7 @@ public class WeaponPickup : MonoBehaviour
             FloatingText ftScript = popup.GetComponent<FloatingText>();
             if (ftScript != null)
             {
-                ftScript.SetText(weaponToGive.weaponName, Color.white);
+                ftScript.SetText(weaponData.weaponName, Color.white);
             }
         }
     }

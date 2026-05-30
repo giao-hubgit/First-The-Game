@@ -9,16 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7d01880682ca46478b25021d18837ef, type: 3}
+  m_Script: {fileID: 11500000, guid: e57e5d5ddca8edb40bf91a6045ba6e73, type: 3}
   m_Name: Machine Gun
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponRangedData
   weaponName: Machine Gun
+  weaponType: 0
+  weaponPrefab: {fileID: 0}
+  baseDamage: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  weaponIcon: {fileID: 21300000, guid: 0f34796219d9a9e43b3a0575280cd671, type: 3}
   bulletTag: PlayerBullet
   bulletForce: 20
   recoil: 1
+  maxAmmo: 30
   fireRate: 0.1
   burstCount: 1
   spread: 20
   isAutomatic: 1
   shootSFX: {fileID: 8300000, guid: e92c7a235ab5cc7458a5d415534f6feb, type: 3}
-  weaponSprite: {fileID: 21300000, guid: 0f34796219d9a9e43b3a0575280cd671, type: 3}
