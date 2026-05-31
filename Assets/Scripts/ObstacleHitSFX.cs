@@ -7,9 +7,9 @@ public class ObstacleHitSFX : ObstacleImpact
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.TryGetComponent<Bullet>(out Bullet bullet) || other.gameObject.TryGetComponent<Bullet_e>(out Bullet_e bullet_e))
+        if (other.gameObject.TryGetComponent<Bullet>(out Bullet bullet) || other.gameObject.CompareTag("Player Melee Weapon"))
         {
-            SFXManager.Instance?.PlaySFX(hitSFX, transform.position, 0.15f, true, 2f, 3f);
+            SFXManager.Instance?.PlaySFX(hitSFX, transform.position, 0.2f, true, 2f, 3f);
         }
     }
 

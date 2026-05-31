@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public BulletData data;
 
-    private void OnTriggerEnter2D(Collider2D hitInfo)
+    protected virtual void OnTriggerEnter2D(Collider2D hitInfo)
     {
         ObjectPooler.Instance.SpawnFromPool(data.bulletHitVFX, transform.position, Quaternion.identity);
 

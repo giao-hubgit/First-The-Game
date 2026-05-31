@@ -1,12 +1,11 @@
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class bullet_trap : MonoBehaviour
+public class Bullet_Trap : Bullet
 {
-    public BulletData data;
-
-    private void OnTriggerEnter2D(Collider2D hitInfo)
+    protected override void OnTriggerEnter2D(Collider2D hitInfo)
     {
+        ObjectPooler.Instance.SpawnFromPool(data.bulletHitVFX, transform.position, Quaternion.identity);
 
         if (hitInfo.TryGetComponent<IDamageable>(out IDamageable damageable))
         {

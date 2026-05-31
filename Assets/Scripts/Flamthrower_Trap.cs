@@ -10,7 +10,7 @@ public class Flamthrower_Trap : MonoBehaviour
     public int damage = 10;
     public float maxFlameLength = 5f;
     public float flameWidth = 1f;
-    public float timeToReachMaxLength = 0.5f;
+    public float timeToReachMaxLength = 0.6f;
 
     [SerializeField] AudioClip flamethrowerSFX;
     [SerializeField] ParticleSystem flameParticles;

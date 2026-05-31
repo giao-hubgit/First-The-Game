@@ -212,7 +212,7 @@ MonoBehaviour:
   damage: 10
   maxFlameLength: 6
   flameWidth: 1
-  timeToReachMaxLength: 1
+  timeToReachMaxLength: 1.2
   flamethrowerSFX: {fileID: 8300000, guid: 38af85f6bc62c7347a530e69ff52e1aa, type: 3}
   flameParticles: {fileID: 6097990134446586884}
   NavMeshHitBox: {fileID: 444228790843716992}

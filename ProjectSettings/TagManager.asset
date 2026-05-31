@@ -12,6 +12,7 @@ TagManager:
   - DestroyPoint
   - EnemyTemplate
   - ObstacleTemplate
+  - Player Melee Weapon
   layers:
   - Default
   - TransparentFX
@@ -31,7 +32,7 @@ TagManager:
   - RoomTrigger
   - Trap Bullet
   - Pickup Item
-  - 
+  - Melee Weapon
   - 
   - 
   - 

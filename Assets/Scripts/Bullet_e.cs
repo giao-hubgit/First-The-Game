@@ -1,12 +1,11 @@
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class Bullet_e : MonoBehaviour
+public class Bullet_e : Bullet
 {
-    public BulletData data;
-
-    private void OnTriggerEnter2D(Collider2D hitInfo)
+    protected override void OnTriggerEnter2D(Collider2D hitInfo)
     {
+        ObjectPooler.Instance.SpawnFromPool(data.bulletHitVFX, transform.position, Quaternion.identity);
 
         if (hitInfo.TryGetComponent<IDamageable>(out IDamageable damageable) && !hitInfo.gameObject.CompareTag("Enemy"))
         {
