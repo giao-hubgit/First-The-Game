@@ -7,6 +7,7 @@ public class MeleeHitbox : MonoBehaviour
 {
     public int damage;
     public float reflectForce;
+    public float hitImpact;
     public LayerMask hitTargetMask;
     public AudioClip hitSFX;
     private CinemachineImpulseSource impulseSource;
@@ -29,9 +30,15 @@ public class MeleeHitbox : MonoBehaviour
             if (damageable != null)
             {
                 SFXManager.Instance?.PlaySFX(hitSFX, transform.position, 0.3f, true, 0.75f, 1.5f);
-                CameraShakeManager.Instance?.CameraShake(impulseSource, 0.15f);
+                CameraShakeManager.Instance?.CameraShake(impulseSource, hitImpact);
                 damageable.takeDmg(damage);
                 alreadyHit.Add(other);
+            }
+
+            if (reflectForce > 10)
+            {
+                Enemy enemy = other.GetComponent<Enemy>();
+                if (enemy != null) enemy.isCrashing = true;
             }
 
             Rigidbody2D rb = other.GetComponent<Rigidbody2D>();

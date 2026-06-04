@@ -10,6 +10,7 @@ public class WeaponMeleeData : WeaponData
     public float offset = 1f;
     public float reflectForce = 20f;
     public float recoil;
+    public float hitImpact = 0.15f;
     public float slashSpeed = 0.2f;
     public float cooldown = 0.5f;
     public bool isAutomatic;

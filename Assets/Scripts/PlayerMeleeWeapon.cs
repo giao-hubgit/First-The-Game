@@ -83,6 +83,7 @@ public class PlayerMeleeWeapon : MonoBehaviour
 
         MeleeHitbox hitbox = weaponInstance.AddComponent<MeleeHitbox>();
         hitbox.damage = currentWeapon.damage;
+        hitbox.hitImpact = currentWeapon.hitImpact;
         hitbox.hitSFX = currentWeapon.hitSFX;
         hitbox.reflectForce = currentWeapon.reflectForce;
         hitbox.hitTargetMask = currentWeapon.HitTarget;
