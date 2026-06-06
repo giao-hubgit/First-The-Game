@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Basic Sword
   m_EditorClassIdentifier: Assembly-CSharp::WeaponMeleeData
   weaponName: Basic Sword
-  weaponType: 0
+  weaponType: 1
   weaponPrefab: {fileID: 8599932454935528800, guid: 7a5d96d57738c8c48ad8792ede239c80, type: 3}
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
   weaponIcon: {fileID: 21300000, guid: 8fb89f69dd22a8a41b907b418b45687b, type: 3}
@@ -23,6 +23,7 @@ MonoBehaviour:
   offset: 1
   reflectForce: 1
   recoil: 0
+  hitImpact: 0.15
   slashSpeed: 0.1
   cooldown: 0.5
   isAutomatic: 1
@@ -31,3 +32,4 @@ MonoBehaviour:
   HitTarget:
     serializedVersion: 2
     m_Bits: 8448
+  isThrust: 0

@@ -17,4 +17,7 @@ public class WeaponMeleeData : WeaponData
     public AudioClip slashSFX;
     public AudioClip hitSFX;
     public LayerMask HitTarget;
+
+    [Header("Attack Type")]
+    public bool isThrust;
 }

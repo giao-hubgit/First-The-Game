@@ -29,7 +29,7 @@ public class MeleeHitbox : MonoBehaviour
             IDamageable damageable = other.GetComponent<IDamageable>();
             if (damageable != null)
             {
-                SFXManager.Instance?.PlaySFX(hitSFX, transform.position, 0.3f, true, 0.75f, 1.5f);
+                SFXManager.Instance?.PlaySFX(hitSFX, transform.position, 0.4f, true, 0.75f, 1.5f);
                 CameraShakeManager.Instance?.CameraShake(impulseSource, hitImpact);
                 damageable.takeDmg(damage);
                 alreadyHit.Add(other);
