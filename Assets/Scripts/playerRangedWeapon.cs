@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Cinemachine;
 
 public class PlayerRangedWeapon : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerRangedWeapon : MonoBehaviour
     [SerializeField] private Image weaponIconUI;
     [SerializeField] private TextMeshProUGUI ammoTextUI;
     [SerializeField] private AudioClip outOfAmmoSFX;
+    [SerializeField] private CinemachineImpulseSource impulseSource;
 
     public WeaponRangedData currentWeapon;
     public WeaponRangedData nullWeapon;
@@ -17,6 +19,11 @@ public class PlayerRangedWeapon : MonoBehaviour
     private int currentAmmo;
     private float nextFireTime = 0f;
     public bool isFiring = false;
+
+    void Awake()
+    {
+        impulseSource = GetComponent<CinemachineImpulseSource>();
+    }
 
     void Start()
     {
@@ -81,6 +88,7 @@ public class PlayerRangedWeapon : MonoBehaviour
             rb.linearVelocity = bullet.transform.up * currentWeapon.bulletForce;
         }
 
+        CameraShakeManager.Instance?.CameraShake(impulseSource, currentWeapon.shakeForce);
         SFXManager.Instance?.PlaySFX(currentWeapon.shootSFX, transform.position);
 
         nextFireTime = Time.unscaledTime + currentWeapon.fireRate;

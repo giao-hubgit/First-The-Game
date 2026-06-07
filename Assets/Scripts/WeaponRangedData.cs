@@ -11,6 +11,7 @@ public class WeaponRangedData : WeaponData
     public float fireRate = 0.2f;
     public int burstCount = 1;
     public float spread = 0f;
+    public float shakeForce;
     public bool isAutomatic;
     public AudioClip shootSFX;
 }

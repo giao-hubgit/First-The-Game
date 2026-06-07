@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Image pushBar;
     [SerializeField] Image slowmoBar;
 
-    private CinemachineImpulseSource impulseSource;
+    [SerializeField] CinemachineImpulseSource impulseSource;
 
     Vector2 movement;
     Vector2 mousePos;
