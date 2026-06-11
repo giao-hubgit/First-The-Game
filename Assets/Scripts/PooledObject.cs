@@ -9,6 +9,7 @@ public class PooledObject : MonoBehaviour
     private SpriteRenderer sr;
     private Color originalColor;
     private Coroutine fadeCoroutine;
+    private Vector3 originalScale;
 
     private void Awake()
     {
@@ -17,6 +18,8 @@ public class PooledObject : MonoBehaviour
         {
             originalColor = sr.color;
         }
+
+        originalScale = transform.localScale;
     }
 
     private void OnEnable()
@@ -34,6 +37,7 @@ public class PooledObject : MonoBehaviour
         {
             float timer = 0f;
             Color startColor = sr.color;
+            transform.localScale = originalScale;
 
             while (timer < fadeDuration)
             {

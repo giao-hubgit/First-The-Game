@@ -90,27 +90,47 @@ public class EnemySpawner : MonoBehaviour
                 Vector2 randomPosition1 = GetValidSpawnPosition();
                 Vector2 randomPosition2 = GetValidSpawnPosition();
 
-                Vector2 randomPos1SpawnLaser = randomPosition1;
-                randomPos1SpawnLaser.y += 1;
-                Vector2 randomPos2SpawnLaser = randomPosition2;
-                randomPos2SpawnLaser.y += 1;
+                GameObject meleePrefab = template.Melee[UnityEngine.Random.Range(0, template.Melee.Length)];
+                GameObject rangedPrefab = template.Ranged[UnityEngine.Random.Range(0, template.Ranged.Length)];
 
-                ObjectPooler.Instance?.SpawnFromPool(spawnparticlePrefab, randomPosition1, quaternion.identity);
-                ObjectPooler.Instance?.SpawnFromPool(spawnparticlePrefab, randomPosition2, quaternion.identity);
+                Vector2 randomPos1SpawnLaser = randomPosition1;
+                randomPos1SpawnLaser.y += 1f * meleePrefab.transform.localScale.y;
+                Vector2 randomPos2SpawnLaser = randomPosition2;
+                randomPos2SpawnLaser.y += 1f * rangedPrefab.transform.localScale.y;
+
+                GameObject p1 = ObjectPooler.Instance?.SpawnFromPool(spawnparticlePrefab, randomPosition1, quaternion.identity);
+                if (p1 != null)
+                {
+                    p1.transform.localScale = Vector3.Scale(p1.transform.localScale, meleePrefab.transform.localScale);
+                }
+
+                GameObject p2 = ObjectPooler.Instance?.SpawnFromPool(spawnparticlePrefab, randomPosition2, quaternion.identity);
+                if (p2 != null)
+                {
+                    p2.transform.localScale = Vector3.Scale(p2.transform.localScale, rangedPrefab.transform.localScale);
+                }
 
                 yield return new WaitForSeconds(spawnDelay);
 
                 SFXManager.Instance?.PlaySFX(spawnSFX, randomPosition1);
                 SFXManager.Instance?.PlaySFX(spawnSFX, randomPosition2);
-                ObjectPooler.Instance?.SpawnFromPool(spawnparticlePrefab1, randomPos1SpawnLaser, quaternion.identity);
-                ObjectPooler.Instance?.SpawnFromPool(spawnparticlePrefab1, randomPos2SpawnLaser, quaternion.identity);
 
-                GameObject meleePrefab = template.Melee[UnityEngine.Random.Range(0, template.Melee.Length)];
+                GameObject laser1 = ObjectPooler.Instance?.SpawnFromPool(spawnparticlePrefab1, randomPos1SpawnLaser, quaternion.identity);
+                if (laser1 != null)
+                {
+                    laser1.transform.localScale = Vector3.Scale(laser1.transform.localScale, meleePrefab.transform.localScale);
+                }
+
+                GameObject laser2 = ObjectPooler.Instance?.SpawnFromPool(spawnparticlePrefab1, randomPos2SpawnLaser, quaternion.identity);
+                if (laser2 != null)
+                {
+                    laser2.transform.localScale = Vector3.Scale(laser2.transform.localScale, rangedPrefab.transform.localScale);
+                }
+
                 GameObject spawnedMelee = Instantiate(meleePrefab, randomPosition1, Quaternion.identity);
                 aliveEnemies.Add(spawnedMelee);
                 template.currentEnemy++;
 
-                GameObject rangedPrefab = template.Ranged[UnityEngine.Random.Range(0, template.Ranged.Length)];
                 GameObject spawnedRanged = Instantiate(rangedPrefab, randomPosition2, Quaternion.identity);
                 aliveEnemies.Add(spawnedRanged);
                 template.currentEnemy++;
