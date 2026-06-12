@@ -35,13 +35,17 @@ MonoBehaviour:
   bulletsPerBurst: 4
   timeBetweenBullets: 0.25
   bulletSpread: 45
+  transformSFX: {fileID: 8300000, guid: c0cc02442f0f5ec47bf47ed67baf5bf5, type: 3}
+  dashSFX: {fileID: 8300000, guid: bdd4202b395bf4b469afd729ccf89232, type: 3}
+  phase2DashSFX: {fileID: 8300000, guid: ace9caf669f2abf4bb7f045858fa8e89, type: 3}
   movementDuration: 2
   postAttackCooldown: 1
   preAttackDelay: 0.5
   minMoveDistance: 3
   maxMoveDistance: 6
-  dashSpeed: 100
-  dashDistance: 40
-  laserDamage: 20
+  dashSpeed: 60
+  dashDistance: 30
   radialBulletCount: 16
-  phase2HealthThreshold: 0.5
+  laserPrefabS: Miniboss1 Laser
+  phaseThresholds:
+  - 0.5

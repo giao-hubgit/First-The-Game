@@ -1,8 +1,14 @@
+using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Boss Data", menuName = "Data/Boss Data")]
+[CreateAssetMenu(fileName = "New Boss Data", menuName = "Boss/Boss Data")]
 public class BossData : EnemyData
 {
+    [Header("Boss Animation SFX")]
+    public AudioClip transformSFX;
+    public AudioClip dashSFX;
+    public AudioClip phase2DashSFX;
+
     [Header("Boss Timing Settings")]
     [Tooltip("Thời gian Boss đi lại loanh quanh trước khi tung đòn")]
     public float movementDuration = 3f;
@@ -15,14 +21,14 @@ public class BossData : EnemyData
     [Tooltip("Khoảng cách xa nhất Boss có thể đi")]
     public float maxMoveDistance = 6f;
 
-    [Header("Boss Locomotion & Attacks")]
+    [Header("Boss Stats & Attacks")]
     public float dashSpeed = 15f;
     public float dashDistance = 8f;
-    public int laserDamage = 20;
 
-    [Header("Bullet Settings")]
+    [Header("Projectitles Settings")]
     public int radialBulletCount = 8;
+    public string laserPrefabS = "Boss Laser";
 
     [Header("Phase Settings")]
-    public float phase2HealthThreshold = 0.5f;
+    public float[] phaseThresholds;
 }

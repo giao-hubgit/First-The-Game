@@ -3,7 +3,6 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class WeaponPickup : MonoBehaviour
 {
-    // ⭐ ĐỔI THÀNH LỚP CHA: Giờ bạn kéo thả RangedWeaponData hay MeleeWeaponData vào ô này đều được!
     public WeaponData weaponData;
 
     public GameObject floatingTextPrefab;
@@ -96,6 +95,11 @@ public class WeaponPickup : MonoBehaviour
     public void ToggleOutline(bool isActive)
     {
         if (spriteRenderer == null) return;
+
+        if (propBlock == null)
+        {
+            propBlock = new MaterialPropertyBlock();
+        }
 
         spriteRenderer.GetPropertyBlock(propBlock);
         propBlock.SetFloat("_Thickness", isActive ? 2f : 0f);

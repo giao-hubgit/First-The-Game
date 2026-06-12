@@ -1,7 +1,7 @@
 using UnityEditor.AdaptivePerformance.Editor;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Bullet", menuName = "Bullet/Bullet Data")]
+[CreateAssetMenu(fileName = "New Bullet", menuName = "Projectiles/Bullet Data")]
 public class BulletData : ScriptableObject
 {
     public int damage;

@@ -3,34 +3,49 @@ using UnityEngine;
 public class Boss : Enemy
 {
     public BossData bossData => data as BossData;
+    public bool isIntroFinished = false;
+    public bool isAttacking = false;
+    public Animator animator;
 
-    [HideInInspector] public bool isPhase2 = false;
+    [HideInInspector] public int currentPhase = 1;
 
     protected override void Awake()
     {
         base.Awake();
-        //thanh máu UI
     }
 
     public override void takeDmg(int damage)
     {
         base.takeDmg(damage);
 
-        if (!isPhase2 && bossData != null)
+        if (bossData != null && bossData.phaseThresholds != null && bossData.phaseThresholds.Length > 0)
         {
             float healthPercentage = (float)currentHP / bossData.maxHP;
-            if (healthPercentage <= bossData.phase2HealthThreshold)
+
+            if (currentPhase - 1 < bossData.phaseThresholds.Length)
             {
-                EnterPhase2();
+                float nextThreshold = bossData.phaseThresholds[currentPhase - 1];
+
+                if (healthPercentage <= nextThreshold)
+                {
+                    EnterNextPhase();
+                }
             }
         }
     }
 
-    private void EnterPhase2()
+    private void EnterNextPhase()
     {
-        isPhase2 = true;
-        Debug.Log("Phase 2");
-        // Particle, SFX, Sprite change or sth
+        currentPhase++;
+        Debug.Log($"---> CHUYỂN SANG PHASE {currentPhase}!");
+
+        if (animator != null)
+        {
+            animator.SetInteger("Phase", currentPhase);
+            // animator.SetTrigger("PhaseChange");
+        }
+
+        if (bossData.transformSFX != null) SFXManager.Instance?.PlaySFX(bossData.transformSFX, transform.position);
     }
 
     protected override void Die()
