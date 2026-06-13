@@ -1,3 +1,4 @@
+using System;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -5,6 +6,7 @@ using UnityEngine.Pool;
 public class Bullet : MonoBehaviour
 {
     public BulletData data;
+    [SerializeField] string ignoreTag = "Player";
 
     protected virtual void OnTriggerEnter2D(Collider2D hitInfo)
     {
@@ -12,22 +14,25 @@ public class Bullet : MonoBehaviour
 
         if (hitInfo.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
-            if (data.knockback > 0)
-            {
-                Enemy enemy = hitInfo.gameObject.GetComponent<Enemy>();
-                if (enemy != null)
-                {
-                    enemy.isCrashing = true;
-                }
+            bool isIgnored = !string.IsNullOrEmpty(ignoreTag) && hitInfo.gameObject.CompareTag(ignoreTag);
 
-                Rigidbody2D rb = hitInfo.gameObject.GetComponent<Rigidbody2D>();
-                if (rb != null)
+            if (!isIgnored)
+            {
+                if (data.knockback > 0)
                 {
-                    rb.AddForce(transform.up * data.knockback * (rb.mass), ForceMode2D.Impulse);
-                    rb.AddTorque(UnityEngine.Random.Range(-6f, 6f), ForceMode2D.Impulse);
+                    if (hitInfo.TryGetComponent<Enemy>(out Enemy enemy))
+                    {
+                        enemy.isCrashing = true;
+                    }
+
+                    if (hitInfo.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
+                    {
+                        rb.AddForce(transform.up * data.knockback * (rb.mass), ForceMode2D.Impulse);
+                        rb.AddTorque(UnityEngine.Random.Range(-6f, 6f), ForceMode2D.Impulse);
+                    }
                 }
+                damageable.takeDmg(data.damage);
             }
-            damageable.takeDmg(data.damage);
         }
 
         gameObject.SetActive(false);

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bad14e807099c374d95b62507d5cbfab, type: 3}
   m_Name: Knight Boss
   m_EditorClassIdentifier: Assembly-CSharp::BossData
-  maxHP: 1000
-  collisionDMG: 20
+  maxHP: 2000
+  collisionDMG: 40
   damageRate: 1
   aggroRange: 24
-  moveSpeed: 12
+  moveSpeed: 14
   deathParticle: EnemyDeathParticle
   deathAnimation: EnemyDeathAnimation
   deathSFX: {fileID: 8300000, guid: 7012821bbf3e894458d8da223dafc11a, type: 3}
@@ -36,10 +36,12 @@ MonoBehaviour:
   timeBetweenBullets: 0.25
   bulletSpread: 45
   transformSFX: {fileID: 8300000, guid: c0cc02442f0f5ec47bf47ed67baf5bf5, type: 3}
-  dashSFX: {fileID: 8300000, guid: bdd4202b395bf4b469afd729ccf89232, type: 3}
+  dashSFX: {fileID: 8300000, guid: fd2f9eef406a19b43b44dd4d175df21c, type: 3}
   phase2DashSFX: {fileID: 8300000, guid: ace9caf669f2abf4bb7f045858fa8e89, type: 3}
-  movementDuration: 2
-  postAttackCooldown: 1
+  chargeSFX: {fileID: 8300000, guid: 48553b76a014c3a4fbe9a63b6d60d71d, type: 3}
+  moveSFX: {fileID: 8300000, guid: 8be4a6bc5dc25eb4c9c488ec714e2164, type: 3}
+  movementDuration: 1
+  postAttackCooldown: 0.5
   preAttackDelay: 0.5
   minMoveDistance: 3
   maxMoveDistance: 6

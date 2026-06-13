@@ -32,6 +32,7 @@ public class KnightBoss : MonoBehaviour
 
     private void Start()
     {
+        boss.isInvulnerable = true;
         trail.emitting = false;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         StartCoroutine(BossLogicPattern());
@@ -48,6 +49,13 @@ public class KnightBoss : MonoBehaviour
 
         while (true)
         {
+            if (boss.isTransforming)
+            {
+                locomotion.StopMoving();
+                yield return null;
+                continue;
+            }
+
             float currentMoveSpeed = boss.bossData != null ? boss.bossData.moveSpeed : 3f;
             float restCooldown = boss.bossData != null ? boss.bossData.postAttackCooldown : 1.5f;
             float preDelay = boss.bossData != null ? boss.bossData.preAttackDelay : 0.4f;
@@ -67,8 +75,9 @@ public class KnightBoss : MonoBehaviour
             Vector2 randomTarget = GetRandomPositionInRoom(actualDist);
             float timeoutTimer = 0f;
             float maxMoveTime = (actualDist / currentMoveSpeed) + 1f;
+            SFXManager.Instance?.PlaySFX(boss.bossData.moveSFX, transform.position);
 
-            while (Vector2.Distance(transform.position, randomTarget) > 0.1f && timeoutTimer < maxMoveTime)
+            while (Vector2.Distance(transform.position, randomTarget) > 0.1f && timeoutTimer < maxMoveTime && !boss.isTransforming)
             {
                 locomotion.MoveTowards(randomTarget, currentMoveSpeed);
                 timeoutTimer += Time.deltaTime;
@@ -76,6 +85,9 @@ public class KnightBoss : MonoBehaviour
             }
 
             locomotion.StopMoving();
+
+            if (boss.isTransforming) continue;
+
             yield return new WaitForSeconds(preDelay);
 
             int maxAttackIndex = 3;
@@ -114,6 +126,7 @@ public class KnightBoss : MonoBehaviour
         locomotion.StopMoving();
 
         if (animator != null) animator.SetBool("isShootingLaser", true);
+        SFXManager.Instance?.PlaySFX(boss.bossData.chargeSFX, transform.position);
 
         yield return new WaitForSeconds(1f);
 

@@ -4,7 +4,9 @@ public class Boss : Enemy
 {
     public BossData bossData => data as BossData;
     public bool isIntroFinished = false;
+    public bool isTransforming = false;
     public bool isAttacking = false;
+    public bool isInvulnerable = false;
     public Animator animator;
 
     [HideInInspector] public int currentPhase = 1;
@@ -14,8 +16,15 @@ public class Boss : Enemy
         base.Awake();
     }
 
+    protected override void Update()
+    {
+        isInvulnerable = (!isIntroFinished || isTransforming);
+    }
+
     public override void takeDmg(int damage)
     {
+        if (isInvulnerable) return;
+
         base.takeDmg(damage);
 
         if (bossData != null && bossData.phaseThresholds != null && bossData.phaseThresholds.Length > 0)
@@ -37,12 +46,11 @@ public class Boss : Enemy
     private void EnterNextPhase()
     {
         currentPhase++;
-        Debug.Log($"---> CHUYỂN SANG PHASE {currentPhase}!");
+        Debug.Log($"CHUYỂN SANG PHASE {currentPhase}");
 
         if (animator != null)
         {
             animator.SetInteger("Phase", currentPhase);
-            // animator.SetTrigger("PhaseChange");
         }
 
         if (bossData.transformSFX != null) SFXManager.Instance?.PlaySFX(bossData.transformSFX, transform.position);

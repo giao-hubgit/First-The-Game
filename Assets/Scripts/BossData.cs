@@ -8,6 +8,8 @@ public class BossData : EnemyData
     public AudioClip transformSFX;
     public AudioClip dashSFX;
     public AudioClip phase2DashSFX;
+    public AudioClip chargeSFX;
+    public AudioClip moveSFX;
 
     [Header("Boss Timing Settings")]
     [Tooltip("Thời gian Boss đi lại loanh quanh trước khi tung đòn")]

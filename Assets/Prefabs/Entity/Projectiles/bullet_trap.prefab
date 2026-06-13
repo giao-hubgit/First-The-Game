@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 663255284537875680}
   - component: {fileID: 272671564529953386}
   - component: {fileID: 5471469262985950479}
-  - component: {fileID: 9077833182516264897}
+  - component: {fileID: -6194430881272176093}
   m_Layer: 16
   m_Name: bullet_trap
   m_TagString: Untagged
@@ -293,7 +293,7 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
---- !u!114 &9077833182516264897
+--- !u!114 &-6194430881272176093
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -302,7 +302,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6392329148958985657}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd26705def176744f8b72d834dc0596c, type: 3}
+  m_Script: {fileID: 11500000, guid: 6223392b4dac00947bad98ed33f5948f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
+  m_EditorClassIdentifier: Assembly-CSharp::Bullet
   data: {fileID: 11400000, guid: 3f483287e92365f41b789830fd63e24d, type: 2}
+  ignoreTag: 
