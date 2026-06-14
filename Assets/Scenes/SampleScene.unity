@@ -3520,7 +3520,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
       propertyPath: pools.Array.size
-      value: 23
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
       propertyPath: pools.Array.data[0].size
@@ -3573,6 +3573,10 @@ PrefabInstance:
     - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
       propertyPath: pools.Array.data[22].tag
       value: Miniboss1 Bullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
+      propertyPath: pools.Array.data[23].tag
+      value: Miniboss1 Death
       objectReference: {fileID: 0}
     - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
       propertyPath: pools.Array.data[8].size
@@ -3635,6 +3639,10 @@ PrefabInstance:
       value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
+      propertyPath: pools.Array.data[23].size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
       propertyPath: pools.Array.data[11].prefab
       value: 
       objectReference: {fileID: 6392329148958985657, guid: 07b368762dbfaaf49b8dc850ac4cc493, type: 3}
@@ -3682,6 +3690,10 @@ PrefabInstance:
       propertyPath: pools.Array.data[22].prefab
       value: 
       objectReference: {fileID: 5387545594179313353, guid: 3c316ed7e938700468ca46a89b4b4cdb, type: 3}
+    - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
+      propertyPath: pools.Array.data[23].prefab
+      value: 
+      objectReference: {fileID: 667115601593667376, guid: 1220930c349f2694a8565491d9d773c8, type: 3}
     - target: {fileID: 2909332320510107174, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
       propertyPath: m_Name
       value: ObjectPooler

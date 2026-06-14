@@ -59,7 +59,8 @@ public class Enemy : MonoBehaviour, IDamageable
         }*/
         SFXManager.Instance?.PlaySFX(data.deathSFX, transform.position);
 
-        ObjectPooler.Instance.SpawnFromPool(data.deathParticle, transform.position, UnityEngine.Quaternion.identity);
+        GameObject deathParticle = ObjectPooler.Instance.SpawnFromPool(data.deathParticle, transform.position, UnityEngine.Quaternion.identity);
+        deathParticle.transform.localScale = transform.localScale;
 
         ObjectPooler.Instance.SpawnFromPool(data.deathAnimation, transform.position, transform.rotation);
 
