@@ -43,11 +43,12 @@ MonoBehaviour:
   movementDuration: 1
   postAttackCooldown: 0.5
   preAttackDelay: 0.5
-  minMoveDistance: 3
-  maxMoveDistance: 6
+  minMoveDistance: 5
+  maxMoveDistance: 8
   dashSpeed: 60
   dashDistance: 30
   radialBulletCount: 16
+  bulletBossPrefabS: Miniboss1 Bullet
   laserPrefabS: Miniboss1 Laser
   phaseThresholds:
   - 0.5

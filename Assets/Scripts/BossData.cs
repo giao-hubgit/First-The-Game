@@ -29,6 +29,7 @@ public class BossData : EnemyData
 
     [Header("Projectitles Settings")]
     public int radialBulletCount = 8;
+    public string bulletBossPrefabS = "Boss Bullet Prefab";
     public string laserPrefabS = "Boss Laser";
 
     [Header("Phase Settings")]

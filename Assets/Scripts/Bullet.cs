@@ -10,7 +10,8 @@ public class Bullet : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D hitInfo)
     {
-        ObjectPooler.Instance.SpawnFromPool(data.bulletHitVFX, transform.position, Quaternion.identity);
+        GameObject bulletVFX = ObjectPooler.Instance.SpawnFromPool(data.bulletHitVFX, transform.position, Quaternion.identity);
+        bulletVFX.transform.localScale = transform.localScale;
 
         if (hitInfo.TryGetComponent<IDamageable>(out IDamageable damageable))
         {

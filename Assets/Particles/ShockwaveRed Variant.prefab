@@ -13,6 +13,10 @@ PrefabInstance:
       value: ShockwaveRed Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4813230828488353102, guid: 45972d529a17c6f4cb334b72d767c301, type: 3}
+      propertyPath: CollisionModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813230828488353102, guid: 45972d529a17c6f4cb334b72d767c301, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
       value: 0
       objectReference: {fileID: 0}

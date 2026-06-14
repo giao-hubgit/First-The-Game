@@ -177,9 +177,17 @@ public class KnightBoss : MonoBehaviour
         if (player == null) yield break;
 
         boss.isAttacking = true;
+
         int bulletsToSpawn = boss.bossData != null ? boss.bossData.radialBulletCount : 8;
         float speed = boss.bossData != null ? boss.bossData.bulletForce : 7f;
         string bulletName = boss.bossData != null ? boss.bossData.bulletPrefabS : "BossBullet";
+
+        if (boss.currentPhase == 2)
+        {
+            bulletsToSpawn *= 2;
+            speed *= 1.25f;
+            bulletName = boss.bossData.bulletBossPrefabS;
+        }
 
         float angleStep = 360f / bulletsToSpawn;
         float currentAngle = 0f;
@@ -213,7 +221,16 @@ public class KnightBoss : MonoBehaviour
 
         int bulletsToSpawn = boss.bossData != null ? boss.bossData.bulletsPerBurst : 3;
         float speed = boss.bossData != null ? boss.bossData.bulletForce : 7f;
+        float timeBetweenBullets = boss.bossData != null ? boss.bossData.timeBetweenBullets : 0.25f;
         string bulletName = boss.bossData != null ? boss.bossData.bulletPrefabS : "BossBullet";
+
+        if (boss.currentPhase == 2)
+        {
+            bulletsToSpawn *= 2;
+            timeBetweenBullets *= 0.5f;
+            speed *= 1.25f;
+            bulletName = boss.bossData.bulletBossPrefabS;
+        }
 
         for (int i = 0; i < bulletsToSpawn; i++)
         {
@@ -227,7 +244,7 @@ public class KnightBoss : MonoBehaviour
                 Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
                 if (rb != null) rb.linearVelocity = targetDir * speed;
             }
-            yield return new WaitForSeconds(boss.bossData.timeBetweenBullets);
+            yield return new WaitForSeconds(timeBetweenBullets);
         }
 
         boss.isAttacking = false;
