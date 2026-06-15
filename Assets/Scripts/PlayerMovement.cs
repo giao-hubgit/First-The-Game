@@ -4,6 +4,7 @@ using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using NUnit.Framework.Internal;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -221,10 +222,35 @@ public class PlayerMovement : MonoBehaviour
 
             if (hit.GetComponent<WeaponPickup>() != null) continue;
 
-            if (hit.GetComponent<Bullet_e>() != null)
+            if (hit.GetComponent<Bullet>() != null && hit.CompareTag("EnemyBullet"))
             {
-
                 GameObject reflected_bullet = ObjectPooler.Instance.SpawnFromPool(data.BulletPlayer, hit.transform.position, Quaternion.identity);
+                reflected_bullet.transform.localScale = hit.transform.localScale;
+
+                if (hit.transform.TryGetComponent<Bullet>(out Bullet enemyBullet) &&
+                    hit.transform.TryGetComponent<TrailRenderer>(out TrailRenderer enemyTrail))
+                {
+                    Bullet playerBullet = reflected_bullet.GetComponent<Bullet>();
+                    TrailRenderer playerTrail = reflected_bullet.GetComponent<TrailRenderer>();
+
+                    if (enemyBullet.data != null)
+                    {
+                        BulletData clonedData = Instantiate(enemyBullet.data);
+
+                        clonedData.damage *= 1;
+
+                        playerBullet.data.damage = clonedData.damage;
+                        playerBullet.data.knockback = clonedData.knockback;
+                    }
+
+                    if (playerTrail != null)
+                    {
+                        playerTrail.widthCurve = enemyTrail.widthCurve;
+                        playerTrail.widthMultiplier = enemyTrail.widthMultiplier;
+
+                        playerTrail.Clear();
+                    }
+                }
 
                 Rigidbody2D bulletRb = reflected_bullet.GetComponent<Rigidbody2D>();
                 if (bulletRb != null)
@@ -242,7 +268,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 hitSomething = true;
 
-                targetRb.AddForce(transform.up * data.pushForce * (targetRb.mass * 0.5f), ForceMode2D.Impulse);
+                targetRb.AddForce(transform.up * data.pushForce * targetRb.mass, ForceMode2D.Impulse);
                 targetRb.AddTorque(UnityEngine.Random.Range(-6f, 6f), ForceMode2D.Impulse);
             }
         }

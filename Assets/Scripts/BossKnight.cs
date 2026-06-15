@@ -184,6 +184,7 @@ public class KnightBoss : MonoBehaviour
 
         if (boss.currentPhase == 2)
         {
+            bulletsToSpawn += 4;
             speed *= 1.2f;
             bulletName = boss.bossData.bulletBossPrefabS;
         }
@@ -225,6 +226,7 @@ public class KnightBoss : MonoBehaviour
 
         if (boss.currentPhase == 2)
         {
+            bulletsToSpawn += 2;
             timeBetweenBullets *= 0.5f;
             speed *= 1.2f;
             bulletName = boss.bossData.bulletBossPrefabS;

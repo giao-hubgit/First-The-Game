@@ -13,6 +13,8 @@ TagManager:
   - EnemyTemplate
   - ObstacleTemplate
   - Player Melee Weapon
+  - EnemyBullet
+  - PlayerBullet
   layers:
   - Default
   - TransparentFX

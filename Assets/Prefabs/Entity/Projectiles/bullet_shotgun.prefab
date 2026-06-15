@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5472355840654311421}
   m_Layer: 6
   m_Name: bullet_shotgun
-  m_TagString: Untagged
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   data: {fileID: 11400000, guid: b3cf1858ec6bef047922515f9bc1960f, type: 2}
+  ignoreTag: Player
 --- !u!61 &3395317772772936775
 BoxCollider2D:
   m_ObjectHideFlags: 0

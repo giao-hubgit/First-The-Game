@@ -18,6 +18,7 @@ public class Boss : Enemy
 
     protected override void Update()
     {
+        base.Update();
         isInvulnerable = (!isIntroFinished || isTransforming);
     }
 

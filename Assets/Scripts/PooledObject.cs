@@ -7,6 +7,7 @@ public class PooledObject : MonoBehaviour
     public float fadeDuration = 0.3f;
 
     private SpriteRenderer sr;
+    private TrailRenderer tr;
     private Color originalColor;
     private Coroutine fadeCoroutine;
     private Vector3 originalScale;
@@ -14,6 +15,7 @@ public class PooledObject : MonoBehaviour
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
+        tr = GetComponent<TrailRenderer>();
         if (sr != null)
         {
             originalColor = sr.color;
@@ -46,6 +48,11 @@ public class PooledObject : MonoBehaviour
                 sr.color = new Color(startColor.r, startColor.g, startColor.b, alpha);
                 yield return null;
             }
+        }
+
+        if (tr != null)
+        {
+            tr.Clear();
         }
 
         gameObject.SetActive(false);

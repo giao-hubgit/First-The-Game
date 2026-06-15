@@ -33,7 +33,7 @@ MonoBehaviour:
   maxBullets: 0
   spreadAngle: 0
   bulletsPerBurst: 4
-  timeBetweenBullets: 0.25
+  timeBetweenBullets: 0.2
   bulletSpread: 45
   transformSFX: {fileID: 8300000, guid: c0cc02442f0f5ec47bf47ed67baf5bf5, type: 3}
   dashSFX: {fileID: 8300000, guid: fd2f9eef406a19b43b44dd4d175df21c, type: 3}
@@ -51,4 +51,4 @@ MonoBehaviour:
   bulletBossPrefabS: Miniboss1 Bullet
   laserPrefabS: Miniboss1 Laser
   phaseThresholds:
-  - 0.5
+  - 0.7
