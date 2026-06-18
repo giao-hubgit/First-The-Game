@@ -23,7 +23,7 @@ public class ObtacleSpawner : MonoBehaviour
     void Awake()
     {
         template = GameObject.FindGameObjectWithTag("ObstacleTemplate").GetComponent<ObstacleTemplate>();
-        roomTemplate = GameObject.FindGameObjectWithTag("Room").GetComponent<RoomTemplate>();
+        roomTemplate = GameObject.FindGameObjectWithTag("RoomTemplate").GetComponent<RoomTemplate>();
         roomCollider = GetComponent<BoxCollider2D>();
     }
 

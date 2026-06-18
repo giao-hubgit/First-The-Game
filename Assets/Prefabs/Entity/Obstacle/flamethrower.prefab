@@ -208,8 +208,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   duration: 4
   CD: 6
-  tickRate: 0.25
-  damage: 10
   flamethrowerSFX: {fileID: 8300000, guid: 38af85f6bc62c7347a530e69ff52e1aa, type: 3}
   flameParticles: {fileID: 8072006249181568055}
   NavMeshHitBox: {fileID: 444228790843716992}
@@ -316,8 +314,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 087b7cfaf0959b84aa33700c6b3a77e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  damage: 10
-  tickRate: 0.5
+  damage: 2
+  tickRate: 0.1
 --- !u!198 &8072006249181568055 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 160833449921900167, guid: f8a859a72f1f1f7438ff339b3dda28b9, type: 3}

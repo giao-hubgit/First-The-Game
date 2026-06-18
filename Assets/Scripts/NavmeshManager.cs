@@ -6,14 +6,7 @@ public class NavmeshManager : MonoBehaviour
 {
     public NavMeshSurface navSurface;
 
-    public float timeToWait = 1f;
-
-    void Start()
-    {
-        Invoke("BakeMyMap", timeToWait);
-    }
-
-    void BakeMyMap()
+    public void BakeMyMap()
     {
         navSurface.BuildNavMesh();
     }

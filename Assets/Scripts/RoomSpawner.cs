@@ -1,63 +1,62 @@
-using Unity.Mathematics;
 using UnityEngine;
 
 public class RoomSpawner : MonoBehaviour
 {
     public int openingDir;
-    private int rand;
     private bool spawned = false;
-
     private RoomTemplate template;
-
-    public float waitTime = 2f;
 
     void Awake()
     {
-        template = GameObject.FindGameObjectWithTag("Room").GetComponent<RoomTemplate>();
+        template = FindAnyObjectByType<RoomTemplate>();
     }
 
     void Start()
     {
-        Destroy(gameObject, waitTime);
         float randomDelay = 0.1f + UnityEngine.Random.Range(-0.02f, 0.02f);
         Invoke("Spawn", randomDelay);
+        Destroy(gameObject, 2f);
     }
 
     void Spawn()
     {
-        if (spawned == false)
-        {
-            if (!spawned && template.currentRooms < template.maxRooms)
-            {
-                if (openingDir == 1)
-                {
-                    rand = UnityEngine.Random.Range(0, template.botRoom.Length);
-                    Instantiate(template.botRoom[rand], transform.position, template.botRoom[rand].transform.rotation);
-                }
-                else if (openingDir == 2)
-                {
-                    rand = UnityEngine.Random.Range(0, template.topRoom.Length);
-                    Instantiate(template.topRoom[rand], transform.position, template.topRoom[rand].transform.rotation);
-                }
-                else if (openingDir == 3)
-                {
-                    rand = UnityEngine.Random.Range(0, template.leftRoom.Length);
-                    Instantiate(template.leftRoom[rand], transform.position, template.leftRoom[rand].transform.rotation);
-                }
-                else if (openingDir == 4)
-                {
-                    rand = UnityEngine.Random.Range(0, template.rightRoom.Length);
-                    Instantiate(template.rightRoom[rand], transform.position, template.rightRoom[rand].transform.rotation);
-                }
+        if (spawned) return;
+        spawned = true;
 
-                template.currentRooms++;
-                spawned = true;
-            }
-            else if (!spawned && template.currentRooms >= template.maxRooms)
+        if (template.currentRooms >= template.maxRooms)
+        {
+            if (!template.IsPositionOccupied(transform.position))
             {
                 Instantiate(template.closedRoom, transform.position, Quaternion.identity);
+                template.TryRegisterPosition(transform.position);
             }
-            spawned = true;
+            return;
+        }
+
+        if (!template.TryRegisterPosition(transform.position))
+        {
+            return;
+        }
+
+        GameObject[] pool = null;
+        switch (openingDir)
+        {
+            case 1: pool = template.botRoom; break;
+            case 2: pool = template.topRoom; break;
+            case 3: pool = template.leftRoom; break;
+            case 4: pool = template.rightRoom; break;
+        }
+
+        if (pool != null && pool.Length > 0)
+        {
+            int rand = UnityEngine.Random.Range(0, pool.Length);
+            GameObject newRoom = Instantiate(pool[rand], transform.position, pool[rand].transform.rotation);
+
+            RoomInfo info = newRoom.AddComponent<RoomInfo>();
+            info.openingDir = openingDir;
+
+            template.rooms.Add(newRoom);
+            template.currentRooms++;
         }
     }
 
@@ -66,17 +65,16 @@ public class RoomSpawner : MonoBehaviour
         if (collision.CompareTag("SpawnPoint"))
         {
             RoomSpawner otherSpawner = collision.GetComponent<RoomSpawner>();
-
-            if (otherSpawner != null)
+            if (otherSpawner != null && !spawned && !otherSpawner.spawned)
             {
-                if (otherSpawner.spawned == false && spawned == false)
+                if (!template.IsPositionOccupied(transform.position))
                 {
                     Instantiate(template.closedRoom, transform.position, Quaternion.identity);
-                    Destroy(gameObject);
+                    template.TryRegisterPosition(transform.position);
                 }
-
-                spawned = true;
+                Destroy(gameObject);
             }
+            spawned = true;
         }
     }
 }

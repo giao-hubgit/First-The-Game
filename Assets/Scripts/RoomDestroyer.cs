@@ -5,7 +5,7 @@ public class RoomDestroyer : MonoBehaviour
 {
     IEnumerator OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Wall"))
+        if (other.CompareTag("ClosedRoom"))
         {
             Destroy(other.gameObject);
         }

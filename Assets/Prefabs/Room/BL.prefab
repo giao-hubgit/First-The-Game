@@ -430,7 +430,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomSpawner
   openingDir: 0
-  waitTime: 4
 --- !u!1 &1240701491765332102
 GameObject:
   m_ObjectHideFlags: 0
@@ -868,7 +867,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomSpawner
   openingDir: 2
-  waitTime: 4
 --- !u!1 &3368423326932041194
 GameObject:
   m_ObjectHideFlags: 0
@@ -1299,7 +1297,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomSpawner
   openingDir: 4
-  waitTime: 4
 --- !u!1 &8209800300083059069
 GameObject:
   m_ObjectHideFlags: 0
@@ -1314,7 +1311,7 @@ GameObject:
   - component: {fileID: 5900465709199156532}
   m_Layer: 15
   m_Name: BL
-  m_TagString: Untagged
+  m_TagString: Room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

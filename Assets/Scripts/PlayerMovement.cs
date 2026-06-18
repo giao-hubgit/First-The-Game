@@ -156,6 +156,7 @@ public class PlayerMovement : MonoBehaviour
         SFXManager.Instance?.PlaySFX(data.dashSFX, transform.position);
 
         Vector2 dashDir = (mousePos - rb.position).normalized;
+        //Vector2 dashDir = movement.normalized;
         int originalLayer = gameObject.layer;
         gameObject.layer = LayerMask.NameToLayer("Dashing");
         canDash = false;
@@ -268,7 +269,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 hitSomething = true;
 
-                targetRb.AddForce(transform.up * data.pushForce * targetRb.mass, ForceMode2D.Impulse);
+                targetRb.AddForce(transform.up * data.pushForce * (targetRb.mass >= 6 ? targetRb.mass * 0.75f : targetRb.mass), ForceMode2D.Impulse);
                 targetRb.AddTorque(UnityEngine.Random.Range(-6f, 6f), ForceMode2D.Impulse);
             }
         }

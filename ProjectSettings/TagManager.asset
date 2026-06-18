@@ -15,6 +15,9 @@ TagManager:
   - Player Melee Weapon
   - EnemyBullet
   - PlayerBullet
+  - ClosedRoom
+  - RoomTemplate
+  - BossRoom
   layers:
   - Default
   - TransparentFX

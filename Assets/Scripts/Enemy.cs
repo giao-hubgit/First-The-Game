@@ -75,7 +75,7 @@ public class Enemy : MonoBehaviour, IDamageable
         {
             SFXManager.Instance?.PlaySFX(data.crashSFX, transform.position);
 
-            if (collision.gameObject.CompareTag("Wall") && !collision.gameObject.TryGetComponent<Explode>(out Explode explosion_barrel))
+            if ((collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("ClosedRoom")) && !collision.gameObject.TryGetComponent<Explode>(out Explode explosion_barrel))
             {
                 this.takeDmg(data.collisionDMG);
             }

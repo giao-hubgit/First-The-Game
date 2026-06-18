@@ -36,7 +36,7 @@ public class EnemySpawner : MonoBehaviour
     void Awake()
     {
         template = GameObject.FindGameObjectWithTag("EnemyTemplate").GetComponent<EnemyTemplate>();
-        roomTemplate = GameObject.FindGameObjectWithTag("Room").GetComponent<RoomTemplate>();
+        roomTemplate = GameObject.FindGameObjectWithTag("RoomTemplate").GetComponent<RoomTemplate>();
         roomCollider = GetComponent<BoxCollider2D>();
     }
 
@@ -69,6 +69,27 @@ public class EnemySpawner : MonoBehaviour
                 yield return new WaitForSeconds(1f);
 
                 GameObject bossPrefab = RoomTemplate.Instance.boss;
+
+                Vector2 spawnPos = bossPrefab.transform.position;
+                spawnPos.y += 1f * bossPrefab.transform.localScale.y;
+
+                GameObject p1 = ObjectPooler.Instance?.SpawnFromPool(spawnparticlePrefab, spawnPos, quaternion.identity);
+                if (p1 != null)
+                {
+                    p1.transform.localScale = Vector3.Scale(p1.transform.localScale, bossPrefab.transform.localScale);
+                }
+
+                yield return new WaitForSeconds(spawnDelay);
+
+                SFXManager.Instance?.PlaySFX(spawnSFX, spawnPos);
+                SFXManager.Instance?.PlaySFX(spawnSFX, spawnPos);
+
+                GameObject laser1 = ObjectPooler.Instance?.SpawnFromPool(spawnparticlePrefab1, spawnPos, quaternion.identity);
+                if (laser1 != null)
+                {
+                    laser1.transform.localScale = Vector3.Scale(laser1.transform.localScale, bossPrefab.transform.localScale);
+                }
+
                 GameObject spawnedBoss = Instantiate(bossPrefab, transform.position, Quaternion.identity);
 
                 aliveEnemies.Add(spawnedBoss);

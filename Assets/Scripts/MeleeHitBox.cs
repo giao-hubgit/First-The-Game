@@ -28,10 +28,11 @@ public class MeleeHitbox : MonoBehaviour
 
         if (((1 << other.gameObject.layer) & hitTargetMask) != 0)
         {
+            SFXManager.Instance?.PlaySFX(hitSFX, transform.position, 0.4f, true, 0.75f, 1.5f);
+
             IDamageable damageable = other.GetComponent<IDamageable>();
             if (damageable != null)
             {
-                SFXManager.Instance?.PlaySFX(hitSFX, transform.position, 0.4f, true, 0.75f, 1.5f);
                 CameraShakeManager.Instance?.CameraShake(impulseSource, hitImpact);
                 damageable.takeDmg(damage);
                 alreadyHit.Add(other);
@@ -88,6 +89,8 @@ public class MeleeHitbox : MonoBehaviour
             if (rb != null)
             {
                 rb.AddForce(transform.up * knockback * rb.mass, ForceMode2D.Impulse);
+                rb.AddTorque(UnityEngine.Random.Range(-6f, 6f), ForceMode2D.Impulse);
+
             }
         }
     }
