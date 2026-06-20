@@ -2047,7 +2047,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   navSurface: {fileID: 1114549036}
-  timeToWait: 2
 --- !u!1 &1329731615
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,6 +18,8 @@ TagManager:
   - ClosedRoom
   - RoomTemplate
   - BossRoom
+  - DoorRaycast
+  - Door
   layers:
   - Default
   - TransparentFX

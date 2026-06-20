@@ -107,6 +107,25 @@ public class RoomTemplate : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
 
+        DoorWallFix[] allDoors = FindObjectsByType<DoorWallFix>(FindObjectsSortMode.None);
+
+        foreach (DoorWallFix door in allDoors)
+        {
+            if (door != null)
+            {
+                door.CheckAndBlockDoor();
+            }
+        }
+
+        yield return null;
+
+        foreach (DoorWallFix door in allDoors)
+        {
+            Destroy(door.gameObject);
+        }
+
+        yield return new WaitForEndOfFrame();
+
         NavmeshManager navManager = FindAnyObjectByType<NavmeshManager>();
         if (navManager != null)
         {
@@ -114,7 +133,7 @@ public class RoomTemplate : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Không tìm thấy NavmeshManager trong Scene!");
+            Debug.LogWarning("Không tìm thấy NavmeshManager trong Scene");
         }
     }
 }

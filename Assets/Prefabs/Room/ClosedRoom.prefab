@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 161195091809332579}
   m_Layer: 10
   m_Name: ClosedRoom (1)
-  m_TagString: Wall
+  m_TagString: ClosedRoom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
