@@ -22,11 +22,13 @@ MonoBehaviour:
   radius: 1
   offset: 1
   reflectForce: 1
+  knockback: 1
   recoil: 0
   hitImpact: 0.15
   slashSpeed: 0.1
   cooldown: 0.5
   isAutomatic: 1
+  reflectedBullet: PlayerBullet
   slashSFX: {fileID: 8300000, guid: 22b0dd4627f46fc4e9286acba55e3a77, type: 3}
   hitSFX: {fileID: 8300000, guid: fa0e186676995a843a9c1fdcbc7565b9, type: 3}
   HitTarget:

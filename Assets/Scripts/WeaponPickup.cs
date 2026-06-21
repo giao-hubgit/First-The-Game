@@ -102,7 +102,7 @@ public class WeaponPickup : MonoBehaviour
         }
 
         spriteRenderer.GetPropertyBlock(propBlock);
-        propBlock.SetFloat("_Thickness", isActive ? 2f : 0f);
+        propBlock.SetFloat("_EnableOutline", isActive ? 1f : 0f);
         spriteRenderer.SetPropertyBlock(propBlock);
     }
 }
