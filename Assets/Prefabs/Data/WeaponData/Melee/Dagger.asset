@@ -20,14 +20,20 @@ MonoBehaviour:
   damage: 60
   size: 1.5
   radius: 1
-  offset: 1
+  spawnOffset: {x: 0, y: 0}
+  fadeInDuration: 0.1
+  delayStart: 0
+  fadeOutDuration: 0.1
+  detachTime: 0.25
   reflectForce: 1
   knockback: 0
   recoil: 0
   hitImpact: 0.2
-  slashSpeed: 0.08
+  startSpeed: 10
+  endSpeed: 10
   cooldown: 0.75
   isAutomatic: 1
+  vulnerabilityIgnore: 0
   reflectedBullet: PlayerBullet
   slashSFX: {fileID: 8300000, guid: 22b0dd4627f46fc4e9286acba55e3a77, type: 3}
   hitSFX: {fileID: 8300000, guid: 765043fcc0eb11043a58d44ec0d5215d, type: 3}
@@ -35,3 +41,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8448
   isThrust: 1
+  thrustStartAngle: -45
+  thrustEndAngle: -45
+  swingStartAngle: -90
+  swingEndAngle: 90

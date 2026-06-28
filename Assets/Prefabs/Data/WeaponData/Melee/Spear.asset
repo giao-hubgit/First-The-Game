@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9c5be197390a7a4e9883e3e8a1af59b, type: 3}
-  m_Name: Baseball Bat
+  m_Name: Spear
   m_EditorClassIdentifier: Assembly-CSharp::WeaponMeleeData
-  weaponName: Baseball Bat
+  weaponName: Spear
   weaponType: 1
-  weaponPrefab: {fileID: 8599932454935528800, guid: 88de00175d51217448213b045e60b8ec, type: 3}
+  weaponPrefab: {fileID: 1469992152764757303, guid: 742ff2aa260964749a47b5088108b5ef, type: 3}
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  weaponIcon: {fileID: 21300000, guid: b1d7d1f74c521a0469d8f044d0ec7832, type: 3}
-  damage: 20
-  size: 1.5
-  radius: 1
+  weaponIcon: {fileID: 21300000, guid: 152ea990a499af24b838bb5c5102f34e, type: 3}
+  damage: 60
+  size: 2
+  radius: 1.5
   spawnOffset: {x: 0, y: 0}
   fadeInDuration: 0.1
-  delayStart: 0
-  fadeOutDuration: 0.1
-  detachTime: 0.3
-  reflectForce: 20
-  knockback: 11
+  delayStart: 0.25
+  fadeOutDuration: 0.15
+  detachTime: 0.4
+  reflectForce: 1
+  knockback: 2
   recoil: 1
-  hitImpact: 0.3
+  hitImpact: 0.25
   startSpeed: 10
   endSpeed: 10
   cooldown: 1
@@ -36,12 +36,12 @@ MonoBehaviour:
   vulnerabilityIgnore: 0
   reflectedBullet: PlayerBullet
   slashSFX: {fileID: 8300000, guid: 22b0dd4627f46fc4e9286acba55e3a77, type: 3}
-  hitSFX: {fileID: 8300000, guid: b1d22176b1e69ef449b0bf89e1aad046, type: 3}
+  hitSFX: {fileID: 8300000, guid: 765043fcc0eb11043a58d44ec0d5215d, type: 3}
   HitTarget:
     serializedVersion: 2
-    m_Bits: 12544
-  isThrust: 0
-  thrustStartAngle: -45
-  thrustEndAngle: -45
+    m_Bits: 8448
+  isThrust: 1
+  thrustStartAngle: -30
+  thrustEndAngle: -60
   swingStartAngle: -90
   swingEndAngle: 90

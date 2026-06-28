@@ -10,6 +10,7 @@ public class MeleeHitbox : MonoBehaviour
     public float reflectForce;
     public float hitImpact;
     public string reflectedBullet;
+    public bool vulnerabilityIgnore;
     public LayerMask hitTargetMask;
     public AudioClip hitSFX;
     private CinemachineImpulseSource impulseSource;
@@ -35,7 +36,10 @@ public class MeleeHitbox : MonoBehaviour
             {
                 CameraShakeManager.Instance?.CameraShake(impulseSource, hitImpact);
                 damageable.takeDmg(damage);
-                alreadyHit.Add(other);
+                if (!vulnerabilityIgnore)
+                {
+                    alreadyHit.Add(other);
+                }
             }
 
             if (reflectForce > 0)
