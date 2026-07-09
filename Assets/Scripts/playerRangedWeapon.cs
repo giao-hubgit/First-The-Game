@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
@@ -19,6 +20,9 @@ public class PlayerRangedWeapon : MonoBehaviour
     private int currentAmmo;
     private float nextFireTime = 0f;
     public bool isFiring = false;
+
+    public RectTransform hudContainerTransform;
+    private Coroutine refreshCoroutine;
 
     void Awake()
     {
@@ -118,6 +122,27 @@ public class PlayerRangedWeapon : MonoBehaviour
             if (weaponUIContainer != null) weaponUIContainer.SetActive(false);
             if (weaponIconUI != null) weaponIconUI.enabled = false;
             if (ammoTextUI != null) ammoTextUI.enabled = false;
+        }
+
+        ForceInstantLayoutRefresh();
+    }
+
+    private void ForceInstantLayoutRefresh()
+    {
+        if (refreshCoroutine != null) StopCoroutine(refreshCoroutine);
+
+        refreshCoroutine = StartCoroutine(RefreshLayoutRoutine());
+    }
+
+    private IEnumerator RefreshLayoutRoutine()
+    {
+        yield return new WaitForEndOfFrame();
+
+        Canvas.ForceUpdateCanvases();
+
+        if (hudContainerTransform != null)
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(hudContainerTransform);
         }
     }
 }

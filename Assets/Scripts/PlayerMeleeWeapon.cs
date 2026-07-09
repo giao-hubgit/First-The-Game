@@ -13,6 +13,9 @@ public class PlayerMeleeWeapon : MonoBehaviour
     private bool isSwinging = false;
     public bool isAttacking = false;
 
+    public RectTransform hudContainerTransform;
+    private Coroutine refreshCoroutine;
+
     void Start()
     {
         UpdateWeaponUI();
@@ -77,35 +80,35 @@ public class PlayerMeleeWeapon : MonoBehaviour
     private IEnumerator PerformThrust()
     {
         isSwinging = true;
-        float facingMultiplier = Mathf.Sign(transform.lossyScale.x);
 
         GameObject pivot = new GameObject("MeleeThrustPivot");
         pivot.transform.SetParent(transform);
 
-        pivot.transform.localPosition = new Vector3(currentWeapon.spawnOffset.x * facingMultiplier, currentWeapon.spawnOffset.y, 0f);
+        pivot.transform.localPosition = new Vector3(currentWeapon.spawnOffset.x, currentWeapon.spawnOffset.y, 0f);
         pivot.transform.localScale = new Vector3(currentWeapon.size, currentWeapon.size, currentWeapon.size);
+        pivot.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
-        Camera mainCam = Camera.main;
-        if (mainCam != null)
-        {
-            Vector3 mouseScreenPos = UnityEngine.InputSystem.Mouse.current != null ?
-                (Vector3)UnityEngine.InputSystem.Mouse.current.position.ReadValue() : Input.mousePosition;
+        // Đánh theo hướng chuột thay vì hướng người
+        // Camera mainCam = Camera.main;
+        // if (mainCam != null)
+        // {
+        //     Vector3 mouseScreenPos = UnityEngine.InputSystem.Mouse.current.position.ReadValue();
 
-            Vector3 mouseWorldPos = mainCam.ScreenToWorldPoint(new Vector3(mouseScreenPos.x, mouseScreenPos.y, -mainCam.transform.position.z));
-            mouseWorldPos.z = 0f;
+        //     Vector3 mouseWorldPos = mainCam.ScreenToWorldPoint(new Vector3(mouseScreenPos.x, mouseScreenPos.y, -mainCam.transform.position.z));
+        //     mouseWorldPos.z = 0f;
 
-            Vector3 dirToMouse = (mouseWorldPos - transform.position).normalized;
-            if (dirToMouse.sqrMagnitude < 0.01f) dirToMouse = transform.up;
+        //     Vector3 dirToMouse = (mouseWorldPos - transform.position).normalized;
+        //     if (dirToMouse.sqrMagnitude < 0.01f) dirToMouse = transform.up;
 
-            float angleToMouse = Mathf.Atan2(dirToMouse.y, dirToMouse.x) * Mathf.Rad2Deg;
-            pivot.transform.rotation = Quaternion.Euler(0, 0, angleToMouse - 90f);
-        }
+        //     float angleToMouse = Mathf.Atan2(dirToMouse.y, dirToMouse.x) * Mathf.Rad2Deg;
+        //     pivot.transform.localRotation = Quaternion.Euler(0, 0, angleToMouse -90f);
+        // }
 
         GameObject weaponInstance = Instantiate(currentWeapon.weaponPrefab, pivot.transform);
 
         float reach = currentWeapon.radius;
-        Vector3 startPos = new Vector3(0.2f * facingMultiplier, -0.1f, 0);
-        Vector3 controlPos = new Vector3(0.4f * facingMultiplier, reach * 0.4f, 0);
+        Vector3 startPos = new Vector3(0.2f, -0.1f, 0);
+        Vector3 controlPos = new Vector3(0.4f, reach * 0.4f, 0);
         Vector3 endPos = new Vector3(0, reach, 0);
 
         weaponInstance.transform.localPosition = startPos;
@@ -125,15 +128,7 @@ public class PlayerMeleeWeapon : MonoBehaviour
 
         yield return StartCoroutine(PerformFadeIn(weaponInstance));
 
-        if (currentWeapon.delayStart > 0f)
-        {
-            float delayElapsed = 0f;
-            while (delayElapsed < currentWeapon.delayStart)
-            {
-                delayElapsed += Time.unscaledDeltaTime;
-                yield return null;
-            }
-        }
+        yield return StartCoroutine(DelayWeapon(currentWeapon.delayStart));
 
         if (col != null) col.enabled = true;
 
@@ -168,12 +163,11 @@ public class PlayerMeleeWeapon : MonoBehaviour
     private IEnumerator PerformSwingArc()
     {
         isSwinging = true;
-        float facingMultiplier = Mathf.Sign(transform.lossyScale.x);
 
         GameObject pivot = new GameObject("MeleeSwingPivot");
         pivot.transform.SetParent(transform);
 
-        pivot.transform.localPosition = new Vector3(currentWeapon.spawnOffset.x * facingMultiplier, currentWeapon.spawnOffset.y, 0f);
+        pivot.transform.localPosition = new Vector3(currentWeapon.spawnOffset.x, currentWeapon.spawnOffset.y, 0f);
         pivot.transform.localScale = new Vector3(currentWeapon.size, currentWeapon.size, currentWeapon.size);
 
         GameObject weaponInstance = Instantiate(currentWeapon.weaponPrefab, pivot.transform);
@@ -191,15 +185,7 @@ public class PlayerMeleeWeapon : MonoBehaviour
 
         yield return StartCoroutine(PerformFadeIn(weaponInstance));
 
-        if (currentWeapon.delayStart > 0f)
-        {
-            float delayElapsed = 0f;
-            while (delayElapsed < currentWeapon.delayStart)
-            {
-                delayElapsed += Time.unscaledDeltaTime;
-                yield return null;
-            }
-        }
+        yield return StartCoroutine(DelayWeapon(currentWeapon.delayStart));
 
         if (col != null) col.enabled = true;
 
@@ -239,6 +225,19 @@ public class PlayerMeleeWeapon : MonoBehaviour
 
         Rigidbody2D rb = weaponInstance.GetComponent<Rigidbody2D>();
         if (rb != null) rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+    }
+
+    private IEnumerator DelayWeapon(float delayTime)
+    {
+        if (currentWeapon.delayStart > 0f)
+        {
+            float delayElapsed = 0f;
+            while (delayElapsed < delayTime)
+            {
+                delayElapsed += Time.unscaledDeltaTime;
+                yield return null;
+            }
+        }
     }
 
     private IEnumerator PerformFadeIn(GameObject weaponInstance)
@@ -318,6 +317,27 @@ public class PlayerMeleeWeapon : MonoBehaviour
         else if (weaponIconUI != null)
         {
             weaponIconUI.enabled = false;
+        }
+
+        ForceInstantLayoutRefresh();
+    }
+
+    private void ForceInstantLayoutRefresh()
+    {
+        if (refreshCoroutine != null) StopCoroutine(refreshCoroutine);
+
+        refreshCoroutine = StartCoroutine(RefreshLayoutRoutine());
+    }
+
+    private IEnumerator RefreshLayoutRoutine()
+    {
+        yield return new WaitForEndOfFrame();
+
+        Canvas.ForceUpdateCanvases();
+
+        if (hudContainerTransform != null)
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(hudContainerTransform);
         }
     }
 }

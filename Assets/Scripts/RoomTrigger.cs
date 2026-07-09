@@ -21,10 +21,12 @@ public class RoomTrigger : MonoBehaviour
             if (roomObjects != null) roomObjects.SetActive(false);
         }
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
+            CameraController.Instance.ChangeRoom(transform.position);
             if (roomObjects != null) roomObjects.SetActive(true);
         }
     }
