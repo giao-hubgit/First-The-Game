@@ -28,6 +28,7 @@ public class WeaponMeleeData : WeaponData
     public bool isAutomatic;
     public bool vulnerabilityIgnore = false;
     public string reflectedBullet = "PlayerBullet";
+    public AudioClip appearSFX;
     public AudioClip slashSFX;
     public AudioClip hitSFX;
     public LayerMask HitTarget;

@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1913633624286210446
 Transform:
   m_ObjectHideFlags: 0
@@ -90,8 +90,8 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.8736839
+        time: 1
+        value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0

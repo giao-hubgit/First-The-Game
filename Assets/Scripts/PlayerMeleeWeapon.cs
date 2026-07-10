@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 public class PlayerMeleeWeapon : MonoBehaviour
 {
@@ -57,14 +59,6 @@ public class PlayerMeleeWeapon : MonoBehaviour
 
         if (Time.unscaledTime < nextSlashTime || isSwinging) return;
 
-        if (currentWeapon.recoil > 0)
-        {
-            PlayerMovement pm = GetComponent<PlayerMovement>();
-            if (pm != null) pm.ApplyRecoil(-transform.up * currentWeapon.recoil);
-        }
-
-        SFXManager.Instance?.PlaySFX(currentWeapon.slashSFX, transform.position, 0.3f, true, 0.75f, 1.25f);
-
         nextSlashTime = Time.unscaledTime + currentWeapon.cooldown;
 
         if (currentWeapon.isThrust)
@@ -74,6 +68,11 @@ public class PlayerMeleeWeapon : MonoBehaviour
         else
         {
             StartCoroutine(PerformSwingArc());
+        }
+
+        if (currentWeapon.delayStart >= 0.5f)
+        {
+            SFXManager.Instance?.PlaySFX(currentWeapon.appearSFX, transform.position, 0.15f, true, 1.5f, 2f);
         }
     }
 
@@ -105,6 +104,16 @@ public class PlayerMeleeWeapon : MonoBehaviour
         // }
 
         GameObject weaponInstance = Instantiate(currentWeapon.weaponPrefab, pivot.transform);
+        TrailRenderer[] components = GetComponentsInChildren<TrailRenderer>(true);
+        List<GameObject> childObjects = new List<GameObject>();
+
+        foreach (TrailRenderer comp in components)
+        {
+            if (comp.gameObject != this.gameObject)
+            {
+                childObjects.Add(comp.gameObject);
+            }
+        }
 
         float reach = currentWeapon.radius;
         Vector3 startPos = new Vector3(0.2f, -0.1f, 0);
@@ -129,6 +138,17 @@ public class PlayerMeleeWeapon : MonoBehaviour
         yield return StartCoroutine(PerformFadeIn(weaponInstance));
 
         yield return StartCoroutine(DelayWeapon(currentWeapon.delayStart));
+
+        foreach (GameObject childObject in childObjects)
+        {
+            childObject.SetActive(true);
+        }
+
+        if (currentWeapon.recoil > 0)
+        {
+            PlayerMovement pm = GetComponent<PlayerMovement>();
+            if (pm != null) pm.ApplyRecoil(-transform.up * currentWeapon.recoil);
+        }
 
         if (col != null) col.enabled = true;
 
@@ -171,6 +191,18 @@ public class PlayerMeleeWeapon : MonoBehaviour
         pivot.transform.localScale = new Vector3(currentWeapon.size, currentWeapon.size, currentWeapon.size);
 
         GameObject weaponInstance = Instantiate(currentWeapon.weaponPrefab, pivot.transform);
+
+        TrailRenderer[] components = GetComponentsInChildren<TrailRenderer>(true);
+        List<GameObject> childObjects = new List<GameObject>();
+
+        foreach (TrailRenderer comp in components)
+        {
+            if (comp.gameObject != this.gameObject)
+            {
+                childObjects.Add(comp.gameObject);
+            }
+        }
+
         weaponInstance.transform.localPosition = new Vector3(0, currentWeapon.radius, 0);
         weaponInstance.transform.localRotation = Quaternion.Euler(0, 0, 45f);
 
@@ -187,9 +219,21 @@ public class PlayerMeleeWeapon : MonoBehaviour
 
         yield return StartCoroutine(DelayWeapon(currentWeapon.delayStart));
 
+        foreach (GameObject childObject in childObjects)
+        {
+            childObject.SetActive(true);
+        }
+
+        if (currentWeapon.recoil > 0)
+        {
+            PlayerMovement pm = GetComponent<PlayerMovement>();
+            if (pm != null) pm.ApplyRecoil(-transform.up * currentWeapon.recoil);
+        }
+
         if (col != null) col.enabled = true;
 
         float progress = 0f;
+        Quaternion baseRotation = pivot.transform.rotation;
 
         while (progress < 1f)
         {
@@ -199,8 +243,20 @@ public class PlayerMeleeWeapon : MonoBehaviour
             float t = Mathf.Clamp01(progress);
 
             float currentSwingAngle = Mathf.Lerp(currentWeapon.swingStartAngle, currentWeapon.swingEndAngle, t);
-            pivot.transform.localRotation = Quaternion.Euler(0, 0, currentSwingAngle);
 
+            if (pivot.transform.parent != null)
+            {
+                baseRotation = pivot.transform.rotation;
+            }
+
+            if (pivot.transform.parent != null)
+            {
+                pivot.transform.localRotation = Quaternion.Euler(0, 0, currentSwingAngle);
+            }
+            else
+            {
+                pivot.transform.rotation = baseRotation * Quaternion.Euler(0, 0, currentSwingAngle - currentWeapon.swingStartAngle);
+            }
             yield return null;
         }
 
@@ -238,6 +294,8 @@ public class PlayerMeleeWeapon : MonoBehaviour
                 yield return null;
             }
         }
+
+        SFXManager.Instance?.PlaySFX(currentWeapon.slashSFX, transform.position, 0.3f, true, 0.75f, 1.25f);
     }
 
     private IEnumerator PerformFadeIn(GameObject weaponInstance)
@@ -256,6 +314,7 @@ public class PlayerMeleeWeapon : MonoBehaviour
             spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, Mathf.Lerp(0f, 1f, t));
             yield return null;
         }
+
         spriteRenderer.color = originalColor;
     }
 

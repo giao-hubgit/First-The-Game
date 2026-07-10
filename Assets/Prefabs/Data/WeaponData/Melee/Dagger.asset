@@ -35,6 +35,7 @@ MonoBehaviour:
   isAutomatic: 1
   vulnerabilityIgnore: 0
   reflectedBullet: PlayerBullet
+  appearSFX: {fileID: 8300000, guid: d10bb33e33cd2ea408ce68508dd014f6, type: 3}
   slashSFX: {fileID: 8300000, guid: 22b0dd4627f46fc4e9286acba55e3a77, type: 3}
   hitSFX: {fileID: 8300000, guid: 765043fcc0eb11043a58d44ec0d5215d, type: 3}
   HitTarget:
