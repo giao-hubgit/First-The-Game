@@ -23,6 +23,11 @@ public class MeleeHitbox : MonoBehaviour
         impulseSource = GetComponent<Unity.Cinemachine.CinemachineImpulseSource>();
     }
 
+    private void OnEnable()
+    {
+        alreadyHit.Clear();
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") || alreadyHit.Contains(other)) return;

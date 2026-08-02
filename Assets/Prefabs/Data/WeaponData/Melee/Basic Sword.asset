@@ -24,7 +24,7 @@ MonoBehaviour:
   fadeInDuration: 0.1
   delayStart: 0
   fadeOutDuration: 0.1
-  detachTime: 0.3
+  detachTime: 0
   reflectForce: 1
   knockback: 1
   recoil: 0

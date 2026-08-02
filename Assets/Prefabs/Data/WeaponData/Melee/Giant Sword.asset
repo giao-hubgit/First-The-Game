@@ -20,7 +20,7 @@ MonoBehaviour:
   damage: 120
   size: 5
   radius: 1
-  spawnOffset: {x: 0.5, y: 0}
+  spawnOffset: {x: 0, y: 0}
   fadeInDuration: 0.5
   delayStart: 0.5
   fadeOutDuration: 0.5
@@ -30,10 +30,10 @@ MonoBehaviour:
   recoil: 0
   hitImpact: 0.5
   startSpeed: 0.1
-  endSpeed: 30
+  endSpeed: 20
   cooldown: 2
   isAutomatic: 0
-  vulnerabilityIgnore: 0
+  vulnerabilityIgnore: 1
   reflectedBullet: PlayerBullet
   appearSFX: {fileID: 8300000, guid: d10bb33e33cd2ea408ce68508dd014f6, type: 3}
   slashSFX: {fileID: 8300000, guid: 001d3e5837277544987e3843e9b77b98, type: 3}

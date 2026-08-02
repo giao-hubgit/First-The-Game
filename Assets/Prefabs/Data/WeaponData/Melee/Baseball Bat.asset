@@ -21,10 +21,10 @@ MonoBehaviour:
   size: 1.5
   radius: 1
   spawnOffset: {x: 0, y: 0}
-  fadeInDuration: 0.1
-  delayStart: 0
-  fadeOutDuration: 0.1
-  detachTime: 0.3
+  fadeInDuration: 0.2
+  delayStart: 0.2
+  fadeOutDuration: 0.15
+  detachTime: 0
   reflectForce: 20
   knockback: 11
   recoil: 1

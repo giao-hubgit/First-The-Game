@@ -15,12 +15,13 @@ MonoBehaviour:
   maxHP: 120
   collisionDMG: 20
   damageRate: 1
-  aggroRange: 12
+  aggroRange: 20
   moveSpeed: 4
   deathParticle: EnemyDeathParticle
   deathAnimation: Enemy2DeathAnimation
   deathSFX: {fileID: 8300000, guid: 7012821bbf3e894458d8da223dafc11a, type: 3}
   crashSFX: {fileID: 8300000, guid: eca835397b1ddc0468406add3ae25102, type: 3}
+  itemDrop: Pistol Pickup
   bulletPrefabS: EnemyBullet
   bulletForce: 8
   bulletSFXClip: {fileID: 8300000, guid: 6d7730b6892b7624aab93edc6daa803f, type: 3}

@@ -15,7 +15,7 @@ MonoBehaviour:
   maxHP: 180
   collisionDMG: 20
   damageRate: 1
-  aggroRange: 12
+  aggroRange: 20
   moveSpeed: 4
   deathParticle: EnemyDeathParticle
   deathAnimation: EnemyDeathAnimation
