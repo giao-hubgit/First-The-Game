@@ -30,8 +30,8 @@ MonoBehaviour:
   recoil: 0
   hitImpact: 0.5
   startSpeed: 0.1
-  endSpeed: 20
-  cooldown: 2
+  endSpeed: 10
+  cooldown: 4
   isAutomatic: 0
   vulnerabilityIgnore: 1
   reflectedBullet: PlayerBullet

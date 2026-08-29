@@ -3177,7 +3177,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
       propertyPath: pools.Array.size
-      value: 24
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
       propertyPath: pools.Array.data[0].size
@@ -3234,6 +3234,14 @@ PrefabInstance:
     - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
       propertyPath: pools.Array.data[23].tag
       value: Miniboss1 Death
+      objectReference: {fileID: 0}
+    - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
+      propertyPath: pools.Array.data[24].tag
+      value: SniperBulletE
+      objectReference: {fileID: 0}
+    - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
+      propertyPath: pools.Array.data[25].tag
+      value: Sniper Pickup
       objectReference: {fileID: 0}
     - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
       propertyPath: pools.Array.data[8].size
@@ -3300,6 +3308,14 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
+      propertyPath: pools.Array.data[24].size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
+      propertyPath: pools.Array.data[25].size
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
       propertyPath: pools.Array.data[11].prefab
       value: 
       objectReference: {fileID: 6392329148958985657, guid: 07b368762dbfaaf49b8dc850ac4cc493, type: 3}
@@ -3351,6 +3367,14 @@ PrefabInstance:
       propertyPath: pools.Array.data[23].prefab
       value: 
       objectReference: {fileID: 667115601593667376, guid: 1220930c349f2694a8565491d9d773c8, type: 3}
+    - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
+      propertyPath: pools.Array.data[24].prefab
+      value: 
+      objectReference: {fileID: 5387545594179313353, guid: e68478c7bbef6a14ca2bbda053401a30, type: 3}
+    - target: {fileID: 2068984513007296429, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
+      propertyPath: pools.Array.data[25].prefab
+      value: 
+      objectReference: {fileID: 2471422548613019756, guid: 439d1efe296e918499efef632c0f7a73, type: 3}
     - target: {fileID: 2909332320510107174, guid: 76c571fc94bfe1a41bb5574f667bf716, type: 3}
       propertyPath: m_Name
       value: ObjectPooler
@@ -4434,7 +4458,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8777982509641955913, guid: e3f61784e852db14ba52c0c89f1f9b1b, type: 3}
       propertyPath: Ranged.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8777982509641955913, guid: e3f61784e852db14ba52c0c89f1f9b1b, type: 3}
       propertyPath: 'Melee.Array.data[1]'
@@ -4448,6 +4472,10 @@ PrefabInstance:
       propertyPath: 'Ranged.Array.data[2]'
       value: 
       objectReference: {fileID: 1016620622078994022, guid: 86ec6d24d4a2bbf4fb39c52abf8a8389, type: 3}
+    - target: {fileID: 8777982509641955913, guid: e3f61784e852db14ba52c0c89f1f9b1b, type: 3}
+      propertyPath: 'Ranged.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1053757681715382573, guid: 0578f354dc0acd9428fcc504c2bc8003, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
