@@ -69,5 +69,8 @@ TagManager:
   - name: Text UI
     uniqueID: 1335423225
     locked: 0
+  - name: Wall
+    uniqueID: 2268338305
+    locked: 0
   m_RenderingLayers:
   - Default

@@ -71,7 +71,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1594485d5f9036649b0933a61708a8cd, type: 2}
+  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -198,6 +198,7 @@ MonoBehaviour:
   dashBar: {fileID: 0}
   pushBar: {fileID: 0}
   slowmoBar: {fileID: 0}
+  impulseSource: {fileID: 0}
   recoilDecaySpeed: 25
   blinkStartTime: 1
   blinkInterval: 0.1
@@ -220,9 +221,11 @@ MonoBehaviour:
   weaponIconUI: {fileID: 0}
   ammoTextUI: {fileID: 0}
   outOfAmmoSFX: {fileID: 8300000, guid: dd4351aa64a974f419fdc094403381f4, type: 3}
+  impulseSource: {fileID: 0}
   currentWeapon: {fileID: 0}
   nullWeapon: {fileID: 11400000, guid: 1a32bfd721ccb9749bb6e207bc86ae10, type: 2}
   isFiring: 0
+  hudContainerTransform: {fileID: 0}
 --- !u!114 &1156687870240589685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +241,8 @@ MonoBehaviour:
   currentWeapon: {fileID: 11400000, guid: aea313ce7f23df743a373b528818c001, type: 2}
   weaponIconUI: {fileID: 0}
   isHoldingAttack: 0
-  isSlashing: 0
+  isAttacking: 0
+  hudContainerTransform: {fileID: 0}
 --- !u!114 &6982687210975955180
 MonoBehaviour:
   m_ObjectHideFlags: 0
