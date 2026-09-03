@@ -16,6 +16,22 @@ PrefabInstance:
       propertyPath: m_AngularDamping
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4827271741564760582, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
+      propertyPath: m_ShadowMesh.m_InitialTrim
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827271741564760582, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
+      propertyPath: m_PreviousShadowShape2DSource
+      value: 
+      objectReference: {fileID: 4050085829172028462}
+    - target: {fileID: 4827271741564760582, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
+      propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.x
+      value: -0.0010757446
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827271741564760582, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
+      propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.x
+      value: 0.17733002
+      objectReference: {fileID: 0}
     - target: {fileID: 5441436098176460476, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
       propertyPath: m_LocalPosition.x
       value: 104.99155
@@ -96,6 +112,11 @@ PrefabInstance:
 --- !u!50 &2574354692694243304 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 749802518332538076, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
+  m_PrefabInstance: {fileID: 3016889065216740148}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &4050085829172028462 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 1291107046181400346, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
   m_PrefabInstance: {fileID: 3016889065216740148}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &7088096076418952584 stripped
