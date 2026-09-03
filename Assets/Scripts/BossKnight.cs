@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using Unity.Cinemachine;
+
 
 public enum BossAttackType
 {
@@ -20,6 +22,8 @@ public class KnightBoss : MonoBehaviour
     private Transform firePoint;
     [SerializeField] private LaserData laserData;
     private TrailRenderer trail;
+    private CinemachineImpulseSource impulseSource;
+
 
     private void Awake()
     {
@@ -27,6 +31,7 @@ public class KnightBoss : MonoBehaviour
         firePoint = transform.GetChild(0);
         animator = GetComponent<Animator>();
         locomotion = GetComponent<BossAI>();
+        impulseSource = GetComponent<CinemachineImpulseSource>();
         boss = GetComponent<Boss>();
     }
 
@@ -263,8 +268,8 @@ public class KnightBoss : MonoBehaviour
 
         if (boss.currentPhase == 2)
         {
-            currentDashSpeed *= 2;
-            dist *= 2;
+            currentDashSpeed *= 2f;
+            dist *= 2f;
         }
 
         float dashDuration = dist / currentDashSpeed;
@@ -278,8 +283,26 @@ public class KnightBoss : MonoBehaviour
         SFXManager.Instance?.PlaySFX(boss.currentPhase == 2 ? boss.bossData.phase2DashSFX : boss.bossData.dashSFX, transform.position, 0.3f, true, 0.75f, 1.25f);
 
         float timer = 0f;
+        float bossRadius = 0.5f;
+
+        LayerMask stopLayers = LayerMask.GetMask("Player", "Wall");
+        bool hitWall = false;
+
         while (timer < dashDuration)
         {
+            float moveDistanceThisFrame = currentDashSpeed * Time.deltaTime;
+            RaycastHit2D hit = Physics2D.CircleCast(transform.position, bossRadius, targetDir, moveDistanceThisFrame, stopLayers);
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall"))
+                {
+                    hitWall = true;
+                }
+
+                break;
+            }
+
             locomotion.SetVelocity(targetDir, currentDashSpeed);
             timer += Time.deltaTime;
             yield return null;
@@ -291,6 +314,12 @@ public class KnightBoss : MonoBehaviour
         if (boss.currentPhase == 2)
         {
             animator.SetBool("isDashing", false);
+        }
+
+        if (hitWall)
+        {
+            CameraShakeManager.Instance?.CameraShake(impulseSource, 0.5f);
+            yield return new WaitForSeconds(0.5f);
         }
 
         boss.isAttacking = false;

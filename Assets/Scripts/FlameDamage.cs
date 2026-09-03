@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FlameDamage : MonoBehaviour
 {
-    public int damage = 10;
+    public int damage = 20;
     public float tickRate = 0.1f;
 
     private Dictionary<GameObject, float> lastDamageTimes = new Dictionary<GameObject, float>();

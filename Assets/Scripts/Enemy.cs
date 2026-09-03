@@ -23,6 +23,11 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         if (data != null) currentHP = data.maxHP;
         rb = GetComponent<Rigidbody2D>();
+
+        UnityEngine.Vector2 laserSpawnPos = transform.position;
+        laserSpawnPos.y += 1f * transform.localScale.y;
+        ObjectPooler.Instance?.SpawnFromPool(data.spawnAnimation, laserSpawnPos, transform.rotation);
+        SFXManager.Instance?.PlaySFX(data.spawnSFX, transform.position, 0.3f, true, 0.75f, 1.25f);
     }
 
     public virtual void takeDmg(int damage)

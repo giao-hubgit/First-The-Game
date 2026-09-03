@@ -16,8 +16,6 @@ public class EnemySpawner : MonoBehaviour
     private RoomTemplate roomTemplate;
 
     private string spawnparticlePrefab = "EnemySpawnParticle";
-    private string spawnparticlePrefab1 = "EnemySpawnParticle2";
-    [SerializeField] AudioClip spawnSFX;
     [SerializeField] AudioClip doorSFX;
 
     public GameObject[] doors;
@@ -70,27 +68,9 @@ public class EnemySpawner : MonoBehaviour
 
                 GameObject bossPrefab = RoomTemplate.Instance.boss;
 
-                Vector2 spawnPos = bossPrefab.transform.position;
-                spawnPos.y += 1f * bossPrefab.transform.localScale.y;
-
-                GameObject p1 = ObjectPooler.Instance?.SpawnFromPool(spawnparticlePrefab, spawnPos, quaternion.identity);
-                if (p1 != null)
-                {
-                    p1.transform.localScale = Vector3.Scale(p1.transform.localScale, bossPrefab.transform.localScale);
-                }
+                GameObject spawnedBoss = Instantiate(bossPrefab, transform.position, Quaternion.identity);
 
                 yield return new WaitForSeconds(spawnDelay);
-
-                SFXManager.Instance?.PlaySFX(spawnSFX, spawnPos);
-                SFXManager.Instance?.PlaySFX(spawnSFX, spawnPos);
-
-                GameObject laser1 = ObjectPooler.Instance?.SpawnFromPool(spawnparticlePrefab1, spawnPos, quaternion.identity);
-                if (laser1 != null)
-                {
-                    laser1.transform.localScale = Vector3.Scale(laser1.transform.localScale, bossPrefab.transform.localScale);
-                }
-
-                GameObject spawnedBoss = Instantiate(bossPrefab, transform.position, Quaternion.identity);
 
                 aliveEnemies.Add(spawnedBoss);
 
@@ -114,11 +94,6 @@ public class EnemySpawner : MonoBehaviour
                 GameObject meleePrefab = template.Melee[UnityEngine.Random.Range(0, template.Melee.Length)];
                 GameObject rangedPrefab = template.Ranged[UnityEngine.Random.Range(0, template.Ranged.Length)];
 
-                Vector2 randomPos1SpawnLaser = randomPosition1;
-                randomPos1SpawnLaser.y += 1f * meleePrefab.transform.localScale.y;
-                Vector2 randomPos2SpawnLaser = randomPosition2;
-                randomPos2SpawnLaser.y += 1f * rangedPrefab.transform.localScale.y;
-
                 GameObject p1 = ObjectPooler.Instance?.SpawnFromPool(spawnparticlePrefab, randomPosition1, quaternion.identity);
                 if (p1 != null)
                 {
@@ -132,21 +107,6 @@ public class EnemySpawner : MonoBehaviour
                 }
 
                 yield return new WaitForSeconds(spawnDelay);
-
-                SFXManager.Instance?.PlaySFX(spawnSFX, randomPosition1);
-                SFXManager.Instance?.PlaySFX(spawnSFX, randomPosition2);
-
-                GameObject laser1 = ObjectPooler.Instance?.SpawnFromPool(spawnparticlePrefab1, randomPos1SpawnLaser, quaternion.identity);
-                if (laser1 != null)
-                {
-                    laser1.transform.localScale = Vector3.Scale(laser1.transform.localScale, meleePrefab.transform.localScale);
-                }
-
-                GameObject laser2 = ObjectPooler.Instance?.SpawnFromPool(spawnparticlePrefab1, randomPos2SpawnLaser, quaternion.identity);
-                if (laser2 != null)
-                {
-                    laser2.transform.localScale = Vector3.Scale(laser2.transform.localScale, rangedPrefab.transform.localScale);
-                }
 
                 GameObject spawnedMelee = Instantiate(meleePrefab, randomPosition1, Quaternion.identity);
                 aliveEnemies.Add(spawnedMelee);

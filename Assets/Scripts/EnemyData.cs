@@ -13,6 +13,8 @@ public class EnemyData : ScriptableObject
     [Header("Misc")]
     public string deathParticle = "EnemyDeathParticle";
     public string deathAnimation = "EnemyDeathAnimation";
+    public string spawnAnimation = "EnemySpawnAnimation";
+    public AudioClip spawnSFX;
     public AudioClip deathSFX;
     public AudioClip crashSFX;
     public string itemDrop = "Pistol Pickup";

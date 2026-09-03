@@ -9,6 +9,7 @@ public class PlayerMeleeWeapon : MonoBehaviour
 {
     public WeaponMeleeData currentWeapon;
     public Image weaponIconUI;
+    [SerializeField] Image meleeCooldown;
 
     private float nextSlashTime = 0f;
     public bool isHoldingAttack = false;
@@ -61,6 +62,12 @@ public class PlayerMeleeWeapon : MonoBehaviour
 
         nextSlashTime = Time.unscaledTime + currentWeapon.cooldown;
 
+        if (meleeCooldown != null) meleeCooldown.fillAmount = 0f;
+
+        StartCoroutine(meleeCooldownIE());
+
+        if (meleeCooldown != null) meleeCooldown.fillAmount = 1f;
+
         if (currentWeapon.isThrust)
         {
             StartCoroutine(PerformThrust());
@@ -73,6 +80,20 @@ public class PlayerMeleeWeapon : MonoBehaviour
         if (currentWeapon.delayStart >= 0.5f)
         {
             SFXManager.Instance?.PlaySFX(currentWeapon.appearSFX, transform.position, 0.15f, true, 1.5f, 2f);
+        }
+    }
+
+    private IEnumerator meleeCooldownIE()
+    {
+        float timer = 0f;
+        while (timer < currentWeapon.cooldown)
+        {
+            timer += Time.unscaledDeltaTime;
+            if (meleeCooldown != null)
+            {
+                meleeCooldown.fillAmount = timer / currentWeapon.cooldown;
+            }
+            yield return null;
         }
     }
 
