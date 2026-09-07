@@ -1,15 +1,17 @@
 using UnityEditor;
 using UnityEngine;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "New Boss Data", menuName = "Boss/Boss Data")]
 public class BossData : EnemyData
 {
-    [Header("Boss Animation SFX")]
+    [Header("Boss SFX")]
     public AudioClip transformSFX;
     public AudioClip dashSFX;
     public AudioClip phase2DashSFX;
     public AudioClip chargeSFX;
     public AudioClip moveSFX;
+    public List<AudioClip> musicSFX;
 
     [Header("Boss Timing Settings")]
     [Tooltip("Thời gian Boss đi lại loanh quanh trước khi tung đòn")]

@@ -14,6 +14,7 @@ public class Boss : Enemy
     protected override void Awake()
     {
         base.Awake();
+        BGMManager.Instance?.PlayBGM(bossData.musicSFX[currentPhase - 1]);
     }
 
     protected override void Update()
@@ -55,11 +56,13 @@ public class Boss : Enemy
         }
 
         if (bossData.transformSFX != null) SFXManager.Instance?.PlaySFX(bossData.transformSFX, transform.position);
+        if (bossData.musicSFX != null && currentPhase - 1 < bossData.musicSFX.Count) BGMManager.Instance?.PlayBGM(bossData.musicSFX[currentPhase - 1]);
     }
 
     protected override void Die()
     {
         Debug.Log("Boss tèo, Spawn cổng qua màn");
+        if (bossData.musicSFX != null) BGMManager.Instance?.StopBGM();
         base.Die();
     }
 }

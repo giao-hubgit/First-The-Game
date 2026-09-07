@@ -42,6 +42,9 @@ MonoBehaviour:
   phase2DashSFX: {fileID: 8300000, guid: ace9caf669f2abf4bb7f045858fa8e89, type: 3}
   chargeSFX: {fileID: 8300000, guid: 48553b76a014c3a4fbe9a63b6d60d71d, type: 3}
   moveSFX: {fileID: 8300000, guid: 8be4a6bc5dc25eb4c9c488ec714e2164, type: 3}
+  musicSFX:
+  - {fileID: 8300000, guid: ea79f2753e9faa04c88e7c37dee13736, type: 3}
+  - {fileID: 8300000, guid: 0724267ef2af01f44aabcbb9e17dba99, type: 3}
   movementDuration: 1
   postAttackCooldown: 0.5
   preAttackDelay: 0.5
