@@ -5,6 +5,9 @@ using System.Collections.Generic;
 [CreateAssetMenu(fileName = "New Boss Data", menuName = "Boss/Boss Data")]
 public class BossData : EnemyData
 {
+    [Header("Boss Info")]
+    public string bossName;
+
     [Header("Boss SFX")]
     public AudioClip transformSFX;
     public AudioClip dashSFX;

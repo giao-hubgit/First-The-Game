@@ -37,6 +37,7 @@ MonoBehaviour:
   bulletsPerBurst: 4
   timeBetweenBullets: 0.2
   bulletSpread: 45
+  bossName: Hightech Knight
   transformSFX: {fileID: 8300000, guid: c0cc02442f0f5ec47bf47ed67baf5bf5, type: 3}
   dashSFX: {fileID: 8300000, guid: fd2f9eef406a19b43b44dd4d175df21c, type: 3}
   phase2DashSFX: {fileID: 8300000, guid: ace9caf669f2abf4bb7f045858fa8e89, type: 3}
@@ -56,4 +57,4 @@ MonoBehaviour:
   bulletBossPrefabS: Miniboss1 Bullet
   laserPrefabS: Miniboss1 Laser
   phaseThresholds:
-  - 0.7
+  - 0.6

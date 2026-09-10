@@ -1,10 +1,5 @@
-using System.Numerics;
-using System.Xml.Serialization;
-using System;
+using System.Collections;
 using UnityEngine;
-using Unity.VisualScripting;
-using System.Data.Common;
-using Unity.Mathematics;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
@@ -16,6 +11,10 @@ public class Enemy : MonoBehaviour, IDamageable
     private bool isDead = false;
 
     protected Rigidbody2D rb;
+    protected SpriteRenderer spriteRenderer;
+
+    [Header("Death Settings")]
+    [SerializeField] protected float fadeDuration = 0.5f;
 
     public EntityHurtsVFX enemyHurtsVFX;
 
@@ -24,7 +23,10 @@ public class Enemy : MonoBehaviour, IDamageable
         if (data != null) currentHP = data.maxHP;
         rb = GetComponent<Rigidbody2D>();
 
-        UnityEngine.Vector2 laserSpawnPos = transform.position;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        Vector2 laserSpawnPos = transform.position;
         laserSpawnPos.y += 1f * transform.localScale.y;
         ObjectPooler.Instance?.SpawnFromPool(data.spawnAnimation, laserSpawnPos, transform.rotation);
         SFXManager.Instance?.PlaySFX(data.spawnSFX, transform.position, 0.3f, true, 0.75f, 1.25f);
@@ -50,32 +52,52 @@ public class Enemy : MonoBehaviour, IDamageable
 
     protected virtual void Die()
     {
-        /*if (deathEffect != null)
-        {
-            GameObject effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
-            Destroy(effect, 1f);
-        }
-
-        if (DeathParticle != null)
-        {
-            ParticleSystem particle = Instantiate(DeathParticle, transform.position, Quaternion.identity);
-            particle.Play();
-            Destroy(particle.gameObject, 2f);
-        }*/
         SFXManager.Instance?.PlaySFX(data.deathSFX, transform.position);
 
-        GameObject deathParticle = ObjectPooler.Instance.SpawnFromPool(data.deathParticle, transform.position, UnityEngine.Quaternion.identity);
-        deathParticle.transform.localScale = transform.localScale;
+        if (ObjectPooler.Instance != null)
+        {
+            GameObject deathParticle = ObjectPooler.Instance.SpawnFromPool(data.deathParticle, transform.position, Quaternion.identity);
+            if (deathParticle != null) deathParticle.transform.localScale = transform.localScale;
 
-        ObjectPooler.Instance.SpawnFromPool(data.deathAnimation, transform.position, transform.rotation);
+            ObjectPooler.Instance.SpawnFromPool(data.deathAnimation, transform.position, transform.rotation);
+            ObjectPooler.Instance.SpawnFromPool(data.itemDrop, transform.position, transform.rotation);
+        }
 
-        ObjectPooler.Instance.SpawnFromPool(data.itemDrop, transform.position, transform.rotation);
+        Collider2D col = GetComponent<Collider2D>();
+        if (col != null) col.enabled = false;
+        if (rb != null)
+        {
+            rb.simulated = false;
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
+
+        StartCoroutine(FadeOutAndDestroy());
+    }
+
+    private IEnumerator FadeOutAndDestroy()
+    {
+        if (spriteRenderer != null)
+        {
+            Color startColor = spriteRenderer.color;
+            float elapsed = 0f;
+
+            while (elapsed < fadeDuration)
+            {
+                elapsed += Time.deltaTime;
+                float newAlpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
+                spriteRenderer.color = new Color(startColor.r, startColor.g, startColor.b, newAlpha);
+                yield return null;
+            }
+        }
 
         Destroy(gameObject);
     }
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
+        if (isDead) return;
+
         if (collision.relativeVelocity.magnitude >= 4f && isCrashing == true)
         {
             SFXManager.Instance?.PlaySFX(data.crashSFX, transform.position);
@@ -94,6 +116,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
     protected virtual void OnCollisionStay2D(Collision2D collision)
     {
+        if (isDead) return;
+
         if (collision.gameObject.CompareTag("Player"))
         {
             PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
@@ -108,7 +132,6 @@ public class Enemy : MonoBehaviour, IDamageable
                 }
             }
         }
-
         else if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable)
                 && !collision.gameObject.CompareTag("Enemy")
                 && !collision.gameObject.TryGetComponent<Explode>(out Explode explode))

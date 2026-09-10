@@ -285,7 +285,7 @@ public class KnightBoss : MonoBehaviour
         float timer = 0f;
         float bossRadius = 0.5f;
 
-        LayerMask stopLayers = LayerMask.GetMask("Player", "Wall");
+        LayerMask stopLayers = LayerMask.GetMask("Wall");
         bool hitWall = false;
 
         while (timer < dashDuration)
