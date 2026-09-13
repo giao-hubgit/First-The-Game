@@ -85,6 +85,8 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator SlowMotion()
     {
+        if (PauseMenu.isPaused) yield break;
+
         IsSlowMoActive = true;
         isCooldown = true;
         if (slowmoBar != null) slowmoBar.fillAmount = 0f;
@@ -101,7 +103,8 @@ public class PlayerMovement : MonoBehaviour
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
         float normalDuration = data.slowMoDuration - blinkStartTime;
-        yield return new WaitForSecondsRealtime(normalDuration);
+
+        yield return StartCoroutine(StartCountdown(normalDuration));
 
         float blinkTimer = 0f;
         bool isVisible = true;
@@ -111,12 +114,15 @@ public class PlayerMovement : MonoBehaviour
             isVisible = !isVisible;
             SetOverlayAlpha(isVisible ? maxOverlayAlpha : 0f);
 
-            yield return new WaitForSecondsRealtime(blinkInterval);
+            yield return StartCoroutine(StartCountdown(blinkInterval));
             blinkTimer += blinkInterval;
         }
 
-        Time.timeScale = 1f;
-        Time.fixedDeltaTime = 0.02f;
+        if (!PauseMenu.isPaused)
+        {
+            Time.timeScale = 1f;
+            Time.fixedDeltaTime = 0.02f;
+        }
 
         if (slowMoOverlay != null)
         {
@@ -125,14 +131,16 @@ public class PlayerMovement : MonoBehaviour
 
         IsSlowMoActive = false;
 
-        yield return new WaitForSecondsRealtime(data.slowMoCooldown);
         float timer = 0f;
         while (timer < data.slowMoCooldown)
         {
-            timer += Time.deltaTime;
-            if (slowmoBar != null)
+            if (!PauseMenu.isPaused)
             {
-                slowmoBar.fillAmount = timer / data.slowMoCooldown;
+                timer += Time.unscaledDeltaTime;
+                if (slowmoBar != null)
+                {
+                    slowmoBar.fillAmount = timer / data.slowMoCooldown;
+                }
             }
             yield return null;
         }
@@ -141,6 +149,19 @@ public class PlayerMovement : MonoBehaviour
 
         SFXManager.Instance?.PlaySFX(data.SlowmoAlready, transform.position, 0.3f, true, 0.75f, 1.25f);
         isCooldown = false;
+    }
+
+    private IEnumerator StartCountdown(float duration)
+    {
+        float timer = 0f;
+        while (timer < duration)
+        {
+            if (!PauseMenu.isPaused)
+            {
+                timer += Time.unscaledDeltaTime;
+            }
+            yield return null;
+        }
     }
 
     private void SetOverlayAlpha(float alpha)

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
@@ -64,6 +65,10 @@ public class Enemy : MonoBehaviour, IDamageable
         }
 
         Collider2D col = GetComponent<Collider2D>();
+        NavMeshAgent navMesh = GetComponent<NavMeshAgent>();
+
+        if (navMesh != null) navMesh.enabled = false;
+
         if (col != null) col.enabled = false;
         if (rb != null)
         {

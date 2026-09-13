@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour
     public void startGame()
     {
         playSFX(clickClip);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Game");
     }
 
     public void Setting()
