@@ -4,12 +4,13 @@ using UnityEngine;
 public class Breakable : MonoBehaviour, IDamageable
 {
     public string brokenPrefab = "CrateShattered";
+    public string brokenParticle = "BreakableParticle";
     public float explosionForce = 5f;
-    public int health = 100;
+    public float health = 100f;
 
     [SerializeField] AudioClip breakSFX;
 
-    public void takeDmg(int dmg)
+    public void takeDmg(float dmg)
     {
         health -= dmg;
         if (health <= 0) Break(transform.position);
@@ -18,6 +19,7 @@ public class Breakable : MonoBehaviour, IDamageable
     public void Break(Vector2 explosionSource)
     {
         GameObject brokenObj = ObjectPooler.Instance.SpawnFromPool(brokenPrefab, transform.position, Quaternion.identity);
+        ObjectPooler.Instance.SpawnFromPool(brokenParticle, transform.position, Quaternion.identity);
         Rigidbody2D[] fragments = brokenObj.GetComponentsInChildren<Rigidbody2D>();
 
         foreach (Rigidbody2D rb in fragments)

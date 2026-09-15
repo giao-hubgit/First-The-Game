@@ -332,7 +332,7 @@ public class PlayerMovement : MonoBehaviour
             HitStop.Instance?.Stop(0.1f, playerMovement);
             SFXManager.Instance?.PlaySFX(data.dashCrashSFX, transform.position);
             CameraShakeManager.Instance?.CameraShake(impulseSource, 0.25f);
-            damageable.takeDmg(data.dashDMG);
+            damageable.takeDmg(data.dashDMG * data.baseDMG);
 
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
             if (enemy != null)

@@ -13,6 +13,7 @@ public class PlayerRangedWeapon : MonoBehaviour
     [SerializeField] private TextMeshProUGUI ammoTextUI;
     [SerializeField] private AudioClip outOfAmmoSFX;
     [SerializeField] private CinemachineImpulseSource impulseSource;
+    [SerializeField] private IAttacker ownerAttacker;
 
     public WeaponRangedData currentWeapon;
     public WeaponRangedData nullWeapon;
@@ -27,6 +28,7 @@ public class PlayerRangedWeapon : MonoBehaviour
     void Awake()
     {
         impulseSource = GetComponent<CinemachineImpulseSource>();
+        ownerAttacker = GetComponentInParent<IAttacker>();
     }
 
     void Start()
@@ -87,6 +89,10 @@ public class PlayerRangedWeapon : MonoBehaviour
                 firePoint.position,
                 bulletRotation
             );
+            if (bullet.TryGetComponent<Bullet>(out Bullet Bullet))
+            {
+                Bullet.Init(ownerAttacker);
+            }
 
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
             rb.linearVelocity = bullet.transform.up * currentWeapon.bulletForce;

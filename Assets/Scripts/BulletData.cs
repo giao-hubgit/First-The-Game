@@ -1,4 +1,3 @@
-using UnityEditor.AdaptivePerformance.Editor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Bullet", menuName = "Projectiles/Bullet Data")]

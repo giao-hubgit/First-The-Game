@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: RedCube_Data
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   maxHP: 180
+  baseDMG: 1
   collisionDMG: 20
   damageRate: 1
   aggroRange: 20
@@ -24,16 +25,7 @@ MonoBehaviour:
   deathSFX: {fileID: 8300000, guid: 7012821bbf3e894458d8da223dafc11a, type: 3}
   crashSFX: {fileID: 8300000, guid: eca835397b1ddc0468406add3ae25102, type: 3}
   itemDrop: 
-  bulletPrefabS: 
-  bulletForce: 0
-  bulletSFXClip: {fileID: 0}
   visionRange: 0
-  fireRate: 0
   lineOfSightLayer:
     serializedVersion: 2
     m_Bits: 0
-  maxBullets: 0
-  spreadAngle: 0
-  bulletsPerBurst: 0
-  timeBetweenBullets: 0
-  bulletSpread: 0

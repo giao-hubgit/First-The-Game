@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1379179057430477085}
   - component: {fileID: 4786938095987733158}
   - component: {fileID: 624942093066299484}
+  - component: {fileID: -786846953639323528}
   m_Layer: 13
   m_Name: enemy5
   m_TagString: Enemy
@@ -234,10 +235,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5727216b46c3337448ca6b3c5d2db1d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  data: {fileID: 11400000, guid: a5fa003938863e742b03dd5b60821cb9, type: 2}
+  data: {fileID: 11400000, guid: 1917df1d68cf51147809a0475fb8f208, type: 2}
   isCrashing: 0
+  fadeDuration: 0.5
   enemyHurtsVFX: {fileID: 552901823190740738}
   target: {fileID: 0}
+  rangedWeapon: {fileID: 0}
+--- !u!114 &-786846953639323528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053757681715382573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71eaba674faedb64fa8a902d79dbf3cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyRangedWeapon
+  currentWeapon: {fileID: 11400000, guid: 7940bd36140e5ba4eba26dc6b5c36eba, type: 2}
   firePoint: {fileID: 991817525947762724}
 --- !u!1 &4848931787131712081
 GameObject:

@@ -3,16 +3,19 @@ using UnityEngine;
 public class RedCubeRanged : Enemy
 {
     public Transform target;
-    public Transform firePoint;
+    [SerializeField] private EnemyRangedWeapon rangedWeapon;
 
-    protected float nextFireTime = 0f;
-
-    virtual protected void Start()
+    protected virtual void Start()
     {
         if (target == null)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null) target = player.transform;
+        }
+
+        if (rangedWeapon == null)
+        {
+            rangedWeapon = GetComponent<EnemyRangedWeapon>();
         }
     }
 
@@ -27,53 +30,30 @@ public class RedCubeRanged : Enemy
         }
     }
 
-    virtual protected void RotateTowardsPlayer()
+    protected virtual void RotateTowardsPlayer()
     {
         Vector2 direction = target.position - transform.position;
-
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
-    virtual protected void CheckLineOfSightAndShoot()
+    protected virtual void CheckLineOfSightAndShoot()
     {
         float distanceToPlayer = Vector2.Distance(transform.position, target.position);
 
         if (distanceToPlayer <= data.visionRange)
         {
             Vector2 directionToPlayer = (target.position - transform.position).normalized;
-
             RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, data.visionRange, data.lineOfSightLayer);
 
             if (hit.collider != null && hit.collider.CompareTag("Player"))
             {
-                if (Time.time >= nextFireTime)
-                {
-                    Shoot(directionToPlayer);
-                    nextFireTime = Time.time + data.fireRate;
-                }
+                rangedWeapon?.TryShoot();
             }
         }
     }
 
-    virtual protected void Shoot(Vector2 shootDirection)
-    {
-        GameObject bullet = ObjectPooler.Instance?.SpawnFromPool(data.bulletPrefabS, firePoint.position, firePoint.rotation);
-
-        Rigidbody2D rbBullet = bullet.GetComponent<Rigidbody2D>();
-        if (rbBullet != null)
-        {
-            rbBullet.linearVelocity = shootDirection * data.bulletForce;
-        }
-
-        if (data.bulletSFXClip != null)
-        {
-            SFXManager.Instance?.PlaySFX(data.bulletSFXClip, transform.position, 0.3f, true, 0.75f, 1.25f);
-        }
-    }
-
-    virtual protected void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, data.visionRange);

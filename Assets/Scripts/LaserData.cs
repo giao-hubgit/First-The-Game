@@ -4,7 +4,7 @@ using UnityEngine;
 public class LaserData : ScriptableObject
 {
     [Header("Damage Settings")]
-    public int damage = 10;
+    public float damage = 10f;
     public float damageTick = 0.2f;
 
     [Header("Visual Settings")]

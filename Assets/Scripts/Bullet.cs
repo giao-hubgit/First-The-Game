@@ -6,7 +6,13 @@ using UnityEngine.Pool;
 public class Bullet : MonoBehaviour
 {
     public BulletData data;
+    public IAttacker ownerAttacker;
     [SerializeField] string ignoreTag = "Player";
+
+    public virtual void Init(IAttacker attacker)
+    {
+        ownerAttacker = attacker;
+    }
 
     protected virtual void OnTriggerEnter2D(Collider2D hitInfo)
     {
@@ -32,7 +38,9 @@ public class Bullet : MonoBehaviour
                         rb.AddTorque(UnityEngine.Random.Range(-6f, 6f), ForceMode2D.Impulse);
                     }
                 }
-                damageable.takeDmg(data.damage);
+
+                float finalDamage = ownerAttacker != null ? ownerAttacker.dmgDealt(data.damage) : data.damage;
+                damageable.takeDmg(finalDamage);
             }
         }
 

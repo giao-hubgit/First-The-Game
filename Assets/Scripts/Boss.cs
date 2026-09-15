@@ -38,7 +38,7 @@ public class Boss : Enemy
         isInvulnerable = (!isIntroFinished || isTransforming);
     }
 
-    public override void takeDmg(int damage)
+    public override void takeDmg(float damage)
     {
         if (isInvulnerable) return;
 

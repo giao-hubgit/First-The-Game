@@ -15,7 +15,8 @@ GameObject:
   - component: {fileID: 3615778373529710142}
   - component: {fileID: 6866924924154755109}
   - component: {fileID: 6912582259906519021}
-  - component: {fileID: 6676998699857951056}
+  - component: {fileID: 2419450299621668672}
+  - component: {fileID: 7365456309711508999}
   m_Layer: 13
   m_Name: enemy3
   m_TagString: Enemy
@@ -222,7 +223,7 @@ NavMeshAgent:
   m_BaseOffset: 0.32
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6676998699857951056
+--- !u!114 &2419450299621668672
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -231,13 +232,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 1943046773742670504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81c85762dc0f7ab448f77f13563a9239, type: 3}
+  m_Script: {fileID: 11500000, guid: 5727216b46c3337448ca6b3c5d2db1d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  data: {fileID: 11400000, guid: 94417a2d314203c4b92a564851f79f94, type: 2}
+  data: {fileID: 11400000, guid: 1917df1d68cf51147809a0475fb8f208, type: 2}
   isCrashing: 0
+  fadeDuration: 0.5
   enemyHurtsVFX: {fileID: 3615778373529710142}
   target: {fileID: 0}
+  rangedWeapon: {fileID: 0}
+--- !u!114 &7365456309711508999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943046773742670504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71eaba674faedb64fa8a902d79dbf3cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyRangedWeapon
+  currentWeapon: {fileID: 11400000, guid: 918056dd46e88724a8a3e9c288e8da16, type: 2}
   firePoint: {fileID: 521113822824098380}
 --- !u!1 &6548870014000342098
 GameObject:

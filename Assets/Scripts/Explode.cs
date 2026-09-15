@@ -10,8 +10,8 @@ public class Explode : MonoBehaviour, IDamageable
 {
     public float explosionRadius = 5f;
     public float explosionForce = 500f;
-    public int explosionDmg = 100;
-    public int health = 100;
+    public float explosionDmg = 100f;
+    public float health = 100f;
     private int state = 0;
 
     public LayerMask HitTarget;
@@ -29,7 +29,7 @@ public class Explode : MonoBehaviour, IDamageable
         impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
-    public void takeDmg(int dmg)
+    public void takeDmg(float dmg)
     {
         if (isExploded) return;
 

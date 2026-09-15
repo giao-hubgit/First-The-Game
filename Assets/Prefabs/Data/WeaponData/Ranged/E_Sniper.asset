@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e57e5d5ddca8edb40bf91a6045ba6e73, type: 3}
-  m_Name: Machine Gun
+  m_Name: E_Sniper
   m_EditorClassIdentifier: Assembly-CSharp::WeaponRangedData
-  weaponName: Machine Gun
+  weaponName: Sniper
   weaponType: 0
   weaponPrefab: {fileID: 0}
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  weaponIcon: {fileID: 21300000, guid: 0f34796219d9a9e43b3a0575280cd671, type: 3}
-  bulletTag: PlayerBullet
+  weaponIcon: {fileID: 21300000, guid: d111b9d96af72ee459d743475fb6dbe8, type: 3}
+  bulletTag: SniperBulletE
   bulletForce: 20
-  fireRate: 0.1
+  fireRate: 12
   burstCount: 1
   timeBetweenBullets: 0.1
-  spread: 20
-  shootSFX: {fileID: 8300000, guid: e92c7a235ab5cc7458a5d415534f6feb, type: 3}
-  isAutomatic: 1
-  maxAmmo: 30
-  recoil: 1
-  shakeForce: 0
+  spread: 0
+  shootSFX: {fileID: 8300000, guid: 3c110a2d3f385a944838fa0f3ce954e2, type: 3}
+  isAutomatic: 0
+  maxAmmo: 5
+  recoil: 10
+  shakeForce: 0.3

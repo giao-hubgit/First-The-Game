@@ -292,6 +292,7 @@ public class PlayerMeleeWeapon : MonoBehaviour
         hitbox.hitImpact = currentWeapon.hitImpact;
         hitbox.hitSFX = currentWeapon.hitSFX;
         hitbox.knockback = currentWeapon.knockback;
+        hitbox.canReflectBullets = currentWeapon.reflectForce > 0;
         hitbox.reflectedBullet = currentWeapon.reflectedBullet;
         hitbox.reflectForce = currentWeapon.reflectForce;
         hitbox.hitTargetMask = currentWeapon.HitTarget;

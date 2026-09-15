@@ -88,6 +88,7 @@ public class PauseMenu : MonoBehaviour
     public void quitGame()
     {
         playSFX(clickClip);
+        isPaused = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene("Start Menu");
     }

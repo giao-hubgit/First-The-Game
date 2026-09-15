@@ -31,6 +31,13 @@ public class BossData : EnemyData
     [Header("Boss Stats & Attacks")]
     public float dashSpeed = 15f;
     public float dashDistance = 8f;
+    public string bulletPrefabS = "EnemyBullet";
+    public float bulletForce = 10f;
+    public int bulletsPerBurst = 3;
+    public float timeBetweenBullets = 0.1f;
+    public float bulletSpread = 10f;
+    public AudioClip bulletSFXClip;
+
 
     [Header("Projectitles Settings")]
     public int radialBulletCount = 8;

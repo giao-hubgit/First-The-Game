@@ -2,11 +2,11 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour, IDamageable
+public class Player : MonoBehaviour, IDamageable, IAttacker
 {
     [SerializeField] PlayerData data;
     private bool isInvulnerable = false;
-    private int currentHP;
+    private float currentHP;
 
     public EntityHurtsVFX playerHurtsVFX;
 
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour, IDamageable
         currentHP = data.maxHP;
     }
 
-    public void takeDmg(int damage)
+    public void takeDmg(float damage)
     {
         if (isInvulnerable) return;
 
@@ -42,6 +42,11 @@ public class Player : MonoBehaviour, IDamageable
             HitStop.Instance?.Stop(0.075f, null);
             Die();
         }
+    }
+
+    public float dmgDealt(float damage)
+    {
+        return damage * data.baseDMG;
     }
 
     private void Die()

@@ -1,11 +1,11 @@
-using UnityEditor.AdaptivePerformance.Editor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New PlayerData", menuName = "Player/Player Data")]
 public class PlayerData : ScriptableObject
 {
     [Header("Base Stats")]
-    public int maxHP = 100;
+    public float maxHP = 100;
+    public float baseDMG = 1f;
     public float invulnerabilityTime = 0.5f;
     public int collisionDMG = 20;
     public GameObject deathEffect;

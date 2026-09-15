@@ -7,7 +7,7 @@ public class Landmine : MonoBehaviour
 {
     public float explosionRadius = 5f;
     public float explosionForce = 500f;
-    public int explosionDmg = 100;
+    public float explosionDmg = 100f;
     public LayerMask HitTarget;
 
     [SerializeField] AudioClip tickSFX;

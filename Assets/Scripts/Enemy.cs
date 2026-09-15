@@ -2,12 +2,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour, IDamageable
+public class Enemy : MonoBehaviour, IDamageable, IAttacker
 {
     public EnemyData data;
     private float nextDamageTime = 0f;
 
-    protected int currentHP;
+    protected float currentHP;
     public bool isCrashing = false;
     private bool isDead = false;
 
@@ -33,22 +33,27 @@ public class Enemy : MonoBehaviour, IDamageable
         SFXManager.Instance?.PlaySFX(data.spawnSFX, transform.position, 0.3f, true, 0.75f, 1.25f);
     }
 
-    public virtual void takeDmg(int damage)
+    public virtual void takeDmg(float damage)
     {
         if (isDead) return;
 
         currentHP -= damage;
-
-        if (enemyHurtsVFX != null)
-        {
-            enemyHurtsVFX.PlayOnDamageVFX();
-        }
 
         if (currentHP <= 0)
         {
             isDead = true;
             Die();
         }
+
+        if (enemyHurtsVFX != null)
+        {
+            enemyHurtsVFX.PlayOnDamageVFX();
+        }
+    }
+
+    public virtual float dmgDealt(float damage)
+    {
+        return damage * data.baseDMG;
     }
 
     protected virtual void Die()
@@ -114,7 +119,7 @@ public class Enemy : MonoBehaviour, IDamageable
             else if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable)
                     && !collision.gameObject.CompareTag("Player"))
             {
-                damageable.takeDmg(data.collisionDMG);
+                damageable.takeDmg(data.collisionDMG * data.baseDMG);
             }
         }
     }
@@ -132,7 +137,7 @@ public class Enemy : MonoBehaviour, IDamageable
             {
                 if (playerMovement.isDashing != true && Time.time >= nextDamageTime)
                 {
-                    player.takeDmg(data.collisionDMG);
+                    player.takeDmg(data.collisionDMG * data.baseDMG);
                     nextDamageTime = Time.time + data.damageRate;
                 }
             }
@@ -143,7 +148,7 @@ public class Enemy : MonoBehaviour, IDamageable
         {
             if (damageable != null && Time.time >= nextDamageTime)
             {
-                damageable.takeDmg(data.collisionDMG);
+                damageable.takeDmg(data.collisionDMG * data.baseDMG);
                 nextDamageTime = Time.time + data.damageRate;
             }
         }
