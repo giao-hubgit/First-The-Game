@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using Unity.Cinemachine;
+using System.Collections.Generic;
 
 
 public enum BossAttackType
@@ -23,6 +24,7 @@ public class KnightBoss : MonoBehaviour
     [SerializeField] private LaserData laserData;
     private TrailRenderer trail;
     private CinemachineImpulseSource impulseSource;
+    private List<BossAttackType> attackBag = new List<BossAttackType>();
 
 
     private void Awake()
@@ -41,6 +43,37 @@ public class KnightBoss : MonoBehaviour
         trail.emitting = false;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         StartCoroutine(BossLogicPattern());
+    }
+
+    private BossAttackType GetNextAttack()
+    {
+        if (attackBag.Count == 0)
+        {
+            RefillAndShuffleBag();
+        }
+
+        BossAttackType nextAttack = attackBag[0];
+        attackBag.RemoveAt(0);
+        return nextAttack;
+    }
+
+    private void RefillAndShuffleBag()
+    {
+        attackBag.Clear();
+        int maxAttackIndex = boss.currentPhase >= 2 ? 4 : 3;
+
+        for (int i = 0; i < maxAttackIndex; i++)
+        {
+            attackBag.Add((BossAttackType)i);
+        }
+
+        for (int i = 0; i < attackBag.Count; i++)
+        {
+            BossAttackType temp = attackBag[i];
+            int randomIndex = Random.Range(i, attackBag.Count);
+            attackBag[i] = attackBag[randomIndex];
+            attackBag[randomIndex] = temp;
+        }
     }
 
     private IEnumerator BossLogicPattern()
@@ -95,13 +128,7 @@ public class KnightBoss : MonoBehaviour
 
             yield return new WaitForSeconds(preDelay);
 
-            int maxAttackIndex = 3;
-            if (boss.currentPhase >= 2)
-            {
-                maxAttackIndex = 4;
-            }
-
-            BossAttackType chosenAttack = (BossAttackType)Random.Range(0, maxAttackIndex);
+            BossAttackType chosenAttack = GetNextAttack();
 
             switch (chosenAttack)
             {

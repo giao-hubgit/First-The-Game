@@ -18,7 +18,7 @@ MonoBehaviour:
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
   weaponIcon: {fileID: 21300000, guid: 8f2694c36c044544a8c045153bee80dd, type: 3}
   bulletTag: EnemyBullet
-  bulletForce: 10
+  bulletForce: 5
   fireRate: 8
   burstCount: 5
   timeBetweenBullets: 0

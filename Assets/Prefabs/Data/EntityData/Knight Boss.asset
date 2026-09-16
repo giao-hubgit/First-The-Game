@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bad14e807099c374d95b62507d5cbfab, type: 3}
   m_Name: Knight Boss
   m_EditorClassIdentifier: Assembly-CSharp::BossData
-  maxHP: 4000
+  maxHP: 3000
   baseDMG: 0.5
   collisionDMG: 40
   damageRate: 1
@@ -25,19 +25,10 @@ MonoBehaviour:
   deathSFX: {fileID: 8300000, guid: 7012821bbf3e894458d8da223dafc11a, type: 3}
   crashSFX: {fileID: 8300000, guid: eca835397b1ddc0468406add3ae25102, type: 3}
   itemDrop: Pistol Pickup
-  bulletPrefabS: EnemyBullet
-  bulletForce: 10
-  bulletSFXClip: {fileID: 8300000, guid: 6d7730b6892b7624aab93edc6daa803f, type: 3}
   visionRange: 0
-  fireRate: 0
   lineOfSightLayer:
     serializedVersion: 2
     m_Bits: 3072
-  maxBullets: 0
-  spreadAngle: 0
-  bulletsPerBurst: 4
-  timeBetweenBullets: 0.2
-  bulletSpread: 45
   bossName: Hightech Knight
   transformSFX: {fileID: 8300000, guid: c0cc02442f0f5ec47bf47ed67baf5bf5, type: 3}
   dashSFX: {fileID: 8300000, guid: fd2f9eef406a19b43b44dd4d175df21c, type: 3}
@@ -54,8 +45,14 @@ MonoBehaviour:
   maxMoveDistance: 8
   dashSpeed: 60
   dashDistance: 30
+  bulletPrefabS: EnemyBullet
+  bulletForce: 10
+  bulletsPerBurst: 4
+  timeBetweenBullets: 0.2
+  bulletSpread: 45
+  bulletSFXClip: {fileID: 8300000, guid: 6d7730b6892b7624aab93edc6daa803f, type: 3}
   radialBulletCount: 16
   bulletBossPrefabS: Miniboss1 Bullet
   laserPrefabS: Miniboss1 Laser
   phaseThresholds:
-  - 0.7
+  - 0.6

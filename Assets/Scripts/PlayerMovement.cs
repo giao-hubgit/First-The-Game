@@ -13,14 +13,16 @@ public class PlayerMovement : MonoBehaviour
     public Camera cam;
     public TrailRenderer tr;
 
-    private bool canPush = true;
+    public bool isHoldingForce = false;
     public bool isPushing = false;
+
+    private float currentForceEnergy = 1f;
 
     private bool canDash = true;
     public bool isDashing;
 
     [SerializeField] Image dashBar;
-    [SerializeField] Image pushBar;
+    [SerializeField] Image forceBar;
     [SerializeField] Image slowmoBar;
 
     [SerializeField] CinemachineImpulseSource impulseSource;
@@ -50,6 +52,156 @@ public class PlayerMovement : MonoBehaviour
     {
         if (rb == null) rb = GetComponent<Rigidbody2D>();
         impulseSource = GetComponent<CinemachineImpulseSource>();
+    }
+
+    private void Update()
+    {
+        HandleForceMechanic();
+    }
+
+    public void OnForce(InputAction.CallbackContext context)
+    {
+        if (context.started && currentForceEnergy >= data.minForceEnergyToStart)
+        {
+            isHoldingForce = true;
+        }
+        else if (context.canceled)
+        {
+            if (isHoldingForce)
+            {
+                ReleaseForce();
+            }
+            isHoldingForce = false;
+        }
+    }
+
+    private void HandleForceMechanic()
+    {
+        if (isHoldingForce)
+        {
+            isPushing = true;
+            currentForceEnergy -= data.forceDrainRate * Time.deltaTime;
+
+            if (forceBar != null) forceBar.fillAmount = Mathf.Clamp01(currentForceEnergy);
+
+            MaintainForceAoE();
+
+            if (currentForceEnergy <= 0f)
+            {
+                currentForceEnergy = 0f;
+                ReleaseForce();
+                isHoldingForce = false;
+            }
+        }
+        else
+        {
+            if (currentForceEnergy < 1f)
+            {
+                currentForceEnergy += data.forceRechargeRate * Time.deltaTime;
+                currentForceEnergy = Mathf.Clamp01(currentForceEnergy);
+                if (forceBar != null) forceBar.fillAmount = currentForceEnergy;
+            }
+        }
+    }
+
+    private void MaintainForceAoE()
+    {
+        Vector2 pushCenter = rb.position + (Vector2)transform.up * data.forceOffset;
+        Collider2D[] hits = Physics2D.OverlapCircleAll(pushCenter, data.forceRadius);
+
+        foreach (Collider2D hit in hits)
+        {
+            if (hit.gameObject == gameObject) continue;
+            if (hit.GetComponent<Enemy>() != null) continue;
+            if (hit.GetComponent<WeaponPickup>() != null) continue;
+
+            if (hit.GetComponent<Bullet>() != null && hit.CompareTag("EnemyBullet"))
+            {
+                Rigidbody2D bulletRb = hit.GetComponent<Rigidbody2D>();
+                if (bulletRb != null)
+                {
+                    bulletRb.linearVelocity = Vector2.zero;
+                    bulletRb.AddTorque(UnityEngine.Random.Range(-10f, 10f), ForceMode2D.Force);
+                }
+                continue;
+            }
+
+            Rigidbody2D targetRb = hit.GetComponent<Rigidbody2D>();
+            if (targetRb != null)
+            {
+                targetRb.AddTorque(UnityEngine.Random.Range(-6f, 6f), ForceMode2D.Force);
+            }
+        }
+    }
+
+    private void ReleaseForce()
+    {
+        isPushing = false;
+        Vector2 pushCenter = rb.position + (Vector2)transform.up * data.forceOffset;
+        Collider2D[] hits = Physics2D.OverlapCircleAll(pushCenter, data.forceRadius);
+        bool hitSomething = false;
+
+        if (data.pushSFX != null) SFXManager.Instance?.PlaySFX(data.pushSFX, transform.position);
+
+        foreach (Collider2D hit in hits)
+        {
+            if (hit.gameObject == gameObject) continue;
+            if (hit.GetComponent<Enemy>() != null) continue;
+            if (hit.GetComponent<WeaponPickup>() != null) continue;
+
+            if (hit.GetComponent<Bullet>() != null && hit.CompareTag("EnemyBullet"))
+            {
+                GameObject reflected_bullet = ObjectPooler.Instance.SpawnFromPool(data.BulletPlayer, hit.transform.position, Quaternion.identity);
+                reflected_bullet.transform.localScale = hit.transform.localScale;
+
+                if (hit.transform.TryGetComponent<Bullet>(out Bullet enemyBullet) &&
+                    hit.transform.TryGetComponent<TrailRenderer>(out TrailRenderer enemyTrail))
+                {
+                    Bullet playerBullet = reflected_bullet.GetComponent<Bullet>();
+                    TrailRenderer playerTrail = reflected_bullet.GetComponent<TrailRenderer>();
+
+                    if (enemyBullet.data != null)
+                    {
+                        BulletData clonedData = Instantiate(enemyBullet.data);
+                        clonedData.damage *= 1;
+
+                        playerBullet.data.damage = clonedData.damage;
+                        playerBullet.data.knockback = clonedData.knockback;
+                    }
+
+                    if (playerTrail != null)
+                    {
+                        playerTrail.widthCurve = enemyTrail.widthCurve;
+                        playerTrail.widthMultiplier = enemyTrail.widthMultiplier;
+                        playerTrail.Clear();
+                    }
+                }
+
+                Rigidbody2D bulletRb = reflected_bullet.GetComponent<Rigidbody2D>();
+                if (bulletRb != null)
+                {
+                    bulletRb.linearVelocity = (Vector2)transform.up * data.pushForce;
+                    bulletRb.AddTorque(UnityEngine.Random.Range(-6f, 6f), ForceMode2D.Impulse);
+                }
+
+                hit.gameObject.SetActive(false);
+                hitSomething = true;
+                continue;
+            }
+
+            Rigidbody2D targetRb = hit.GetComponent<Rigidbody2D>();
+            if (targetRb != null)
+            {
+                hitSomething = true;
+                targetRb.AddForce(transform.up * data.pushForce * (targetRb.mass >= 6 ? targetRb.mass * 0.75f : targetRb.mass), ForceMode2D.Impulse);
+                targetRb.AddTorque(UnityEngine.Random.Range(-6f, 6f), ForceMode2D.Impulse);
+            }
+        }
+
+        if (hitSomething)
+        {
+            CameraShakeManager.Instance?.CameraShake(impulseSource, 0.15f);
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -177,7 +329,6 @@ public class PlayerMovement : MonoBehaviour
         SFXManager.Instance?.PlaySFX(data.dashSFX, transform.position);
 
         Vector2 dashDir = (mousePos - rb.position).normalized;
-        //Vector2 dashDir = movement.normalized;
         int originalLayer = gameObject.layer;
         gameObject.layer = LayerMask.NameToLayer("Dashing");
         canDash = false;
@@ -216,110 +367,11 @@ public class PlayerMovement : MonoBehaviour
         canDash = true;
     }
 
-    public void OnPush(InputAction.CallbackContext context)
-    {
-        if (canPush && context.performed)
-        {
-            StartCoroutine(PushFrontRoutine());
-        }
-    }
-
-    private IEnumerator PushFrontRoutine()
-    {
-        canPush = false;
-        isPushing = true;
-
-        if (data.pushSFX != null) SFXManager.Instance?.PlaySFX(data.pushSFX, transform.position);
-
-        Vector2 pushCenter = rb.position + (Vector2)transform.up * data.pushOffset;
-
-        Collider2D[] hits = Physics2D.OverlapCircleAll(pushCenter, data.pushRadius);
-        bool hitSomething = false;
-
-        foreach (Collider2D hit in hits)
-        {
-            if (hit.gameObject == gameObject) continue;
-
-            if (hit.GetComponent<Enemy>() != null) continue;
-
-            if (hit.GetComponent<WeaponPickup>() != null) continue;
-
-            if (hit.GetComponent<Bullet>() != null && hit.CompareTag("EnemyBullet"))
-            {
-                GameObject reflected_bullet = ObjectPooler.Instance.SpawnFromPool(data.BulletPlayer, hit.transform.position, Quaternion.identity);
-                reflected_bullet.transform.localScale = hit.transform.localScale;
-
-                if (hit.transform.TryGetComponent<Bullet>(out Bullet enemyBullet) &&
-                    hit.transform.TryGetComponent<TrailRenderer>(out TrailRenderer enemyTrail))
-                {
-                    Bullet playerBullet = reflected_bullet.GetComponent<Bullet>();
-                    TrailRenderer playerTrail = reflected_bullet.GetComponent<TrailRenderer>();
-
-                    if (enemyBullet.data != null)
-                    {
-                        BulletData clonedData = Instantiate(enemyBullet.data);
-
-                        clonedData.damage *= 1;
-
-                        playerBullet.data.damage = clonedData.damage;
-                        playerBullet.data.knockback = clonedData.knockback;
-                    }
-
-                    if (playerTrail != null)
-                    {
-                        playerTrail.widthCurve = enemyTrail.widthCurve;
-                        playerTrail.widthMultiplier = enemyTrail.widthMultiplier;
-
-                        playerTrail.Clear();
-                    }
-                }
-
-                Rigidbody2D bulletRb = reflected_bullet.GetComponent<Rigidbody2D>();
-                if (bulletRb != null)
-                {
-                    bulletRb.linearVelocity = Vector2.zero;
-                    bulletRb.AddTorque(UnityEngine.Random.Range(-6f, 6f), ForceMode2D.Impulse);
-                }
-
-                hit.gameObject.SetActive(false);
-                continue;
-            }
-
-            Rigidbody2D targetRb = hit.GetComponent<Rigidbody2D>();
-            if (targetRb != null)
-            {
-                hitSomething = true;
-
-                targetRb.AddForce(transform.up * data.pushForce * (targetRb.mass >= 6 ? targetRb.mass * 0.75f : targetRb.mass), ForceMode2D.Impulse);
-                targetRb.AddTorque(UnityEngine.Random.Range(-6f, 6f), ForceMode2D.Impulse);
-            }
-        }
-
-        if (hitSomething)
-        {
-            CameraShakeManager.Instance?.CameraShake(impulseSource, 0.15f);
-        }
-
-        if (pushBar != null) pushBar.fillAmount = 0f;
-
-        float pushTimer = 0f;
-        while (pushTimer < data.pushCD)
-        {
-            pushTimer += Time.unscaledDeltaTime;
-            if (pushBar != null) pushBar.fillAmount = pushTimer / data.pushCD;
-            yield return null;
-        }
-
-        if (pushBar != null) pushBar.fillAmount = 1f;
-        isPushing = false;
-        canPush = true;
-    }
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Vector3 pushCenter = transform.position + transform.up * data.pushOffset;
-        Gizmos.DrawWireSphere(pushCenter, data.pushRadius);
+        Vector3 pushCenter = transform.position + transform.up * data.forceOffset;
+        Gizmos.DrawWireSphere(pushCenter, data.forceRadius);
     }
 
     public void OnCollisionEnter2D(Collision2D collision)

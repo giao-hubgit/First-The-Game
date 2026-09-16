@@ -19,9 +19,11 @@ public class PlayerData : ScriptableObject
     public AudioClip SlowmoAlready;
 
     public float pushForce = 25f;
-    public float pushRadius = 0.6f;
-    public float pushOffset = 1f;
-    public float pushCD = 0.5f;
+    public float forceRadius = 0.6f;
+    public float forceOffset = 1f;
+    public float forceDrainRate = 0.4f;
+    public float forceRechargeRate = 0.25f;
+    public float minForceEnergyToStart = 0.1f;
     public AudioClip pushSFX;
 
     public float dashPower = 24f;
