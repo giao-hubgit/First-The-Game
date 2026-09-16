@@ -71,8 +71,10 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker
 
         Collider2D col = GetComponent<Collider2D>();
         NavMeshAgent navMesh = GetComponent<NavMeshAgent>();
+        RedCubeRanged redCubeRanged = GetComponent<RedCubeRanged>();
 
         if (navMesh != null) navMesh.enabled = false;
+        if (redCubeRanged != null) redCubeRanged.enabled = false;
 
         if (col != null) col.enabled = false;
         if (rb != null)

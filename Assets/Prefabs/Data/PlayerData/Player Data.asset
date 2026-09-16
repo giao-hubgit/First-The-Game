@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 362d0d2586fdb4b4296dfb007b12aec0, type: 3}
   m_Name: Player Data
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
-  maxHP: 200
+  maxHP: 1000
   baseDMG: 100
   invulnerabilityTime: 0.5
   collisionDMG: 20

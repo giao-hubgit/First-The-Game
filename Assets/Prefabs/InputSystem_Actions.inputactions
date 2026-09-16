@@ -239,7 +239,7 @@
             "id": "5db12756-c66f-47fb-af51-e4e7c6b0a1c2",
             "actions": [
                 {
-                    "name": "Pause",
+                    "name": "Pause / Back",
                     "type": "Button",
                     "id": "253a4a2f-ecad-466e-932d-3c749217a3ef",
                     "expectedControlType": "",
@@ -256,7 +256,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Pause",
+                    "action": "Pause / Back",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

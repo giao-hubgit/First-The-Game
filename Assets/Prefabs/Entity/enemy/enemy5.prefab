@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5727216b46c3337448ca6b3c5d2db1d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  data: {fileID: 11400000, guid: 1917df1d68cf51147809a0475fb8f208, type: 2}
+  data: {fileID: 11400000, guid: a5fa003938863e742b03dd5b60821cb9, type: 2}
   isCrashing: 0
   fadeDuration: 0.5
   enemyHurtsVFX: {fileID: 552901823190740738}
