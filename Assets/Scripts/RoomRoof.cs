@@ -4,6 +4,7 @@ using System.Collections;
 public class RoomRoof : MonoBehaviour
 {
     public GameObject fogCover;
+    public Player player;
 
     public bool smoothFade = true;
     public float fadeSpeed = 3f;

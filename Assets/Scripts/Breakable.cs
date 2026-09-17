@@ -8,12 +8,17 @@ public class Breakable : MonoBehaviour, IDamageable
     public float explosionForce = 5f;
     public float health = 100f;
 
+    private bool isBroken = false;
     [SerializeField] AudioClip breakSFX;
 
     public void takeDmg(float dmg)
     {
         health -= dmg;
-        if (health <= 0) Break(transform.position);
+        if (health <= 0 && !isBroken)
+        {
+            isBroken = true;
+            Break(transform.position);
+        }
     }
 
     public void Break(Vector2 explosionSource)

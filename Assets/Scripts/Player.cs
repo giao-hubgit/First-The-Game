@@ -1,11 +1,15 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour, IDamageable, IAttacker
 {
     [SerializeField] PlayerData data;
+    [SerializeField] private float fadeDuration = 1f;
+    private SpriteRenderer spriteRenderer;
     private bool isInvulnerable = false;
+    public bool isDead = false;
     private float currentHP;
 
     public EntityHurtsVFX playerHurtsVFX;
@@ -13,9 +17,11 @@ public class Player : MonoBehaviour, IDamageable, IAttacker
     [SerializeField] Image hpBar;
 
     public static Transform Instance;
+    public static event System.Action onPlayerDeath;
 
     private void Awake()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         Instance = this.transform;
         currentHP = data.maxHP;
     }
@@ -37,8 +43,9 @@ public class Player : MonoBehaviour, IDamageable, IAttacker
             SFXManager.Instance?.PlaySFX(data.hurtVFX, transform.position);
         }
 
-        if (currentHP <= 0)
+        if (currentHP <= 0 && !isDead)
         {
+            isDead = true;
             HitStop.Instance?.Stop(0.075f, null);
             Die();
         }
@@ -51,18 +58,39 @@ public class Player : MonoBehaviour, IDamageable, IAttacker
 
     private void Die()
     {
-        if (data.deathEffect != null)
+        PlayerInput playerInput = GetComponent<PlayerInput>();
+        playerInput.DeactivateInput();
+
+        onPlayerDeath?.Invoke();
+        StartCoroutine(FadeOutAndDestroy());
+    }
+
+    private IEnumerator FadeOutAndDestroy()
+    {
+        if (spriteRenderer != null)
         {
-            GameObject effect = Instantiate(data.deathEffect, transform.position, transform.rotation);
-            Destroy(effect, 1f);
+            Color startColor = spriteRenderer.color;
+            float elapsed = 0f;
+
+            while (elapsed < fadeDuration)
+            {
+                elapsed += Time.deltaTime;
+                float newAlpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
+                spriteRenderer.color = new Color(startColor.r, startColor.g, startColor.b, newAlpha);
+                yield return null;
+            }
         }
+
+        SFXManager.Instance?.PlaySFX(data.deathSFX, transform.position);
 
         if (data.DeathParticle != null)
         {
             ParticleSystem particle = Instantiate(data.DeathParticle, transform.position, Quaternion.identity);
             particle.Play();
-            Destroy(particle.gameObject, 2f);
+            Destroy(particle.gameObject, 10f);
         }
+
+        yield return new WaitForSecondsRealtime(4f);
 
         Destroy(gameObject);
     }

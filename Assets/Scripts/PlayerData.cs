@@ -8,7 +8,6 @@ public class PlayerData : ScriptableObject
     public float baseDMG = 1f;
     public float invulnerabilityTime = 0.5f;
     public int collisionDMG = 20;
-    public GameObject deathEffect;
     public AudioClip hurtVFX;
     public ParticleSystem DeathParticle;
 
@@ -32,6 +31,7 @@ public class PlayerData : ScriptableObject
     public int dashDMG = 20;
     public AudioClip dashCrashSFX;
     public AudioClip dashSFX;
+    public AudioClip deathSFX;
 
     [Header("Slow Motion Settings")]
     public float slowMoTimeScale = 0.2f;

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bad14e807099c374d95b62507d5cbfab, type: 3}
   m_Name: Knight Boss
   m_EditorClassIdentifier: Assembly-CSharp::BossData
-  maxHP: 3000
+  maxHP: 4000
   baseDMG: 0.5
   collisionDMG: 40
   damageRate: 1

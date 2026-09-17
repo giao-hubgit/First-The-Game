@@ -5765,8 +5765,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7584451578130083437}
   - component: {fileID: 1319188662539316402}
-  - component: {fileID: 5600970229177034553}
   - component: {fileID: 7160144651696787725}
+  - component: {fileID: 2417107900805569118}
+  - component: {fileID: 7995791200033800590}
+  - component: {fileID: 6646111324645393927}
   m_Layer: 15
   m_Name: T
   m_TagString: Room
@@ -5787,6 +5789,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2401430145572664621}
   - {fileID: 618861420677769329}
   - {fileID: 5940950956920542990}
   - {fileID: 6675846294154024243}
@@ -5810,19 +5813,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08c3d1d7b1745ea45a2b816897bd3b13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AddRooms
---- !u!114 &5600970229177034553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7232324129561869499}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3aff14167fb94c244a55962487d03d3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RoomTrigger
-  roomObjects: {fileID: 5327002187483643548}
 --- !u!61 &7160144651696787725
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5869,6 +5859,51 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 20, y: 20}
   m_EdgeRadius: 0
+--- !u!114 &2417107900805569118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7232324129561869499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b97aaadbca2258745b5ca8527e1a93ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  fogCover: {fileID: 2343897704869354483}
+  player: {fileID: 0}
+  smoothFade: 1
+  fadeSpeed: 10
+--- !u!114 &7995791200033800590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7232324129561869499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 270ec9484f6264a4cb7eb136163ceda2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 17408
+  obstacleRadius: 0.5
+--- !u!114 &6646111324645393927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7232324129561869499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66488a1448540ea45ba6a3bda3cfcb8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomTrapTrigger
+  roomObjects: {fileID: 5327002187483643548}
 --- !u!1 &7407758120414219971
 GameObject:
   m_ObjectHideFlags: 0
@@ -5915,6 +5950,72 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!1001 &5813935558334943818
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7584451578130083437}
+    m_Modifications:
+    - target: {fileID: 3923973369992888049, guid: 35118f454cfbd154bae781b439a526c4, type: 3}
+      propertyPath: roomObjects
+      value: 
+      objectReference: {fileID: 5327002187483643548}
+    - target: {fileID: 5119075750320457576, guid: 35118f454cfbd154bae781b439a526c4, type: 3}
+      propertyPath: m_Name
+      value: RoomTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 8213624986361194343, guid: 35118f454cfbd154bae781b439a526c4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8213624986361194343, guid: 35118f454cfbd154bae781b439a526c4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8213624986361194343, guid: 35118f454cfbd154bae781b439a526c4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8213624986361194343, guid: 35118f454cfbd154bae781b439a526c4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8213624986361194343, guid: 35118f454cfbd154bae781b439a526c4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8213624986361194343, guid: 35118f454cfbd154bae781b439a526c4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8213624986361194343, guid: 35118f454cfbd154bae781b439a526c4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8213624986361194343, guid: 35118f454cfbd154bae781b439a526c4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8213624986361194343, guid: 35118f454cfbd154bae781b439a526c4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8213624986361194343, guid: 35118f454cfbd154bae781b439a526c4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 35118f454cfbd154bae781b439a526c4, type: 3}
+--- !u!4 &2401430145572664621 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8213624986361194343, guid: 35118f454cfbd154bae781b439a526c4, type: 3}
+  m_PrefabInstance: {fileID: 5813935558334943818}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5828683504149632657
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5991,7 +6092,9 @@ PrefabInstance:
       propertyPath: smoothFade
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6585042818368435773, guid: 5ec4e5bb1441e654298c5b51db434ed3, type: 3}
+    - {fileID: 2061883622944990204, guid: 5ec4e5bb1441e654298c5b51db434ed3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
