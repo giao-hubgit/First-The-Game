@@ -9,6 +9,7 @@ public class MeleeHitbox : MonoBehaviour
     public float damage;
     public float knockback;
     public float hitImpact;
+    public float hitStop;
 
     [Header("Reflection Settings")]
     public bool canReflectBullets = false;
@@ -54,6 +55,7 @@ public class MeleeHitbox : MonoBehaviour
             if (damageable != null)
             {
                 CameraShakeManager.Instance?.CameraShake(impulseSource, hitImpact);
+                HitStop.Instance?.Stop(hitStop);
 
                 float finalDamage = ownerAttacker != null ? ownerAttacker.dmgDealt(damage) : damage;
                 damageable.takeDmg(finalDamage);

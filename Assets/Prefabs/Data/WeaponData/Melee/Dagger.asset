@@ -26,9 +26,10 @@ MonoBehaviour:
   fadeOutDuration: 0.1
   detachTime: 0.25
   reflectForce: 1
-  knockback: 0
+  knockback: 1
   recoil: 0
-  hitImpact: 0.2
+  hitImpact: 0.1
+  hitStop: 0.05
   startSpeed: 10
   endSpeed: 10
   cooldown: 0.75

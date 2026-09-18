@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 
 public class PlayerMeleeWeapon : MonoBehaviour
 {
@@ -18,6 +17,8 @@ public class PlayerMeleeWeapon : MonoBehaviour
 
     public RectTransform hudContainerTransform;
     private Coroutine refreshCoroutine;
+
+    private float WeaponDeltaTime => Time.timeScale > 0f ? Time.unscaledDeltaTime : 0f;
 
     void Start()
     {
@@ -66,8 +67,6 @@ public class PlayerMeleeWeapon : MonoBehaviour
 
         StartCoroutine(meleeCooldownIE());
 
-        if (meleeCooldown != null) meleeCooldown.fillAmount = 1f;
-
         if (currentWeapon.isThrust)
         {
             StartCoroutine(PerformThrust());
@@ -88,13 +87,14 @@ public class PlayerMeleeWeapon : MonoBehaviour
         float timer = 0f;
         while (timer < currentWeapon.cooldown)
         {
-            timer += Time.unscaledDeltaTime;
+            timer += WeaponDeltaTime;
             if (meleeCooldown != null)
             {
                 meleeCooldown.fillAmount = timer / currentWeapon.cooldown;
             }
             yield return null;
         }
+        if (meleeCooldown != null) meleeCooldown.fillAmount = 1f;
     }
 
     private IEnumerator PerformThrust()
@@ -107,22 +107,6 @@ public class PlayerMeleeWeapon : MonoBehaviour
         pivot.transform.localPosition = new Vector3(currentWeapon.spawnOffset.x, currentWeapon.spawnOffset.y, 0f);
         pivot.transform.localScale = new Vector3(currentWeapon.size, currentWeapon.size, currentWeapon.size);
         pivot.transform.localRotation = Quaternion.Euler(0, 0, 0);
-
-        // Đánh theo hướng chuột thay vì hướng người
-        // Camera mainCam = Camera.main;
-        // if (mainCam != null)
-        // {
-        //     Vector3 mouseScreenPos = UnityEngine.InputSystem.Mouse.current.position.ReadValue();
-
-        //     Vector3 mouseWorldPos = mainCam.ScreenToWorldPoint(new Vector3(mouseScreenPos.x, mouseScreenPos.y, -mainCam.transform.position.z));
-        //     mouseWorldPos.z = 0f;
-
-        //     Vector3 dirToMouse = (mouseWorldPos - transform.position).normalized;
-        //     if (dirToMouse.sqrMagnitude < 0.01f) dirToMouse = transform.up;
-
-        //     float angleToMouse = Mathf.Atan2(dirToMouse.y, dirToMouse.x) * Mathf.Rad2Deg;
-        //     pivot.transform.localRotation = Quaternion.Euler(0, 0, angleToMouse -90f);
-        // }
 
         GameObject weaponInstance = Instantiate(currentWeapon.weaponPrefab, pivot.transform);
         TrailRenderer[] components = GetComponentsInChildren<TrailRenderer>(true);
@@ -178,7 +162,8 @@ public class PlayerMeleeWeapon : MonoBehaviour
         while (progress < 1f)
         {
             float currentSpeed = Mathf.Lerp(currentWeapon.startSpeed, currentWeapon.endSpeed, progress);
-            progress += currentSpeed * Time.unscaledDeltaTime;
+
+            progress += currentSpeed * WeaponDeltaTime;
 
             float t = Mathf.Clamp01(progress);
 
@@ -259,7 +244,8 @@ public class PlayerMeleeWeapon : MonoBehaviour
         while (progress < 1f)
         {
             float currentSpeed = Mathf.Lerp(currentWeapon.startSpeed, currentWeapon.endSpeed, progress);
-            progress += currentSpeed * Time.unscaledDeltaTime;
+
+            progress += currentSpeed * WeaponDeltaTime;
 
             float t = Mathf.Clamp01(progress);
 
@@ -290,6 +276,7 @@ public class PlayerMeleeWeapon : MonoBehaviour
         MeleeHitbox hitbox = weaponInstance.AddComponent<MeleeHitbox>();
         hitbox.damage = currentWeapon.damage;
         hitbox.hitImpact = currentWeapon.hitImpact;
+        hitbox.hitStop = currentWeapon.hitStop;
         hitbox.hitSFX = currentWeapon.hitSFX;
         hitbox.knockback = currentWeapon.knockback;
         hitbox.canReflectBullets = currentWeapon.reflectForce > 0;
@@ -312,7 +299,7 @@ public class PlayerMeleeWeapon : MonoBehaviour
             float delayElapsed = 0f;
             while (delayElapsed < delayTime)
             {
-                delayElapsed += Time.unscaledDeltaTime;
+                delayElapsed += WeaponDeltaTime;
                 yield return null;
             }
         }
@@ -331,7 +318,7 @@ public class PlayerMeleeWeapon : MonoBehaviour
         float fadeElapsed = 0f;
         while (fadeElapsed < currentWeapon.fadeInDuration)
         {
-            fadeElapsed += Time.unscaledDeltaTime;
+            fadeElapsed += WeaponDeltaTime;
             float t = fadeElapsed / currentWeapon.fadeInDuration;
             spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, Mathf.Lerp(0f, 1f, t));
             yield return null;
@@ -346,7 +333,7 @@ public class PlayerMeleeWeapon : MonoBehaviour
         float holdElapsed = 0f;
         while (holdElapsed < holdDuration)
         {
-            holdElapsed += Time.unscaledDeltaTime;
+            holdElapsed += WeaponDeltaTime;
             yield return null;
         }
 
@@ -358,7 +345,7 @@ public class PlayerMeleeWeapon : MonoBehaviour
             float fadeElapsed = 0f;
             while (fadeElapsed < fadeDuration)
             {
-                fadeElapsed += Time.unscaledDeltaTime;
+                fadeElapsed += WeaponDeltaTime;
                 float t = fadeElapsed / fadeDuration;
                 spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, Mathf.Lerp(1f, 0f, t));
                 yield return null;
@@ -378,7 +365,7 @@ public class PlayerMeleeWeapon : MonoBehaviour
         {
             if (pivot == null) yield break;
 
-            strikeElapsed += Time.unscaledDeltaTime;
+            strikeElapsed += WeaponDeltaTime;
             yield return null;
         }
 

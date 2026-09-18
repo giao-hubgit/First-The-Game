@@ -28,7 +28,8 @@ MonoBehaviour:
   reflectForce: 1
   knockback: -1
   recoil: 0
-  hitImpact: 0.15
+  hitImpact: 0.05
+  hitStop: 0.025
   startSpeed: 4
   endSpeed: 0.1
   cooldown: 1

@@ -112,7 +112,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.5
+  m_AngularDamping: 6
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -185,6 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Common_Enemy
   data: {fileID: 11400000, guid: 4e84ca5112972da48be0c853a4842874, type: 2}
   isCrashing: 0
+  fadeDuration: 0.5
   enemyHurtsVFX: {fileID: 2584516349395757536}
 --- !u!114 &2584516349395757536
 MonoBehaviour:

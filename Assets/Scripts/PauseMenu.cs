@@ -39,6 +39,8 @@ public class PauseMenu : MonoBehaviour
         playSFX(clickClip);
         if (pauseMenuUI != null)
         {
+            HitStop.Instance?.ForceRestoreTimeScale(0f);
+
             if (playerInput != null)
             {
                 playerInput.SwitchCurrentActionMap("UI");
@@ -56,6 +58,8 @@ public class PauseMenu : MonoBehaviour
         playSFX(clickClip);
         if (pauseMenuUI != null)
         {
+            HitStop.Instance?.ForceRestoreTimeScale(1f);
+
             if (playerInput != null)
             {
                 playerInput.SwitchCurrentActionMap("Player");

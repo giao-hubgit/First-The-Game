@@ -1,11 +1,15 @@
-using UnityEngine;
 using System.Collections;
-using Unity.VisualScripting;
+using UnityEngine;
 
 public class HitStop : MonoBehaviour
 {
     public static HitStop Instance { get; private set; }
-    private bool waiting;
+
+    [SerializeField] private float maxHitStopCap = 0.25f;
+
+    private Coroutine hitStopRoutine;
+    private float lastValidTimeScale = 1f;
+    private float remainingHitStop = 0f;
 
     private void Awake()
     {
@@ -13,24 +17,61 @@ public class HitStop : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    public void Stop(float duration, PlayerMovement playerMovement)
+    public void Stop(float duration)
     {
-        if (waiting || duration <= 0) return;
-        StartCoroutine(HitStopWait(duration, playerMovement));
-    }
+        if (duration <= 0) return;
 
-    private IEnumerator HitStopWait(float duration, PlayerMovement playerMovement)
-    {
-        Time.timeScale = 0f;
-        yield return new WaitForSecondsRealtime(duration);
-
-        if (playerMovement != null && playerMovement.IsSlowMoActive)
+        if (hitStopRoutine == null)
         {
-            Time.timeScale = playerMovement.data.slowMoTimeScale;
+            if (Time.timeScale > 0f)
+            {
+                lastValidTimeScale = Time.timeScale;
+            }
+
+            remainingHitStop = Mathf.Min(duration, maxHitStopCap);
+            hitStopRoutine = StartCoroutine(HitStopWait());
         }
         else
         {
-            Time.timeScale = 1f;
+            remainingHitStop = Mathf.Min(Mathf.Max(remainingHitStop, duration), maxHitStopCap);
         }
+    }
+
+    private IEnumerator HitStopWait()
+    {
+        Time.timeScale = 0f;
+
+        while (remainingHitStop > 0f)
+        {
+            if (PauseMenu.isPaused)
+            {
+                yield return null;
+                continue;
+            }
+
+            remainingHitStop -= Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        if (!PauseMenu.isPaused)
+        {
+            Time.timeScale = lastValidTimeScale;
+        }
+
+        hitStopRoutine = null;
+    }
+
+    public void ForceRestoreTimeScale(float targetScale = 1f)
+    {
+        lastValidTimeScale = targetScale;
+        remainingHitStop = 0f;
+
+        if (hitStopRoutine != null)
+        {
+            StopCoroutine(hitStopRoutine);
+            hitStopRoutine = null;
+        }
+
+        Time.timeScale = targetScale;
     }
 }

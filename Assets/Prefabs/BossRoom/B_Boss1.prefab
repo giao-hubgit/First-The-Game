@@ -449,7 +449,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aff14167fb94c244a55962487d03d3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomTrigger
-  roomObjects: {fileID: 9104981950368542303}
 --- !u!61 &2412787268186896509
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -686,6 +685,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   fogCover: {fileID: 2933856093535193165}
+  player: {fileID: 0}
   smoothFade: 1
   fadeSpeed: 10
 --- !u!1 &7295800754774290710

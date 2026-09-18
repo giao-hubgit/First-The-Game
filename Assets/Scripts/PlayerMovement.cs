@@ -274,6 +274,8 @@ public class PlayerMovement : MonoBehaviour
         {
             Time.timeScale = 1f;
             Time.fixedDeltaTime = 0.02f;
+
+            HitStop.Instance?.ForceRestoreTimeScale(1f);
         }
 
         if (slowMoOverlay != null)
@@ -326,20 +328,24 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator Dash()
     {
+        Vector2 dashDir = (mousePos - rb.position).normalized;
+        if (dashDir == Vector2.zero) dashDir = transform.up;
+
         SFXManager.Instance?.PlaySFX(data.dashSFX, transform.position);
 
-        Vector2 dashDir = (mousePos - rb.position).normalized;
         int originalLayer = gameObject.layer;
         gameObject.layer = LayerMask.NameToLayer("Dashing");
         canDash = false;
         isDashing = true;
 
-        float adaptiveDashPower = data.dashPower / Time.timeScale;
+        float currentTimeScale = Time.timeScale > 0 ? Time.timeScale : 1f;
+        float adaptiveDashPower = data.dashPower / currentTimeScale;
+
         rb.linearVelocity = dashDir * adaptiveDashPower;
         if (tr != null) tr.emitting = true;
         yield return new WaitForSecondsRealtime(data.dashTime);
-        Player player = GetComponent<Player>();
 
+        Player player = GetComponent<Player>();
         if (player != null)
         {
             player.TriggerInvulnerability(0.2f);
@@ -381,7 +387,7 @@ public class PlayerMovement : MonoBehaviour
         {
             PlayerMovement playerMovement = this.GetComponent<PlayerMovement>();
 
-            HitStop.Instance?.Stop(0.1f, playerMovement);
+            HitStop.Instance?.Stop(0.1f);
             SFXManager.Instance?.PlaySFX(data.dashCrashSFX, transform.position);
             CameraShakeManager.Instance?.CameraShake(impulseSource, 0.25f);
             damageable.takeDmg(data.dashDMG * data.baseDMG);
@@ -396,9 +402,10 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isDashing) return;
+        if (isDashing || Time.timeScale <= 0f) return;
 
-        float adaptiveSpeed = IsSlowMoActive ? (data.moveSpd / Time.timeScale) : data.moveSpd;
+        float safeTimeScale = Mathf.Max(Time.timeScale, 0.0001f);
+        float adaptiveSpeed = IsSlowMoActive ? (data.moveSpd / safeTimeScale) : data.moveSpd;
 
         Vector2 finalMovement = (movement * adaptiveSpeed) + recoilVelocity;
         rb.MovePosition(rb.position + finalMovement * Time.fixedDeltaTime);
@@ -406,8 +413,10 @@ public class PlayerMovement : MonoBehaviour
         recoilVelocity = Vector2.MoveTowards(recoilVelocity, Vector2.zero, recoilDecaySpeed * Time.fixedDeltaTime);
 
         Vector2 lookDir = mousePos - rb.position;
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-
-        rb.MoveRotation(angle);
+        if (lookDir.sqrMagnitude > 0.0001f)
+        {
+            float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+            rb.MoveRotation(angle);
+        }
     }
 }

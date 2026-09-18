@@ -21,6 +21,7 @@ public class WeaponMeleeData : WeaponData
     public float knockback = 20f;
     public float recoil;
     public float hitImpact = 0.15f;
+    public float hitStop = 0.1f;
     public float startSpeed = 5f;
     public float endSpeed = 5f;
     public float cooldown = 0.5f;
