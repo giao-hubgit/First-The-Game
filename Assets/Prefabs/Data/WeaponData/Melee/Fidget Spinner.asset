@@ -45,5 +45,8 @@ MonoBehaviour:
   isThrust: 1
   thrustStartAngle: -720
   thrustEndAngle: 2880
+  isRotate: 1
+  thrustStartPos: {x: 0, y: 0, z: 0}
+  thrustEndPos: {x: 0, y: 3.5, z: 0}
   swingStartAngle: -90
   swingEndAngle: 90

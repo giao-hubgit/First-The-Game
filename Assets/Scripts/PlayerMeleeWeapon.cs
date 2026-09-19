@@ -7,15 +7,17 @@ using System.Collections.Generic;
 public class PlayerMeleeWeapon : MonoBehaviour
 {
     public WeaponMeleeData currentWeapon;
+
+    [Header("UI References")]
+    [SerializeField] private GameObject weaponUIContainer;
     public Image weaponIconUI;
-    [SerializeField] Image meleeCooldown;
+    public RectTransform hudContainerTransform;
 
     private float nextSlashTime = 0f;
     public bool isHoldingAttack = false;
     private bool isSwinging = false;
     public bool isAttacking = false;
 
-    public RectTransform hudContainerTransform;
     private Coroutine refreshCoroutine;
 
     private float WeaponDeltaTime => Time.timeScale > 0f ? Time.unscaledDeltaTime : 0f;
@@ -63,10 +65,6 @@ public class PlayerMeleeWeapon : MonoBehaviour
 
         nextSlashTime = Time.unscaledTime + currentWeapon.cooldown;
 
-        if (meleeCooldown != null) meleeCooldown.fillAmount = 0f;
-
-        StartCoroutine(meleeCooldownIE());
-
         if (currentWeapon.isThrust)
         {
             StartCoroutine(PerformThrust());
@@ -80,21 +78,6 @@ public class PlayerMeleeWeapon : MonoBehaviour
         {
             SFXManager.Instance?.PlaySFX(currentWeapon.appearSFX, transform.position, 0.15f, true, 1.5f, 2f);
         }
-    }
-
-    private IEnumerator meleeCooldownIE()
-    {
-        float timer = 0f;
-        while (timer < currentWeapon.cooldown)
-        {
-            timer += WeaponDeltaTime;
-            if (meleeCooldown != null)
-            {
-                meleeCooldown.fillAmount = timer / currentWeapon.cooldown;
-            }
-            yield return null;
-        }
-        if (meleeCooldown != null) meleeCooldown.fillAmount = 1f;
     }
 
     private IEnumerator PerformThrust()
@@ -118,18 +101,16 @@ public class PlayerMeleeWeapon : MonoBehaviour
             childObjects.Add(comp.gameObject);
         }
 
-        float reach = currentWeapon.radius;
-        Vector3 startPos = new Vector3(0.2f, -0.1f, 0);
-        Vector3 controlPos = new Vector3(0.4f, reach * 0.4f, 0);
-        Vector3 endPos = new Vector3(0, reach, 0);
+        Vector3 startPos = currentWeapon.thrustStartPos;
+        Vector3 endPos = currentWeapon.thrustEndPos;
 
         weaponInstance.transform.localPosition = startPos;
-        Vector3 initialMoveDir = (controlPos - startPos).normalized;
-        if (initialMoveDir.sqrMagnitude > 0.001f)
-        {
-            float initialAngle = Mathf.Atan2(initialMoveDir.y, initialMoveDir.x) * Mathf.Rad2Deg;
-            weaponInstance.transform.localRotation = Quaternion.Euler(0, 0, initialAngle + currentWeapon.thrustStartAngle);
-        }
+
+        Vector3 moveDir = (endPos - startPos).normalized;
+        float baseAngle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
+
+        float initialAngleOffset = currentWeapon.thrustStartAngle;
+        weaponInstance.transform.localRotation = Quaternion.Euler(0, 0, baseAngle + initialAngleOffset);
 
         SetupHitbox(weaponInstance);
         Collider2D col = weaponInstance.GetComponent<Collider2D>();
@@ -160,21 +141,19 @@ public class PlayerMeleeWeapon : MonoBehaviour
         while (progress < 1f)
         {
             float currentSpeed = Mathf.Lerp(currentWeapon.startSpeed, currentWeapon.endSpeed, progress);
-
             progress += currentSpeed * WeaponDeltaTime;
-
             float t = Mathf.Clamp01(progress);
 
-            Vector3 m1 = Vector3.Lerp(startPos, controlPos, t);
-            Vector3 m2 = Vector3.Lerp(controlPos, endPos, t);
-            weaponInstance.transform.localPosition = Vector3.Lerp(m1, m2, t);
+            weaponInstance.transform.localPosition = Vector3.Lerp(startPos, endPos, t);
 
-            Vector3 moveDir = (m2 - m1).normalized;
-            if (moveDir.sqrMagnitude > 0.001f)
+            if (currentWeapon.isRotate)
             {
-                float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
                 float currentAngleOffset = Mathf.Lerp(currentWeapon.thrustStartAngle, currentWeapon.thrustEndAngle, t);
-                weaponInstance.transform.localRotation = Quaternion.Euler(0, 0, angle + currentAngleOffset);
+                weaponInstance.transform.localRotation = Quaternion.Euler(0, 0, baseAngle + currentAngleOffset);
+            }
+            else
+            {
+                weaponInstance.transform.localRotation = Quaternion.Euler(0, 0, baseAngle + currentWeapon.thrustStartAngle);
             }
 
             yield return null;
@@ -208,7 +187,7 @@ public class PlayerMeleeWeapon : MonoBehaviour
         }
 
         weaponInstance.transform.localPosition = new Vector3(0, currentWeapon.radius, 0);
-        weaponInstance.transform.localRotation = Quaternion.Euler(0, 0, 45f);
+        weaponInstance.transform.localRotation = Quaternion.Euler(0, 0, 90f);
 
         pivot.transform.localRotation = Quaternion.Euler(0, 0, currentWeapon.swingStartAngle);
 
@@ -392,14 +371,21 @@ public class PlayerMeleeWeapon : MonoBehaviour
 
     private void UpdateWeaponUI()
     {
-        if (currentWeapon != null && weaponIconUI != null)
+        if (currentWeapon != null)
         {
-            weaponIconUI.sprite = currentWeapon.weaponIcon;
-            weaponIconUI.enabled = true;
+            if (weaponUIContainer != null) weaponUIContainer.SetActive(true);
+
+            if (weaponIconUI != null)
+            {
+                weaponIconUI.sprite = currentWeapon.weaponIcon;
+                weaponIconUI.SetNativeSize();
+                weaponIconUI.enabled = true;
+            }
         }
-        else if (weaponIconUI != null)
+        else
         {
-            weaponIconUI.enabled = false;
+            if (weaponUIContainer != null) weaponUIContainer.SetActive(false);
+            if (weaponIconUI != null) weaponIconUI.enabled = false;
         }
 
         ForceInstantLayoutRefresh();
@@ -407,8 +393,13 @@ public class PlayerMeleeWeapon : MonoBehaviour
 
     private void ForceInstantLayoutRefresh()
     {
-        if (refreshCoroutine != null) StopCoroutine(refreshCoroutine);
+        if (hudContainerTransform != null)
+        {
+            Canvas.ForceUpdateCanvases();
+            LayoutRebuilder.ForceRebuildLayoutImmediate(hudContainerTransform);
+        }
 
+        if (refreshCoroutine != null) StopCoroutine(refreshCoroutine);
         refreshCoroutine = StartCoroutine(RefreshLayoutRoutine());
     }
 

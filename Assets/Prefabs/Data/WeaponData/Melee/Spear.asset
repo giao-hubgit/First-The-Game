@@ -31,7 +31,7 @@ MonoBehaviour:
   hitImpact: 0.2
   hitStop: 0.05
   startSpeed: 10
-  endSpeed: 10
+  endSpeed: 20
   cooldown: 1
   isAutomatic: 1
   vulnerabilityIgnore: 0
@@ -43,7 +43,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8448
   isThrust: 1
-  thrustStartAngle: -30
-  thrustEndAngle: -60
+  thrustStartAngle: 0
+  thrustEndAngle: 0
+  isRotate: 1
+  thrustStartPos: {x: 0.2, y: 0, z: 0}
+  thrustEndPos: {x: 0, y: 1.5, z: 0}
   swingStartAngle: -90
   swingEndAngle: 90

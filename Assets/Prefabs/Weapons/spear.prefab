@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5307620896950389461}
   - component: {fileID: 1358438428692297196}
   - component: {fileID: 4466302865013188098}
-  - component: {fileID: 8119850789633530999}
+  - component: {fileID: 7929522611282668370}
   m_Layer: 18
   m_Name: spear
   m_TagString: Player Melee Weapon
@@ -147,8 +147,8 @@ MonoBehaviour:
     DissipationDistance: 100
     PropagationSpeed: 343
   DefaultVelocity: {x: 0, y: -1, z: 0}
---- !u!68 &8119850789633530999
-EdgeCollider2D:
+--- !u!61 &7929522611282668370
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -181,31 +181,18 @@ EdgeCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.034484565, y: 0.0026459694}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.28, y: 0.64}
+    newSize: {x: 0.64, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.3489691, y: 0.34058}
   m_EdgeRadius: 0
-  m_Points:
-  - {x: 0.118358165, y: 0.2801504}
-  - {x: 0.11882782, y: 0.32238483}
-  - {x: 0.19811249, y: 0.32209682}
-  - {x: 0.1999588, y: 0.36327124}
-  - {x: 0.27736664, y: 0.36266994}
-  - {x: 0.27643585, y: 0.40394354}
-  - {x: 0.31734467, y: 0.4056797}
-  - {x: 0.31703186, y: 0.44383955}
-  - {x: 0.44274902, y: 0.44195986}
-  - {x: 0.44083405, y: 0.39374924}
-  - {x: 0.4422531, y: 0.31726408}
-  - {x: 0.40183258, y: 0.3172078}
-  - {x: 0.4003296, y: 0.27528477}
-  - {x: 0.3631668, y: 0.27688503}
-  - {x: 0.36315155, y: 0.19774437}
-  - {x: 0.32375336, y: 0.19638252}
-  - {x: 0.32309723, y: 0.1191864}
-  - {x: 0.28098723, y: 0.1194191}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!1 &5753666625384465664
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +219,7 @@ Transform:
   m_GameObject: {fileID: 5753666625384465664}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4, y: 0.4, z: 0}
+  m_LocalPosition: {x: 0.561, y: -0.001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -287,7 +274,7 @@ TrailRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Time: 0.2
+  m_Time: 0.015
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -297,7 +284,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.07368088
+        value: 0.25030136
         inSlope: 0
         outSlope: 0
         tangentMode: 0

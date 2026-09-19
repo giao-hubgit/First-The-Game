@@ -37,6 +37,9 @@ public class WeaponMeleeData : WeaponData
     public bool isThrust;
     public float thrustStartAngle = -45f;
     public float thrustEndAngle = -45f;
+    public bool isRotate;
+    public Vector3 thrustStartPos;
+    public Vector3 thrustEndPos;
 
     [Header("Attack Type: Swing")]
     public float swingStartAngle = -90f;
