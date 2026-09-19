@@ -17,7 +17,7 @@ public class HitStop : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    public void Stop(float duration)
+    public void Stop(float duration, bool ignoreCap = false)
     {
         if (duration <= 0) return;
 
@@ -28,12 +28,22 @@ public class HitStop : MonoBehaviour
                 lastValidTimeScale = Time.timeScale;
             }
 
-            remainingHitStop = Mathf.Min(duration, maxHitStopCap);
+            remainingHitStop = ignoreCap ? duration : Mathf.Min(duration, maxHitStopCap);
             hitStopRoutine = StartCoroutine(HitStopWait());
         }
         else
         {
-            remainingHitStop = Mathf.Min(Mathf.Max(remainingHitStop, duration), maxHitStopCap);
+            if (ignoreCap)
+            {
+                remainingHitStop = Mathf.Max(remainingHitStop, duration);
+            }
+            else
+            {
+                float targetDuration = Mathf.Max(remainingHitStop, duration);
+                remainingHitStop = remainingHitStop > maxHitStopCap
+                    ? remainingHitStop
+                    : Mathf.Min(targetDuration, maxHitStopCap);
+            }
         }
     }
 

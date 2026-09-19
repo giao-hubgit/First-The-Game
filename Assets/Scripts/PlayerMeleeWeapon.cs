@@ -109,15 +109,13 @@ public class PlayerMeleeWeapon : MonoBehaviour
         pivot.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
         GameObject weaponInstance = Instantiate(currentWeapon.weaponPrefab, pivot.transform);
-        TrailRenderer[] components = GetComponentsInChildren<TrailRenderer>(true);
+
+        TrailRenderer[] components = weaponInstance.GetComponentsInChildren<TrailRenderer>(true);
         List<GameObject> childObjects = new List<GameObject>();
 
         foreach (TrailRenderer comp in components)
         {
-            if (comp.gameObject != this.gameObject)
-            {
-                childObjects.Add(comp.gameObject);
-            }
+            childObjects.Add(comp.gameObject);
         }
 
         float reach = currentWeapon.radius;
@@ -183,6 +181,9 @@ public class PlayerMeleeWeapon : MonoBehaviour
         }
 
         if (col != null) col.enabled = false;
+
+        DetachTrails(weaponInstance);
+
         yield return StartCoroutine(FadeAndDestroy(weaponInstance, pivot));
     }
 
@@ -198,15 +199,12 @@ public class PlayerMeleeWeapon : MonoBehaviour
 
         GameObject weaponInstance = Instantiate(currentWeapon.weaponPrefab, pivot.transform);
 
-        TrailRenderer[] components = GetComponentsInChildren<TrailRenderer>(true);
+        TrailRenderer[] components = weaponInstance.GetComponentsInChildren<TrailRenderer>(true);
         List<GameObject> childObjects = new List<GameObject>();
 
         foreach (TrailRenderer comp in components)
         {
-            if (comp.gameObject != this.gameObject)
-            {
-                childObjects.Add(comp.gameObject);
-            }
+            childObjects.Add(comp.gameObject);
         }
 
         weaponInstance.transform.localPosition = new Vector3(0, currentWeapon.radius, 0);
@@ -268,7 +266,24 @@ public class PlayerMeleeWeapon : MonoBehaviour
         }
 
         if (col != null) col.enabled = false;
+
+        DetachTrails(weaponInstance);
+
         yield return StartCoroutine(FadeAndDestroy(weaponInstance, pivot));
+    }
+
+    private void DetachTrails(GameObject weaponInstance)
+    {
+        if (weaponInstance == null) return;
+
+        TrailRenderer[] trails = weaponInstance.GetComponentsInChildren<TrailRenderer>();
+        foreach (TrailRenderer trail in trails)
+        {
+            if (trail == null) continue;
+
+            trail.transform.SetParent(null);
+            Destroy(trail.gameObject, trail.time);
+        }
     }
 
     private void SetupHitbox(GameObject weaponInstance)

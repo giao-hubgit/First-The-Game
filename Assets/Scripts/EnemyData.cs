@@ -7,6 +7,7 @@ public class EnemyData : ScriptableObject
     public float maxHP = 100f;
     public float baseDMG = 1f;
     public int collisionDMG = 20;
+    public float deadHitStopDuration = 0.05f;
     public float damageRate = 1f;
     public float aggroRange = 12f;
     public float moveSpeed = 4f;

@@ -8,25 +8,44 @@ public class EntityHurtsVFX : MonoBehaviour
 
     [SerializeField] private Material onDamageVFX_Mat;
     [SerializeField] private float onDamageVFX_Duration = 0.15f;
-    private Coroutine OnDamageVFXCor;
+
+    private Coroutine onDamageVFXCor;
+    private WaitForSeconds waitDuration;
 
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
-        originalM = sr.material;
+
+        originalM = sr.sharedMaterial;
+
+        waitDuration = new WaitForSeconds(onDamageVFX_Duration);
     }
 
     public void PlayOnDamageVFX()
     {
-        OnDamageVFXCor = StartCoroutine(OnDamageVFXCo());
+        if (onDamageVFXCor != null)
+        {
+            StopCoroutine(onDamageVFXCor);
+        }
+
+        onDamageVFXCor = StartCoroutine(OnDamageVFXCo());
     }
 
     private IEnumerator OnDamageVFXCo()
     {
-        sr.material = onDamageVFX_Mat;
+        sr.sharedMaterial = onDamageVFX_Mat;
 
-        yield return new WaitForSeconds(onDamageVFX_Duration);
+        yield return waitDuration;
 
-        sr.material = originalM;
+        sr.sharedMaterial = originalM;
+        onDamageVFXCor = null;
+    }
+
+    private void OnDisable()
+    {
+        if (sr != null && originalM != null)
+        {
+            sr.sharedMaterial = originalM;
+        }
     }
 }

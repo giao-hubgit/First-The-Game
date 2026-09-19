@@ -27,4 +27,4 @@ MonoBehaviour:
   isAutomatic: 1
   maxAmmo: 30
   recoil: 1
-  shakeForce: 0
+  shakeForce: 0.025

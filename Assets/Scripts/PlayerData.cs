@@ -8,7 +8,8 @@ public class PlayerData : ScriptableObject
     public float baseDMG = 1f;
     public float invulnerabilityTime = 0.5f;
     public int collisionDMG = 20;
-    public AudioClip hurtVFX;
+    public float takeDmgHitStopDuration = 0.05f;
+    public AudioClip hurtSFX;
     public ParticleSystem DeathParticle;
 
     [Header("Movement Stats")]
@@ -29,6 +30,7 @@ public class PlayerData : ScriptableObject
     public float dashTime = 0.2f;
     public float dashCD = 1f;
     public int dashDMG = 20;
+    public float dashHitStop = 0.1f;
     public AudioClip dashCrashSFX;
     public AudioClip dashSFX;
     public AudioClip deathSFX;

@@ -41,6 +41,7 @@ public class PlayerRangedWeapon : MonoBehaviour
     {
         currentWeapon = newWeapon;
         currentAmmo = currentWeapon != null ? currentWeapon.maxAmmo : 0;
+        nextFireTime = 0f;
         UpdateWeaponUI();
     }
 

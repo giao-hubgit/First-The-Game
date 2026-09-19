@@ -36,6 +36,8 @@ public class EnemyRangedWeapon : MonoBehaviour
 
     private void FireInstant()
     {
+        PlayShootSFX();
+
         for (int i = 0; i < currentWeapon.burstCount; i++)
         {
             SpawnSingleBullet();
@@ -48,6 +50,7 @@ public class EnemyRangedWeapon : MonoBehaviour
 
         for (int i = 0; i < currentWeapon.burstCount; i++)
         {
+            PlayShootSFX();
             SpawnSingleBullet();
 
             if (i < currentWeapon.burstCount - 1)
@@ -57,6 +60,14 @@ public class EnemyRangedWeapon : MonoBehaviour
         }
 
         isShootingBurst = false;
+    }
+
+    private void PlayShootSFX()
+    {
+        if (currentWeapon.shootSFX != null)
+        {
+            SFXManager.Instance?.PlaySFX(currentWeapon.shootSFX, transform.position);
+        }
     }
 
     private void SpawnSingleBullet()
@@ -82,11 +93,6 @@ public class EnemyRangedWeapon : MonoBehaviour
             {
                 rb.linearVelocity = bullet.transform.up * currentWeapon.bulletForce;
             }
-        }
-
-        if (currentWeapon.shootSFX != null)
-        {
-            SFXManager.Instance?.PlaySFX(currentWeapon.shootSFX, transform.position);
         }
     }
 }

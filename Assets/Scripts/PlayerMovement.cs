@@ -253,6 +253,7 @@ public class PlayerMovement : MonoBehaviour
 
         Time.timeScale = data.slowMoTimeScale;
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        HitStop.Instance?.ForceRestoreTimeScale(data.slowMoTimeScale);
 
         float normalDuration = data.slowMoDuration - blinkStartTime;
 
@@ -387,7 +388,7 @@ public class PlayerMovement : MonoBehaviour
         {
             PlayerMovement playerMovement = this.GetComponent<PlayerMovement>();
 
-            HitStop.Instance?.Stop(0.1f);
+            HitStop.Instance?.Stop(data.dashHitStop);
             SFXManager.Instance?.PlaySFX(data.dashCrashSFX, transform.position);
             CameraShakeManager.Instance?.CameraShake(impulseSource, 0.25f);
             damageable.takeDmg(data.dashDMG * data.baseDMG);

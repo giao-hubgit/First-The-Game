@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 362d0d2586fdb4b4296dfb007b12aec0, type: 3}
   m_Name: Player Data
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
-  maxHP: 200
+  maxHP: 2000
   baseDMG: 1
   invulnerabilityTime: 0.5
   collisionDMG: 20
-  hurtVFX: {fileID: 8300000, guid: 2e4be5df0d8faa143b81eee7a5bf9e61, type: 3}
+  takeDmgHitStopDuration: 0.05
+  hurtSFX: {fileID: 8300000, guid: 05422b23a436ae24ab80939dda444310, type: 3}
   DeathParticle: {fileID: 631531847556192649, guid: 5771ebda4c9c8a64b955ffceef8b4999, type: 3}
   moveSpd: 5
   BulletPlayer: PlayerBullet
@@ -33,6 +34,7 @@ MonoBehaviour:
   dashTime: 0.2
   dashCD: 1
   dashDMG: 20
+  dashHitStop: 0.1
   dashCrashSFX: {fileID: 8300000, guid: eca835397b1ddc0468406add3ae25102, type: 3}
   dashSFX: {fileID: 8300000, guid: bdd4202b395bf4b469afd729ccf89232, type: 3}
   deathSFX: {fileID: 8300000, guid: fb03e7d0d5898a547bf93672c78ce554, type: 3}

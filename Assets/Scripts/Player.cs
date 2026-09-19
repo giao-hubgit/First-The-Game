@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using Unity.Cinemachine;
 
 public class Player : MonoBehaviour, IDamageable, IAttacker
 {
@@ -19,8 +20,11 @@ public class Player : MonoBehaviour, IDamageable, IAttacker
     public static Transform Instance;
     public static event System.Action onPlayerDeath;
 
+    [SerializeField] private CinemachineImpulseSource impulseSource;
+
     private void Awake()
     {
+        impulseSource = GetComponent<CinemachineImpulseSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         Instance = this.transform;
         currentHP = data.maxHP;
@@ -32,6 +36,9 @@ public class Player : MonoBehaviour, IDamageable, IAttacker
 
         currentHP -= damage;
 
+        HitStop.Instance?.Stop(data.takeDmgHitStopDuration);
+        CameraShakeManager.Instance?.CameraShake(impulseSource, 0.25f);
+
         if (hpBar != null)
         {
             hpBar.fillAmount = Mathf.Max(0f, (float)currentHP / data.maxHP);
@@ -40,7 +47,7 @@ public class Player : MonoBehaviour, IDamageable, IAttacker
         if (playerHurtsVFX != null)
         {
             playerHurtsVFX.PlayOnDamageVFX();
-            SFXManager.Instance?.PlaySFX(data.hurtVFX, transform.position);
+            SFXManager.Instance?.PlaySFX(data.hurtSFX, transform.position);
         }
 
         if (currentHP <= 0 && !isDead)

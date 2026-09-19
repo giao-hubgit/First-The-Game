@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Unity.Cinemachine;
 
 public class Boss : Enemy
 {
