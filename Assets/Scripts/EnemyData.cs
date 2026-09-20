@@ -13,6 +13,7 @@ public class EnemyData : ScriptableObject
     public float moveSpeed = 4f;
 
     [Header("Misc")]
+    public Material onDamageVFX_Mat;
     public string deathParticle = "EnemyDeathParticle";
     public string deathAnimation = "EnemyDeathAnimation";
     public string spawnAnimation = "EnemySpawnAnimation";

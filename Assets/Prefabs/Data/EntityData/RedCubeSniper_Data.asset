@@ -19,6 +19,8 @@ MonoBehaviour:
   damageRate: 1
   aggroRange: 32
   moveSpeed: 4
+  hurtParticle: EnemyHurtParticle
+  onDamageVFX_Mat: {fileID: 2100000, guid: dc295eb3434c0c94ea06d6be792c4bf9, type: 2}
   deathParticle: EnemyDeathParticle
   deathAnimation: 
   spawnAnimation: EnemySpawnLaser

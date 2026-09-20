@@ -17,7 +17,7 @@ MonoBehaviour:
   weaponPrefab: {fileID: 8599932454935528800, guid: 3c8f370cec44f2c4886e3c55d02e0064, type: 3}
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
   weaponIcon: {fileID: 21300000, guid: d5fea375efac228499bb6b24270616ca, type: 3}
-  damage: 180
+  damage: 160
   size: 5
   radius: 1
   spawnOffset: {x: 0, y: 0}
@@ -45,5 +45,8 @@ MonoBehaviour:
   isThrust: 0
   thrustStartAngle: -45
   thrustEndAngle: -45
+  isRotate: 0
+  thrustStartPos: {x: 0, y: 0, z: 0}
+  thrustEndPos: {x: 0, y: 0, z: 0}
   swingStartAngle: -150
   swingEndAngle: 90

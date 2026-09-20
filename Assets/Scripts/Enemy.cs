@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Experimental.GlobalIllumination;
+using UnityEngine.Rendering.Universal;
 
 public class Enemy : MonoBehaviour, IDamageable, IAttacker
 {
@@ -16,13 +18,19 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker
 
     [Header("Death Settings")]
     [SerializeField] protected float fadeDuration = 0.5f;
+    [SerializeField] protected Light2D[] spotLights;
 
-    public EntityHurtsVFX enemyHurtsVFX;
+    public event System.Action OnTakeDamage;
 
     protected virtual void Awake()
     {
         if (data != null) currentHP = data.maxHP;
         rb = GetComponent<Rigidbody2D>();
+
+        if (spotLights == null || spotLights.Length == 0)
+        {
+            spotLights = GetComponentsInChildren<Light2D>();
+        }
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -39,21 +47,18 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker
 
         currentHP -= damage;
 
+        OnTakeDamage?.Invoke();
+
         if (currentHP <= 0)
         {
             isDead = true;
             Die();
         }
-
-        if (enemyHurtsVFX != null)
-        {
-            enemyHurtsVFX.PlayOnDamageVFX();
-        }
     }
 
     public virtual float dmgDealt(float damage)
     {
-        return damage * data.baseDMG;
+        return damage + data.baseDMG;
     }
 
     protected virtual void Die()
@@ -90,18 +95,46 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker
 
     private IEnumerator FadeOutAndDestroy()
     {
-        if (spriteRenderer != null)
-        {
-            Color startColor = spriteRenderer.color;
-            float elapsed = 0f;
+        float elapsed = 0f;
+        Color startColor = spriteRenderer != null ? spriteRenderer.color : Color.white;
 
-            while (elapsed < fadeDuration)
+        int lightCount = spotLights != null ? spotLights.Length : 0;
+        float[] startRadiO = new float[lightCount];
+        float[] startRadiI = new float[lightCount];
+        float[] startIntensities = new float[lightCount];
+
+        for (int i = 0; i < lightCount; i++)
+        {
+            if (spotLights[i] != null)
             {
-                elapsed += Time.deltaTime;
-                float newAlpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
-                spriteRenderer.color = new Color(startColor.r, startColor.g, startColor.b, newAlpha);
-                yield return null;
+                startRadiO[i] = spotLights[i].pointLightOuterRadius;
+                startRadiI[i] = spotLights[i].pointLightInnerRadius;
+                startIntensities[i] = spotLights[i].intensity;
             }
+        }
+
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / fadeDuration;
+
+            if (spriteRenderer != null)
+            {
+                float newAlpha = Mathf.Lerp(1f, 0f, t);
+                spriteRenderer.color = new Color(startColor.r, startColor.g, startColor.b, newAlpha);
+            }
+
+            for (int i = 0; i < lightCount; i++)
+            {
+                if (spotLights[i] != null)
+                {
+                    spotLights[i].pointLightOuterRadius = Mathf.Lerp(startRadiO[i], 0f, t);
+                    spotLights[i].pointLightInnerRadius = Mathf.Lerp(startRadiI[i], 0f, t);
+                    spotLights[i].intensity = Mathf.Lerp(startIntensities[i], 0f, t);
+                }
+            }
+
+            yield return null;
         }
 
         Destroy(gameObject);
@@ -111,7 +144,7 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker
     {
         if (isDead) return;
 
-        if (collision.relativeVelocity.magnitude >= 4f && isCrashing == true)
+        if (collision.relativeVelocity.magnitude >= 4f && isCrashing)
         {
             SFXManager.Instance?.PlaySFX(data.crashSFX, transform.position);
 
@@ -122,7 +155,7 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker
             else if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable)
                     && !collision.gameObject.CompareTag("Player"))
             {
-                damageable.takeDmg(data.collisionDMG * data.baseDMG);
+                damageable.takeDmg(dmgDealt(data.collisionDMG));
             }
         }
     }
@@ -138,9 +171,9 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker
 
             if (player != null && playerMovement != null)
             {
-                if (playerMovement.isDashing != true && Time.time >= nextDamageTime)
+                if (!playerMovement.isDashing && Time.time >= nextDamageTime)
                 {
-                    player.takeDmg(data.collisionDMG * data.baseDMG);
+                    player.takeDmg(dmgDealt(data.collisionDMG));
                     nextDamageTime = Time.time + data.damageRate;
                 }
             }
@@ -151,7 +184,7 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker
         {
             if (damageable != null && Time.time >= nextDamageTime)
             {
-                damageable.takeDmg(data.collisionDMG * data.baseDMG);
+                damageable.takeDmg(dmgDealt(data.collisionDMG));
                 nextDamageTime = Time.time + data.damageRate;
             }
         }
@@ -159,7 +192,7 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker
 
     protected virtual void Update()
     {
-        if (isCrashing == true)
+        if (isCrashing)
         {
             if (rb.linearVelocity.magnitude < 4f)
             {

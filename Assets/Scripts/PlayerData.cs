@@ -31,6 +31,7 @@ public class PlayerData : ScriptableObject
     public float dashCD = 1f;
     public int dashDMG = 20;
     public float dashHitStop = 0.1f;
+    public Material onDamageVFX_Mat;
     public AudioClip dashCrashSFX;
     public AudioClip dashSFX;
     public AudioClip deathSFX;

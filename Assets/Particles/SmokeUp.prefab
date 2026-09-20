@@ -4804,7 +4804,7 @@ ParticleSystemRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -4849,3 +4849,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7b2acfb864f7e44da6698e54acb7063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  fixedRotation: {x: -90, y: 0, z: 0}

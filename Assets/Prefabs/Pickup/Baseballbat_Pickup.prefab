@@ -108,7 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponPickup
   weaponData: {fileID: 11400000, guid: aea313ce7f23df743a373b528818c001, type: 2}
   floatingTextPrefab: {fileID: 7499672102873699750, guid: 43804aa08377e5c47b4a0ce24b2f8d20, type: 3}
-  chestSFX: {fileID: 8300000, guid: dd4351aa64a974f419fdc094403381f4, type: 3}
+  weaponPickupSFX: {fileID: 8300000, guid: dd4351aa64a974f419fdc094403381f4, type: 3}
 --- !u!50 &5404695530804247610
 Rigidbody2D:
   serializedVersion: 5
@@ -174,7 +174,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
+    oldSize: {x: 1.28, y: 0.64}
     newSize: {x: 1.28, y: 0.44}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

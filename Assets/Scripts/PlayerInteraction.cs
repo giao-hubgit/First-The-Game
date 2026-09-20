@@ -4,53 +4,49 @@ using System.Collections.Generic;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    private List<WeaponPickup> nearbyWeapons = new List<WeaponPickup>();
+    private List<IInteractable> nearbyInteractables = new List<IInteractable>();
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (context.performed && nearbyWeapons.Count > 0)
+        if (context.performed && nearbyInteractables.Count > 0)
         {
-            WeaponPickup weaponToPick = nearbyWeapons[nearbyWeapons.Count - 1];
+            IInteractable interactableToUse = nearbyInteractables[nearbyInteractables.Count - 1];
 
-            RemoveInteractableWeapon(weaponToPick);
-
-            weaponToPick.Interact(gameObject);
+            RemoveInteractable(interactableToUse);
+            interactableToUse.Interact(gameObject);
         }
     }
 
-    public void AddInteractableWeapon(WeaponPickup weapon)
+    public void AddInteractable(IInteractable interactable)
     {
-        if (!nearbyWeapons.Contains(weapon))
+        if (!nearbyInteractables.Contains(interactable))
         {
-            nearbyWeapons.Add(weapon);
+            nearbyInteractables.Add(interactable);
         }
-        UpdateOutlines();
+        UpdateHighlights();
     }
 
-    public void RemoveInteractableWeapon(WeaponPickup weapon)
+    public void RemoveInteractable(IInteractable interactable)
     {
-        if (nearbyWeapons.Contains(weapon))
+        if (nearbyInteractables.Contains(interactable))
         {
-            weapon.ToggleOutline(false);
-            nearbyWeapons.Remove(weapon);
+            interactable.SetHighlight(false);
+            nearbyInteractables.Remove(interactable);
         }
-        UpdateOutlines();
+        UpdateHighlights();
     }
 
-    private void UpdateOutlines()
+    private void UpdateHighlights()
     {
-        foreach (WeaponPickup w in nearbyWeapons)
+        foreach (IInteractable interactable in nearbyInteractables)
         {
-            if (w != null) w.ToggleOutline(false);
+            interactable?.SetHighlight(false);
         }
 
-        if (nearbyWeapons.Count > 0)
+        if (nearbyInteractables.Count > 0)
         {
-            WeaponPickup topWeapon = nearbyWeapons[nearbyWeapons.Count - 1];
-            if (topWeapon != null)
-            {
-                topWeapon.ToggleOutline(true);
-            }
+            IInteractable topInteractable = nearbyInteractables[nearbyInteractables.Count - 1];
+            topInteractable?.SetHighlight(true);
         }
     }
 }
