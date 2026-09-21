@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker
         if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
         Vector2 laserSpawnPos = transform.position;
-        laserSpawnPos.y += 1f * transform.localScale.y;
+        laserSpawnPos.y += 1.5f * transform.localScale.y;
         ObjectPooler.Instance?.SpawnFromPool(data.spawnAnimation, laserSpawnPos, transform.rotation);
         SFXManager.Instance?.PlaySFX(data.spawnSFX, transform.position, 0.3f, true, 0.75f, 1.25f);
     }

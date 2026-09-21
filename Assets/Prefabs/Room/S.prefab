@@ -4870,6 +4870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomRoof
   fogCover: {fileID: 1683750704474809700}
+  player: {fileID: 0}
   smoothFade: 1
   fadeSpeed: 10
 --- !u!1 &5860350504105416600
@@ -5128,9 +5129,9 @@ GameObject:
   - component: {fileID: 6103009342325625839}
   - component: {fileID: 3119403567692811962}
   - component: {fileID: 1522552354952890457}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall_Tiles
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

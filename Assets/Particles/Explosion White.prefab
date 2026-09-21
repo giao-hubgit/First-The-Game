@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Explosion White
       objectReference: {fileID: 0}
+    - target: {fileID: 4177921677317657740, guid: dc9a6c3913dc0784c90eb68c81a2771c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 4813230828488353102, guid: dc9a6c3913dc0784c90eb68c81a2771c, type: 3}
       propertyPath: lengthInSec
       value: 1
@@ -34,11 +38,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7494397956628290120, guid: dc9a6c3913dc0784c90eb68c81a2771c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.94642
+      value: -5.342041
       objectReference: {fileID: 0}
     - target: {fileID: 7494397956628290120, guid: dc9a6c3913dc0784c90eb68c81a2771c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.07784
+      value: -5.194983
       objectReference: {fileID: 0}
     - target: {fileID: 7494397956628290120, guid: dc9a6c3913dc0784c90eb68c81a2771c, type: 3}
       propertyPath: m_LocalPosition.z

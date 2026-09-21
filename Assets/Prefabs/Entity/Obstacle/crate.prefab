@@ -184,6 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Breakable
   brokenPrefab: CrateShattered
+  brokenParticle: BreakableParticle
   explosionForce: 10
   health: 60
   breakSFX: {fileID: 8300000, guid: a4adca6af8d548d4ead86504bb897221, type: 3}
@@ -261,9 +262,9 @@ MonoBehaviour:
   - {x: 0.32, y: -0.32, z: 0}
   m_ShapePathHash: 0
   m_InstanceId: 0
-  m_ShadowShape2DComponent: {fileID: 5608920794363932330}
+  m_ShadowShape2DComponent: {fileID: 9066770415859842045}
   m_ShadowShape2DProvider:
-    rid: 7179226064802283620
+    rid: 7179226471315275943
   m_ShadowCastingSource: 2
   m_ShadowMesh:
     m_Mesh: {fileID: 0}
@@ -274,15 +275,15 @@ MonoBehaviour:
     m_TrimEdge: 0.03
     m_FlipX: 0
     m_FlipY: 0
-    m_InitialTrim: 0.03
+    m_InitialTrim: 0
   m_CastingOption: 1
   m_PreviousTrimEdge: 0.03
   m_PreviousEdgeProcessing: 1
   m_PreviousShadowCastingSource: 2
-  m_PreviousShadowShape2DSource: {fileID: 9066770415859842045}
+  m_PreviousShadowShape2DSource: {fileID: 5608920794363932330}
   references:
     version: 2
     RefIds:
-    - rid: 7179226064802283620
-      type: {class: ShadowShape2DProvider_Collider2D, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+    - rid: 7179226471315275943
+      type: {class: ShadowShape2DProvider_SpriteRenderer, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
       data: 

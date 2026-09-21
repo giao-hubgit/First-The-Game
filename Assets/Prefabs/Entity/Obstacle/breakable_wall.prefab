@@ -182,6 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Breakable
   brokenPrefab: WallShattered
+  brokenParticle: BreakableParticle
   explosionForce: 10
   health: 500
   breakSFX: {fileID: 8300000, guid: 809c68899edd29347af918e0657e9f34, type: 3}
@@ -213,9 +214,9 @@ MonoBehaviour:
   - {x: 0.32, y: -0.32, z: 0}
   m_ShapePathHash: 0
   m_InstanceId: 0
-  m_ShadowShape2DComponent: {fileID: 5608920794363932330}
+  m_ShadowShape2DComponent: {fileID: 9066770415859842045}
   m_ShadowShape2DProvider:
-    rid: 7179226064802283620
+    rid: 7179226471315275936
   m_ShadowCastingSource: 2
   m_ShadowMesh:
     m_Mesh: {fileID: 0}
@@ -235,8 +236,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 7179226064802283620
-      type: {class: ShadowShape2DProvider_Collider2D, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+    - rid: 7179226471315275936
+      type: {class: ShadowShape2DProvider_SpriteRenderer, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
       data: 
 --- !u!114 &-1461073500100252083
 MonoBehaviour:

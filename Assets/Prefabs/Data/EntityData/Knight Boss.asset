@@ -19,7 +19,6 @@ MonoBehaviour:
   damageRate: 1
   aggroRange: 24
   moveSpeed: 14
-  hurtParticle: EnemyHurtParticle
   onDamageVFX_Mat: {fileID: 2100000, guid: dc295eb3434c0c94ea06d6be792c4bf9, type: 2}
   deathParticle: EnemyDeathParticle
   deathAnimation: Miniboss1 Death
@@ -38,6 +37,7 @@ MonoBehaviour:
   phase2DashSFX: {fileID: 8300000, guid: ace9caf669f2abf4bb7f045858fa8e89, type: 3}
   chargeSFX: {fileID: 8300000, guid: 48553b76a014c3a4fbe9a63b6d60d71d, type: 3}
   moveSFX: {fileID: 8300000, guid: 8be4a6bc5dc25eb4c9c488ec714e2164, type: 3}
+  bossIntroEndSFX: {fileID: 8300000, guid: ee56e8f0d86c3b740967fd83f6f56024, type: 3}
   musicSFX:
   - {fileID: 8300000, guid: ea79f2753e9faa04c88e7c37dee13736, type: 3}
   - {fileID: 8300000, guid: 0724267ef2af01f44aabcbb9e17dba99, type: 3}

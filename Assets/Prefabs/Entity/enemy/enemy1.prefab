@@ -187,6 +187,7 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 4e84ca5112972da48be0c853a4842874, type: 2}
   isCrashing: 0
   fadeDuration: 0.5
+  spotLights: []
 --- !u!114 &2584516349395757536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,7 +310,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.1
-  m_PointLightOuterRadius: 1
+  m_PointLightOuterRadius: 0.1
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1

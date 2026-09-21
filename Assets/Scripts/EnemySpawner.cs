@@ -62,6 +62,7 @@ public class EnemySpawner : MonoBehaviour
         {
             GameObject lastRoom = RoomTemplate.Instance.rooms[RoomTemplate.Instance.rooms.Count - 1];
 
+            // SPAWN BOSS
             if (transform.IsChildOf(lastRoom.transform))
             {
                 yield return new WaitForSeconds(1f);
@@ -69,6 +70,12 @@ public class EnemySpawner : MonoBehaviour
                 GameObject bossPrefab = RoomTemplate.Instance.boss;
 
                 GameObject spawnedBoss = Instantiate(bossPrefab, transform.position, Quaternion.identity);
+
+                CinematicBarsController controller = FindAnyObjectByType<CinematicBarsController>();
+                if (controller != null)
+                {
+                    controller.SetupBossEvents(spawnedBoss.GetComponent<Boss>());
+                }
 
                 yield return new WaitForSeconds(spawnDelay);
 

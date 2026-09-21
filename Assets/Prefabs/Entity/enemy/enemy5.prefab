@@ -238,6 +238,7 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: a5fa003938863e742b03dd5b60821cb9, type: 2}
   isCrashing: 0
   fadeDuration: 0.5
+  spotLights: []
   target: {fileID: 0}
   rangedWeapon: {fileID: 0}
 --- !u!114 &-786846953639323528
@@ -411,7 +412,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.1
-  m_PointLightOuterRadius: 1
+  m_PointLightOuterRadius: 0.1
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1

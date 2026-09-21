@@ -14,6 +14,7 @@ public class BossData : EnemyData
     public AudioClip phase2DashSFX;
     public AudioClip chargeSFX;
     public AudioClip moveSFX;
+    public AudioClip bossIntroEndSFX;
     public List<AudioClip> musicSFX;
 
     [Header("Boss Timing Settings")]

@@ -20,10 +20,7 @@ public class ObjectPooler : MonoBehaviour
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
-    }
 
-    private void Start()
-    {
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
         foreach (Pool pool in pools)

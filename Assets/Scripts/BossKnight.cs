@@ -128,6 +128,8 @@ public class KnightBoss : MonoBehaviour
 
             yield return new WaitForSeconds(preDelay);
 
+            if (boss.isTransforming) continue;
+
             BossAttackType chosenAttack = GetNextAttack();
 
             switch (chosenAttack)
@@ -322,7 +324,7 @@ public class KnightBoss : MonoBehaviour
 
             if (hit.collider != null)
             {
-                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall"))
+                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall") || hit.collider.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
                 {
                     hitWall = true;
                 }
