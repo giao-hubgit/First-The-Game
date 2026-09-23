@@ -35,14 +35,14 @@ PrefabInstance:
     - target: {fileID: 4827271741564760582, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
       propertyPath: m_PreviousShadowShape2DSource
       value: 
-      objectReference: {fileID: 4050085829172028462}
+      objectReference: {fileID: 5142910387336382813}
     - target: {fileID: 4827271741564760582, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.x
-      value: -0.0010757446
+      value: 0.010002136
       objectReference: {fileID: 0}
     - target: {fileID: 4827271741564760582, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.x
-      value: 0.17733002
+      value: 0.21756744
       objectReference: {fileID: 0}
     - target: {fileID: 4827271741564760582, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
       propertyPath: 'managedReferences[7179226471315275945]'
@@ -128,15 +128,16 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6683949519079706881, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1075015362086832516}
+    - targetCorrespondingSourceObject: {fileID: 6683949519079706881, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3195747941838567483}
+    - targetCorrespondingSourceObject: {fileID: 6683949519079706881, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 379799864866905004}
   m_SourcePrefab: {fileID: 100100000, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
 --- !u!50 &2574354692694243304 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 749802518332538076, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
-  m_PrefabInstance: {fileID: 3016889065216740148}
-  m_PrefabAsset: {fileID: 0}
---- !u!61 &4050085829172028462 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 1291107046181400346, guid: 73b742a878c671a428297e0c138b6e82, type: 3}
   m_PrefabInstance: {fileID: 3016889065216740148}
   m_PrefabAsset: {fileID: 0}
 --- !u!212 &5142910387336382813 stripped
@@ -166,18 +167,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2194e2926ff36a440906bb38af153541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  explosionRadius: 2
-  explosionForce: 50
-  explosionDmg: 100
   health: 100
-  HitTarget:
-    serializedVersion: 2
-    m_Bits: 31489
-  shockwaveVFX: Shockwave
-  explosionVFX: Explosion
   FireUp: {fileID: 7961337672984331187}
   SmokeUp: {fileID: 3127628366196947674}
-  breakSFX: {fileID: 8300000, guid: acf154785ec36dd44896c325c521974c, type: 3}
 --- !u!114 &1075015362086832516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,6 +223,43 @@ MonoBehaviour:
     DissipationDistance: 100
     PropagationSpeed: 343
   DefaultVelocity: {x: 0, y: -1, z: 0}
+--- !u!114 &3195747941838567483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8438633211988449845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8e3f2643a89a4047947922beae27a46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Explode
+  explosionRadius: 2
+  explosionForce: 50
+  explosionDmg: 100
+  HitTarget:
+    serializedVersion: 2
+    m_Bits: 27392
+  shockwaveVFX: Shockwave
+  explosionVFX: Explosion
+  explosionLight: ExplosionLight
+  explosionSFX: {fileID: 8300000, guid: acf154785ec36dd44896c325c521974c, type: 3}
+--- !u!114 &379799864866905004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8438633211988449845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2194e2926ff36a440906bb38af153541, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExplosionBarrel
+  health: 100
+  FireUp: {fileID: 7961337672984331187}
+  SmokeUp: {fileID: 3127628366196947674}
 --- !u!1001 &3671697549856787400
 PrefabInstance:
   m_ObjectHideFlags: 0

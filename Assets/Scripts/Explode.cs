@@ -1,55 +1,53 @@
-using System.ComponentModel;
-using System.Collections;
-using System.Collections.ObjectModel;
-using System.Data;
 using UnityEngine;
 using Unity.Cinemachine;
-using Unity.Mathematics;
 
-public class Explode : MonoBehaviour, IDamageable
+public class Explode : MonoBehaviour
 {
+    [Header("Explosion Settings")]
     public float explosionRadius = 5f;
     public float explosionForce = 500f;
     public float explosionDmg = 100f;
-    public float health = 100f;
-    private int state = 0;
-
     public LayerMask HitTarget;
-    private bool isExploded = false;
+
+    [Header("VFX & SFX")]
     public string shockwaveVFX = "Shockwave";
     public string explosionVFX = "Explosion";
-    public GameObject FireUp;
-    public GameObject SmokeUp;
-    private CinemachineImpulseSource impulseSource;
+    public string explosionLight = "ExplosionLight";
+    public AudioClip explosionSFX;
 
-    [SerializeField] AudioClip breakSFX;
+    private CinemachineImpulseSource impulseSource;
+    private bool isExploded = false;
+
+    public bool IsExploded => isExploded;
 
     private void Awake()
     {
         impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
-    public void takeDmg(float dmg)
-    {
-        if (isExploded) return;
-
-        health -= dmg;
-        if (health <= 0) Boom();
-    }
-
-    private Collider2D[] results = new Collider2D[20];
-
-    void Boom()
+    public void DoExplosion()
     {
         if (isExploded) return;
         isExploded = true;
 
-        if (TryGetComponent<Collider2D>(out Collider2D col)) col.enabled = false;
+        if (TryGetComponent<Collider2D>(out Collider2D col))
+        {
+            col.enabled = false;
+        }
 
-        SFXManager.Instance?.PlaySFX(breakSFX, transform.position);
-        CameraShakeManager.Instance?.CameraShake(impulseSource, 1f);
+        if (explosionSFX != null)
+        {
+            SFXManager.Instance?.PlaySFX(explosionSFX, transform.position);
+        }
+
+        if (impulseSource != null)
+        {
+            CameraShakeManager.Instance?.CameraShake(impulseSource, 1f);
+        }
+
         ObjectPooler.Instance?.SpawnFromPool(shockwaveVFX, transform.position, Quaternion.identity);
         ObjectPooler.Instance?.SpawnFromPool(explosionVFX, transform.position, Quaternion.identity);
+        ObjectPooler.Instance?.SpawnFromPool(explosionLight, transform.position, Quaternion.identity);
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius, HitTarget);
 
@@ -58,7 +56,7 @@ public class Explode : MonoBehaviour, IDamageable
             if (hitCollider.gameObject == gameObject) continue;
 
             Landmine lm = hitCollider.GetComponent<Landmine>();
-            if (lm != null && lm.touched == false)
+            if (lm != null && !lm.touched)
             {
                 lm.touched = true;
                 lm.BoomImmediatly();
@@ -82,55 +80,20 @@ public class Explode : MonoBehaviour, IDamageable
                 enemy.isCrashing = true;
             }
         }
-
-        DetachAndDestroyVFX(SmokeUp);
-        DetachAndDestroyVFX(FireUp);
-        Destroy(gameObject);
     }
 
     public static void AddExplosionForce(Rigidbody2D rb, float force, Vector2 explosionPosition, float radius)
     {
-        var explosionDir = rb.position - explosionPosition;
-        var explosionDistance = explosionDir.magnitude;
-        var wearoff = 1 - (explosionDistance / radius);
+        Vector2 explosionDir = rb.position - explosionPosition;
+        float explosionDistance = explosionDir.magnitude;
+        float wearoff = 1f - (explosionDistance / radius);
         rb.AddForce(explosionDir.normalized * force * wearoff * rb.mass, ForceMode2D.Impulse);
-        rb.AddTorque(UnityEngine.Random.Range(-10f, 10f), ForceMode2D.Impulse);
+        rb.AddTorque(Random.Range(-10f, 10f), ForceMode2D.Impulse);
     }
 
-    void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, explosionRadius);
-    }
-
-    private void DetachAndDestroyVFX(GameObject vfx)
-    {
-        if (vfx != null && vfx.activeSelf)
-        {
-            vfx.transform.SetParent(null);
-
-            ParticleSystem ps = vfx.GetComponent<ParticleSystem>();
-            if (ps != null)
-            {
-                ps.Stop();
-            }
-
-            Destroy(vfx, 2f);
-        }
-    }
-
-    void Update()
-    {
-        if (health <= 60 && health > 30 && state == 0)
-        {
-            state = 1;
-            if (SmokeUp != null) SmokeUp.SetActive(true);
-        }
-
-        if (health <= 30 && state != 2)
-        {
-            state = 2;
-            if (FireUp != null) FireUp.SetActive(true);
-        }
     }
 }

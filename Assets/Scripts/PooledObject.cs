@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Rendering.Universal;
 
 public class PooledObject : MonoBehaviour
 {
@@ -11,14 +12,23 @@ public class PooledObject : MonoBehaviour
     private Color originalColor;
     private Coroutine fadeCoroutine;
     private Vector3 originalScale;
+    private Light2D light2D;
+    private float lightIntensity;
 
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
         tr = GetComponent<TrailRenderer>();
+        light2D = GetComponent<Light2D>();
+
         if (sr != null)
         {
             originalColor = sr.color;
+        }
+
+        if (light2D != null)
+        {
+            lightIntensity = light2D.intensity;
         }
 
         originalScale = transform.localScale;
@@ -27,6 +37,7 @@ public class PooledObject : MonoBehaviour
     private void OnEnable()
     {
         if (sr != null) sr.color = originalColor;
+        if (light2D != null) light2D.intensity = lightIntensity;
 
         fadeCoroutine = StartCoroutine(FadeAndDeactivate());
     }
@@ -44,8 +55,16 @@ public class PooledObject : MonoBehaviour
             while (timer < fadeDuration)
             {
                 timer += Time.deltaTime;
+
                 float alpha = Mathf.Lerp(1f, 0f, timer / fadeDuration);
                 sr.color = new Color(startColor.r, startColor.g, startColor.b, alpha);
+
+                if (light2D != null)
+                {
+                    float instensity = Mathf.Lerp(1f, 0f, timer / fadeDuration);
+                    light2D.intensity = instensity;
+                }
+
                 yield return null;
             }
         }

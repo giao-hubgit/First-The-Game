@@ -72,8 +72,8 @@ MonoBehaviour:
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0.4
-  m_PointLightOuterRadius: 1
+  m_PointLightInnerRadius: 0.1
+  m_PointLightOuterRadius: 2
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -95,11 +95,12 @@ GameObject:
   - component: {fileID: 8380518584800992308}
   - component: {fileID: 5498684756988093655}
   - component: {fileID: 2332320374938306501}
-  - component: {fileID: 3199445012615166158}
   - component: {fileID: 1797961080252345291}
   - component: {fileID: 6549041993436706629}
   - component: {fileID: -3788280892749528695}
   - component: {fileID: 4361690365606403360}
+  - component: {fileID: 3199445012615166158}
+  - component: {fileID: 8300526696921764228}
   m_Layer: 14
   m_Name: landmine
   m_TagString: Untagged
@@ -149,7 +150,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -172,7 +173,7 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: -1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: a16eea3209b8b6f4887e90f6c37ab854, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 80c4f90c509ea684c832920c7d7fdf71, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -204,29 +205,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3199445012615166158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6636626660099643230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18f09c95121811741a54eba12ed71cb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  explosionRadius: 2
-  explosionForce: 50
-  explosionDmg: 100
-  HitTarget:
-    serializedVersion: 2
-    m_Bits: 31489
-  tickSFX: {fileID: 8300000, guid: 5116157c59f2f7e468852d52d737d0c4, type: 3}
-  explosionSFX: {fileID: 8300000, guid: acf154785ec36dd44896c325c521974c, type: 3}
-  shockwaveVFX: Shockwave
-  explosionVFX: Explosion
-  touched: 0
 --- !u!61 &1797961080252345291
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -358,3 +336,46 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &3199445012615166158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6636626660099643230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f09c95121811741a54eba12ed71cb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  tickSFX: {fileID: 8300000, guid: 5116157c59f2f7e468852d52d737d0c4, type: 3}
+  spotLight: {fileID: 7551438856790338500}
+  spriteRenderer: {fileID: 5498684756988093655}
+  idleSprite: {fileID: 21300000, guid: 80c4f90c509ea684c832920c7d7fdf71, type: 3}
+  flashSprite: {fileID: 21300000, guid: a16eea3209b8b6f4887e90f6c37ab854, type: 3}
+  baseIntensity: 0.1
+  flashIntensity: 1
+  flashDuration: 0.08
+  touched: 0
+--- !u!114 &8300526696921764228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6636626660099643230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8e3f2643a89a4047947922beae27a46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Explode
+  explosionRadius: 2
+  explosionForce: 50
+  explosionDmg: 100
+  HitTarget:
+    serializedVersion: 2
+    m_Bits: 27392
+  shockwaveVFX: Shockwave
+  explosionVFX: Explosion
+  explosionLight: ExplosionLight
+  explosionSFX: {fileID: 8300000, guid: acf154785ec36dd44896c325c521974c, type: 3}

@@ -1,159 +1,107 @@
-using System;
 using System.Collections;
-using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
+[RequireComponent(typeof(Explode))]
 public class Landmine : MonoBehaviour
 {
-    public float explosionRadius = 5f;
-    public float explosionForce = 500f;
-    public float explosionDmg = 100f;
-    public LayerMask HitTarget;
+    [Header("Audio & Light")]
+    [SerializeField] private AudioClip tickSFX;
+    [SerializeField] private Light2D spotLight;
 
-    [SerializeField] AudioClip tickSFX;
-    [SerializeField] AudioClip explosionSFX;
+    [Header("Sprites (Hình ảnh)")]
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Sprite idleSprite;
+    [SerializeField] private Sprite flashSprite;
 
-    public string shockwaveVFX = "Shockwave";
-    public string explosionVFX = "Explosion";
+    [Header("Flash Settings")]
+    [SerializeField] private float baseIntensity = 0.1f;
+    [SerializeField] private float flashIntensity = 2.0f;
+    [SerializeField] private float flashDuration = 0.08f;
 
-    private CinemachineImpulseSource impulseSource;
-    private Animator anim;
     public bool touched = false;
+
+    private Explode explodeComponent;
+    private Coroutine flashCoroutine;
 
     private void Awake()
     {
-        impulseSource = GetComponent<CinemachineImpulseSource>();
-        anim = GetComponent<Animator>();
+        explodeComponent = GetComponent<Explode>();
+
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        if (spotLight == null)
+        {
+            spotLight = GetComponentInChildren<Light2D>();
+        }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void Start()
     {
-        if (touched == false)
+        if (spotLight != null) spotLight.intensity = baseIntensity;
+        if (spriteRenderer != null && idleSprite != null) spriteRenderer.sprite = idleSprite;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!touched)
         {
             if (collision.CompareTag("Player") || collision.CompareTag("Enemy"))
             {
-                StartCoroutine(Boom());
                 touched = true;
+                StartCoroutine(BoomRoutine());
             }
         }
     }
 
-    IEnumerator Boom()
+    private IEnumerator BoomRoutine()
     {
         int totalTicks = 16;
         float currentDelay = 1f;
         float speedUpFactor = 0.85f;
-        if (anim != null) anim.speed = 1f;
 
         for (int i = 0; i < totalTicks; i++)
         {
             SFXManager.Instance?.PlaySFX(tickSFX, transform.position, 0.2f, false);
 
+            if (flashCoroutine != null) StopCoroutine(flashCoroutine);
+            flashCoroutine = StartCoroutine(FlashRoutine());
+
             yield return new WaitForSeconds(currentDelay);
 
-            currentDelay = currentDelay * speedUpFactor;
-
-            if (anim != null)
-            {
-                anim.speed = anim.speed / speedUpFactor;
-            }
+            currentDelay *= speedUpFactor;
         }
 
-        SFXManager.Instance?.PlaySFX(explosionSFX, transform.position);
+        Detonate();
+    }
 
-        if (TryGetComponent<Collider2D>(out Collider2D col)) col.enabled = false;
+    private IEnumerator FlashRoutine()
+    {
+        if (spriteRenderer != null && flashSprite != null) spriteRenderer.sprite = flashSprite;
+        if (spotLight != null) spotLight.intensity = flashIntensity;
 
-        CameraShakeManager.Instance?.CameraShake(impulseSource, 1f);
-        ObjectPooler.Instance?.SpawnFromPool(shockwaveVFX, transform.position, Quaternion.identity);
-        ObjectPooler.Instance?.SpawnFromPool(explosionVFX, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(flashDuration);
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius, HitTarget);
-
-        foreach (Collider2D hitCollider in colliders)
-        {
-            if (hitCollider.gameObject == gameObject) continue;
-
-            Landmine lm = hitCollider.GetComponent<Landmine>();
-            if (lm != null && lm.touched == false)
-            {
-                lm.touched = true;
-                lm.BoomImmediatly();
-            }
-
-            IDamageable damageable = hitCollider.GetComponent<IDamageable>();
-            if (damageable != null)
-            {
-                damageable.takeDmg(explosionDmg);
-            }
-
-            Rigidbody2D rb = hitCollider.GetComponent<Rigidbody2D>();
-            if (rb != null)
-            {
-                AddExplosionForce(rb, explosionForce, transform.position, explosionRadius);
-            }
-
-            Enemy enemy = hitCollider.GetComponent<Enemy>();
-            if (enemy != null)
-            {
-                enemy.isCrashing = true;
-            }
-        }
-
-        Destroy(gameObject);
+        if (spriteRenderer != null && idleSprite != null) spriteRenderer.sprite = idleSprite;
+        if (spotLight != null) spotLight.intensity = baseIntensity;
     }
 
     public void BoomImmediatly()
     {
-        SFXManager.Instance?.PlaySFX(explosionSFX, transform.position);
+        StopAllCoroutines();
+        Detonate();
+    }
 
-        if (TryGetComponent<Collider2D>(out Collider2D col)) col.enabled = false;
-
-        CameraShakeManager.Instance?.CameraShake(impulseSource, 1f);
-        ObjectPooler.Instance?.SpawnFromPool(shockwaveVFX, transform.position, Quaternion.identity);
-        ObjectPooler.Instance?.SpawnFromPool(explosionVFX, transform.position, Quaternion.identity);
-
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius, HitTarget);
-
-        foreach (Collider2D hitCollider in colliders)
+    private void Detonate()
+    {
+        if (explodeComponent != null)
         {
-            if (hitCollider.gameObject == gameObject) continue;
-
-            Landmine lm = hitCollider.GetComponent<Landmine>();
-            if (lm != null && lm.touched == false)
-            {
-                lm.touched = true;
-                lm.BoomImmediatly();
-            }
-
-            IDamageable damageable = hitCollider.GetComponent<IDamageable>();
-            if (damageable != null)
-            {
-                damageable.takeDmg(explosionDmg);
-            }
-
-            Rigidbody2D rb = hitCollider.GetComponent<Rigidbody2D>();
-            if (rb != null)
-            {
-                AddExplosionForce(rb, explosionForce, transform.position, explosionRadius);
-            }
+            explodeComponent.DoExplosion();
         }
 
         Destroy(gameObject);
-    }
-
-
-    public static void AddExplosionForce(Rigidbody2D rb, float force, Vector2 explosionPosition, float radius)
-    {
-        var explosionDir = rb.position - explosionPosition;
-        var explosionDistance = explosionDir.magnitude;
-        var wearoff = 1 - (explosionDistance / radius);
-        rb.AddForce(explosionDir.normalized * force * wearoff * rb.mass, ForceMode2D.Impulse);
-        rb.AddTorque(UnityEngine.Random.Range(-10f, 10f), ForceMode2D.Impulse);
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, explosionRadius);
     }
 }
