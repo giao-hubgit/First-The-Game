@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: miniboss1_death
+  m_Name: miniboss1_die
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -22,20 +22,22 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 8617561042621938905, guid: b7bcfa5ba7ada8a49b59b87f3c5268fc, type: 3}
-    - time: 0.11111111
+    - time: 1
       value: {fileID: -860308174, guid: b7bcfa5ba7ada8a49b59b87f3c5268fc, type: 3}
-    - time: 0.22222222
+    - time: 2
       value: {fileID: -1882713251, guid: b7bcfa5ba7ada8a49b59b87f3c5268fc, type: 3}
-    - time: 0.33333334
+    - time: 3
       value: {fileID: -15198155, guid: b7bcfa5ba7ada8a49b59b87f3c5268fc, type: 3}
-    - time: 0.44444445
+    - time: 4
       value: {fileID: 1093782879, guid: b7bcfa5ba7ada8a49b59b87f3c5268fc, type: 3}
+    - time: 13
+      value: {fileID: -860308174, guid: b7bcfa5ba7ada8a49b59b87f3c5268fc, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
     flags: 2
-  m_SampleRate: 9
+  m_SampleRate: 1
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -57,12 +59,13 @@ AnimationClip:
     - {fileID: -1882713251, guid: b7bcfa5ba7ada8a49b59b87f3c5268fc, type: 3}
     - {fileID: -15198155, guid: b7bcfa5ba7ada8a49b59b87f3c5268fc, type: 3}
     - {fileID: 1093782879, guid: b7bcfa5ba7ada8a49b59b87f3c5268fc, type: 3}
+    - {fileID: -860308174, guid: b7bcfa5ba7ada8a49b59b87f3c5268fc, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.5555556
+    m_StopTime: 14
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

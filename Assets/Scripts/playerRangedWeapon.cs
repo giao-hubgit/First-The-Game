@@ -14,6 +14,7 @@ public class PlayerRangedWeapon : MonoBehaviour
     [SerializeField] private AudioClip outOfAmmoSFX;
     [SerializeField] private CinemachineImpulseSource impulseSource;
     [SerializeField] private IAttacker ownerAttacker;
+    [SerializeField] private PlayerMovement pm;
 
     public WeaponRangedData currentWeapon;
     public WeaponRangedData nullWeapon;
@@ -28,6 +29,7 @@ public class PlayerRangedWeapon : MonoBehaviour
     void Awake()
     {
         impulseSource = GetComponent<CinemachineImpulseSource>();
+        pm = GetComponent<PlayerMovement>();
         ownerAttacker = GetComponentInParent<IAttacker>();
     }
 
@@ -90,13 +92,33 @@ public class PlayerRangedWeapon : MonoBehaviour
                 firePoint.position,
                 bulletRotation
             );
-            if (bullet.TryGetComponent<Bullet>(out Bullet Bullet))
-            {
-                Bullet.Init(ownerAttacker);
-            }
 
-            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-            rb.linearVelocity = bullet.transform.up * currentWeapon.bulletForce;
+            if (bullet != null)
+            {
+                // Laser
+                if (bullet.TryGetComponent<Laser>(out Laser laser))
+                {
+                    bullet.transform.SetParent(firePoint, false);
+                    bullet.transform.localPosition = Vector3.zero;
+                    pm.isLocked = true;
+                    float fadeDuration = laser.laserData.fadeDuration;
+                    float sweepDuration = Mathf.Abs(laser.laserData.endAngleOffset - laser.laserData.startAngleOffset) / laser.laserData.rotationSpeed;
+                    StartCoroutine(StopRotating(sweepDuration + fadeDuration));
+                }
+                else // Bullet
+                {
+                    if (bullet.TryGetComponent<Bullet>(out Bullet bulletScript))
+                    {
+                        bulletScript.Init(ownerAttacker);
+                    }
+
+                    Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+                    if (rb != null)
+                    {
+                        rb.linearVelocity = bullet.transform.up * currentWeapon.bulletForce;
+                    }
+                }
+            }
         }
 
         CameraShakeManager.Instance?.CameraShake(impulseSource, currentWeapon.shakeForce);
@@ -107,6 +129,12 @@ public class PlayerRangedWeapon : MonoBehaviour
         UpdateWeaponUI();
 
         if (currentAmmo <= 0) OutOfAmmoLogic();
+    }
+
+    private IEnumerator StopRotating(float timer)
+    {
+        yield return new WaitForSeconds(timer);
+        pm.isLocked = false;
     }
 
     private void OutOfAmmoLogic()

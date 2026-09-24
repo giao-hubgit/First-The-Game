@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isHoldingForce = false;
     public bool isPushing = false;
+    public bool isLocked = false;
 
     private float currentForceEnergy = 1f;
 
@@ -413,11 +414,14 @@ public class PlayerMovement : MonoBehaviour
 
         recoilVelocity = Vector2.MoveTowards(recoilVelocity, Vector2.zero, recoilDecaySpeed * Time.fixedDeltaTime);
 
-        Vector2 lookDir = mousePos - rb.position;
-        if (lookDir.sqrMagnitude > 0.0001f)
+        if (isLocked == false)
         {
-            float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-            rb.MoveRotation(angle);
+            Vector2 lookDir = mousePos - rb.position;
+            if (lookDir.sqrMagnitude > 0.0001f)
+            {
+                float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+                rb.MoveRotation(angle);
+            }
         }
     }
 }

@@ -48,6 +48,13 @@ public class ObjectPooler : MonoBehaviour
 
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
 
+        if (objectToSpawn == null)
+        {
+            Pool poolInfo = pools.Find(p => p.tag == tag);
+            objectToSpawn = Instantiate(poolInfo.prefab);
+            objectToSpawn.transform.SetParent(this.transform);
+        }
+
         if (objectToSpawn.activeSelf)
         {
             Pool poolInfo = pools.Find(p => p.tag == tag);
@@ -60,9 +67,16 @@ public class ObjectPooler : MonoBehaviour
             objectToSpawn = newObj;
         }
 
-        objectToSpawn.SetActive(true);
         objectToSpawn.transform.position = position;
         objectToSpawn.transform.rotation = rotation;
+
+        TrailRenderer[] trails = objectToSpawn.GetComponentsInChildren<TrailRenderer>();
+        foreach (TrailRenderer trail in trails)
+        {
+            trail.Clear();
+        }
+
+        objectToSpawn.SetActive(true);
 
         poolDictionary[tag].Enqueue(objectToSpawn);
 

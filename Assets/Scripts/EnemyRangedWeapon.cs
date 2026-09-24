@@ -83,16 +83,30 @@ public class EnemyRangedWeapon : MonoBehaviour
 
         if (bullet != null)
         {
-            if (bullet.TryGetComponent<Bullet>(out Bullet bulletScript))
+            // Laser
+            if (bullet.TryGetComponent<Laser>(out Laser laser))
             {
-                bulletScript.Init(ownerAttacker);
+                bullet.transform.SetParent(firePoint, false);
+                bullet.transform.localPosition = Vector3.zero;
             }
-
-            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-            if (rb != null)
+            else // Bullet
             {
-                rb.linearVelocity = bullet.transform.up * currentWeapon.bulletForce;
+                if (bullet.TryGetComponent<Bullet>(out Bullet bulletScript))
+                {
+                    bulletScript.Init(ownerAttacker);
+                }
+
+                Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+                if (rb != null)
+                {
+                    rb.linearVelocity = bullet.transform.up * currentWeapon.bulletForce;
+                }
             }
         }
+    }
+
+    private IEnumerator DetachLaserRoutine(Transform laserTransform, float delay)
+    {
+        yield return new WaitForSeconds(delay);
     }
 }

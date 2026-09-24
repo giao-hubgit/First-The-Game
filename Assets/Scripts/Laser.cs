@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using Unity.Android.Gradle.Manifest;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(BoxCollider2D))]
@@ -7,25 +9,20 @@ using System.Collections;
 public class Laser : MonoBehaviour
 {
     [Header("Laser Configuration")]
-    [SerializeField] private LaserData laserData;
+    [SerializeField] public LaserData laserData;
 
     [Header("Collision Settings")]
-    [SerializeField] private LayerMask obstacleLayer;
-    [SerializeField] private string ignoreTag = "Enemy";
     [SerializeField] private Transform laserHead;
-
-    [Header("Fade Settings")]
-    [SerializeField] private float fadeDuration = 2f;
 
     private BoxCollider2D laserCollider;
     private SpriteRenderer spriteRenderer;
     private SpriteRenderer headSpriteRenderer;
 
-    private float currentSweptAngle = 0f;
-    private float nextDamageTime = 0f;
+    private float currentAngleOffset = 0f;
     private float nextSFXTime = 0f;
-
     private bool isFading = false;
+
+    private Dictionary<IDamageable, float> damageTimers = new Dictionary<IDamageable, float>();
 
     private void Awake()
     {
@@ -49,9 +46,12 @@ public class Laser : MonoBehaviour
     {
         if (laserData == null) return;
 
-        currentSweptAngle = 0f;
-        nextDamageTime = 0f;
+        currentAngleOffset = laserData.startAngleOffset;
+        transform.localRotation = Quaternion.Euler(0f, 0f, currentAngleOffset);
 
+        damageTimers.Clear();
+
+        nextSFXTime = 0f;
         isFading = false;
         ResetAlpha();
 
@@ -60,20 +60,20 @@ public class Laser : MonoBehaviour
             spriteRenderer.drawMode = SpriteDrawMode.Sliced;
         }
 
-        transform.Rotate(0f, 0f, laserData.startAngleOffset);
-
         UpdateLaserLength(laserData.length);
     }
 
     private void Update()
     {
-        if (laserData == null) return;
+        if (laserData == null || isFading) return;
 
-        if (isFading) return;
+        currentAngleOffset = Mathf.MoveTowards(
+            currentAngleOffset,
+            laserData.endAngleOffset,
+            laserData.rotationSpeed * Time.deltaTime
+        );
 
-        float angleToRotate = laserData.rotationSpeed * Time.deltaTime;
-        transform.Rotate(0f, 0f, angleToRotate);
-        currentSweptAngle += Mathf.Abs(angleToRotate);
+        transform.localRotation = Quaternion.Euler(0f, 0f, currentAngleOffset);
 
         if (Time.time >= nextSFXTime)
         {
@@ -81,18 +81,22 @@ public class Laser : MonoBehaviour
             nextSFXTime = Time.time + 0.1f;
         }
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, laserData.length, obstacleLayer);
-
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, laserData.length, laserData.obstacleLayer);
         float actualLength = laserData.length;
 
         if (hit.collider != null)
         {
             actualLength = hit.distance;
+
+            if (!string.IsNullOrEmpty(laserData.particlePoolName) && laserData.particlePoolName != "None")
+            {
+                ObjectPooler.Instance?.SpawnFromPool(laserData.particlePoolName, hit.point, Quaternion.identity);
+            }
         }
 
         UpdateLaserLength(actualLength);
 
-        if (currentSweptAngle >= laserData.rotationAngle)
+        if (Mathf.Approximately(currentAngleOffset, laserData.endAngleOffset))
         {
             StartCoroutine(FadeOutLaserRoutine());
         }
@@ -120,21 +124,17 @@ public class Laser : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (laserData == null) return;
+        if (laserData == null || isFading) return;
 
-        if (isFading) return;
-
-        if (Time.time >= nextDamageTime)
+        if (collision.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
-            if (collision.TryGetComponent<IDamageable>(out IDamageable damageable))
-            {
-                bool isIgnored = !string.IsNullOrEmpty(ignoreTag) && collision.gameObject.CompareTag(ignoreTag);
+            bool isIgnored = !string.IsNullOrEmpty(laserData.ignoreTag) && collision.gameObject.CompareTag(laserData.ignoreTag);
+            if (isIgnored) return;
 
-                if (!isIgnored)
-                {
-                    damageable.takeDmg(laserData.damage);
-                    nextDamageTime = Time.time + laserData.damageTick;
-                }
+            if (!damageTimers.ContainsKey(damageable) || Time.deltaTime >= damageTimers[damageable])
+            {
+                damageable.takeDmg(laserData.damage);
+                damageTimers[damageable] = Time.deltaTime + laserData.damageTick;
             }
         }
     }
@@ -147,11 +147,11 @@ public class Laser : MonoBehaviour
         Color bodyColor = spriteRenderer != null ? spriteRenderer.color : Color.white;
         Color headColor = headSpriteRenderer != null ? headSpriteRenderer.color : Color.white;
 
-        while (elapsedTime < fadeDuration)
+        while (elapsedTime < laserData.fadeDuration)
         {
             elapsedTime += Time.deltaTime;
 
-            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / laserData.fadeDuration);
 
             if (spriteRenderer != null)
             {
@@ -166,6 +166,11 @@ public class Laser : MonoBehaviour
             }
 
             yield return null;
+        }
+
+        if (ObjectPooler.Instance != null)
+        {
+            transform.SetParent(ObjectPooler.Instance.transform);
         }
 
         gameObject.SetActive(false);

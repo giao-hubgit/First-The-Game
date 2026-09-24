@@ -11,13 +11,12 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker
 
     protected float currentHP;
     public bool isCrashing = false;
-    private bool isDead = false;
+    public bool isDead = false;
 
     protected Rigidbody2D rb;
     protected SpriteRenderer spriteRenderer;
 
     [Header("Death Settings")]
-    [SerializeField] protected float fadeDuration = 0.5f;
     [SerializeField] protected Light2D[] spotLights;
 
     public event System.Action OnTakeDamage;
@@ -58,7 +57,7 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker
 
     public virtual float dmgDealt(float damage)
     {
-        return damage + data.baseDMG;
+        return damage * data.baseDMG;
     }
 
     protected virtual void Die()
@@ -93,7 +92,7 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker
         StartCoroutine(FadeOutAndDestroy());
     }
 
-    private IEnumerator FadeOutAndDestroy()
+    protected virtual IEnumerator FadeOutAndDestroy()
     {
         float elapsed = 0f;
         Color startColor = spriteRenderer != null ? spriteRenderer.color : Color.white;
@@ -113,10 +112,10 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker
             }
         }
 
-        while (elapsed < fadeDuration)
+        while (elapsed < data.deadFadeDuration)
         {
             elapsed += Time.deltaTime;
-            float t = elapsed / fadeDuration;
+            float t = elapsed / data.deadFadeDuration;
 
             if (spriteRenderer != null)
             {

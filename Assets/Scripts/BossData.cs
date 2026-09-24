@@ -8,7 +8,7 @@ public class BossData : EnemyData
     [Header("Boss Info")]
     public string bossName;
 
-    [Header("Boss SFX")]
+    [Header("Boss SFX & VFX")]
     public AudioClip transformSFX;
     public AudioClip dashSFX;
     public AudioClip phase2DashSFX;
@@ -16,6 +16,8 @@ public class BossData : EnemyData
     public AudioClip moveSFX;
     public AudioClip bossIntroEndSFX;
     public List<AudioClip> musicSFX;
+    public AudioClip bulletSFXClip;
+    public string bossDeathParticle = "BossDeadParticle";
 
     [Header("Boss Timing Settings")]
     [Tooltip("Thời gian Boss đi lại loanh quanh trước khi tung đòn")]
@@ -37,7 +39,8 @@ public class BossData : EnemyData
     public int bulletsPerBurst = 3;
     public float timeBetweenBullets = 0.1f;
     public float bulletSpread = 10f;
-    public AudioClip bulletSFXClip;
+    public float phaseTransitionDuration = 2f;
+    public float deathDuration = 5f;
 
 
     [Header("Projectitles Settings")]

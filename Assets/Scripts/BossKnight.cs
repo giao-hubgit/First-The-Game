@@ -45,6 +45,16 @@ public class KnightBoss : MonoBehaviour
         StartCoroutine(BossLogicPattern());
     }
 
+    private void OnEnable()
+    {
+        if (boss != null) boss.OnBossDeath += HandleBossDeath;
+    }
+
+    private void OnDisable()
+    {
+        if (boss != null) boss.OnBossDeath -= HandleBossDeath;
+    }
+
     private BossAttackType GetNextAttack()
     {
         if (attackBag.Count == 0)
@@ -85,7 +95,7 @@ public class KnightBoss : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        while (true)
+        while (!boss.isDead)
         {
             if (boss.isTransforming)
             {
@@ -174,24 +184,21 @@ public class KnightBoss : MonoBehaviour
         Transform launchPoint = firePoint != null ? firePoint : transform;
         Vector2 targetDir = (player.position - launchPoint.position).normalized;
         float angleToPlayer = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg;
-
-        float offset = laserData != null ? laserData.startAngleOffset : -60f;
-        float startAngle = angleToPlayer + offset;
-
-        Quaternion spawnRotation = Quaternion.Euler(0f, 0f, startAngle);
+        launchPoint.rotation = Quaternion.Euler(0f, 0f, angleToPlayer);
 
         string poolName = boss.bossData != null ? boss.bossData.laserPrefabS : "BossLaser";
-        GameObject laserObj = ObjectPooler.Instance?.SpawnFromPool(poolName, launchPoint.position, spawnRotation);
+        GameObject laserObj = ObjectPooler.Instance?.SpawnFromPool(poolName, launchPoint.position, launchPoint.rotation);
 
         if (laserObj != null && firePoint != null)
         {
-            laserObj.transform.SetParent(firePoint);
+            laserObj.transform.SetParent(firePoint, false);
+            laserObj.transform.localPosition = Vector3.zero;
         }
 
         float sweepDuration = 2f;
         if (laserData != null)
         {
-            sweepDuration = laserData.rotationAngle / laserData.rotationSpeed;
+            sweepDuration = Mathf.Abs(laserData.endAngleOffset - laserData.startAngleOffset) / laserData.rotationSpeed;
         }
 
         yield return new WaitForSeconds(sweepDuration);
@@ -358,5 +365,11 @@ public class KnightBoss : MonoBehaviour
     {
         Vector2 randomDirection = Random.insideUnitCircle.normalized;
         return (Vector2)transform.position + randomDirection * distance;
+    }
+
+    private void HandleBossDeath()
+    {
+        StopAllCoroutines();
+        locomotion.StopMoving();
     }
 }

@@ -65,7 +65,7 @@ public class Player : MonoBehaviour, IDamageable, IAttacker
 
     public float dmgDealt(float damage)
     {
-        return damage + data.baseDMG;
+        return damage * data.baseDMG;
     }
 
     private void Die()

@@ -8,10 +8,11 @@ using System;
 public class CinematicBarsController : MonoBehaviour
 {
     [SerializeField] private CinemachineCamera bossCutsceneCam;
-    [SerializeField] private float phaseTransitionDuration = 2f;
     [SerializeField] private Boss boss;
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private Canvas[] hudCanvasesToHide;
+
+    private Coroutine activeCinematicRoutine;
 
     private void Start()
     {
@@ -26,9 +27,19 @@ public class CinematicBarsController : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        UnsubscribeBossEvents(boss);
+    }
+
     public void SetupBossEvents(Boss targetBoss)
     {
         if (targetBoss == null) return;
+
+        if (boss != null && boss != targetBoss)
+        {
+            UnsubscribeBossEvents(boss);
+        }
 
         boss = targetBoss;
 
@@ -40,16 +51,26 @@ public class CinematicBarsController : MonoBehaviour
         boss.OnBossIntroStarted += PlayIntroCinematic;
         boss.OnBossIntroFinished += StopCinematic;
         boss.OnPhaseChanged += HandlePhaseChanged;
-        boss.OnBossDeath += StopCinematic;
+        boss.OnBossDeath += HandleDeathCinematic;
 
         PlayIntroCinematic();
+    }
+
+    private void UnsubscribeBossEvents(Boss targetBoss)
+    {
+        if (targetBoss == null) return;
+
+        targetBoss.OnBossIntroStarted -= PlayIntroCinematic;
+        targetBoss.OnBossIntroFinished -= StopCinematic;
+        targetBoss.OnPhaseChanged -= HandlePhaseChanged;
+        targetBoss.OnBossDeath -= HandleDeathCinematic;
     }
 
     private void PlayIntroCinematic()
     {
         ToggleHUDs(false);
         CinematicBars.Instance?.Show();
-        playerInput.actions.Disable();
+        //playerInput?.actions?.Disable();
         if (bossCutsceneCam != null) bossCutsceneCam.gameObject.SetActive(true);
     }
 
@@ -57,13 +78,52 @@ public class CinematicBarsController : MonoBehaviour
     {
         ToggleHUDs(true);
         CinematicBars.Instance?.Hide();
-        playerInput.actions.Enable();
+        //playerInput?.actions?.Enable();
+        if (bossCutsceneCam != null) bossCutsceneCam.gameObject.SetActive(false);
+    }
+
+    private void FocusCamera()
+    {
+        if (bossCutsceneCam != null) bossCutsceneCam.gameObject.SetActive(true);
+    }
+
+    private void StopFocusCamera()
+    {
         if (bossCutsceneCam != null) bossCutsceneCam.gameObject.SetActive(false);
     }
 
     private void HandlePhaseChanged(int newPhase)
     {
-        StartCoroutine(PhaseChangeRoutine());
+        if (boss == null) return;
+
+        if (activeCinematicRoutine != null) StopCoroutine(activeCinematicRoutine);
+        activeCinematicRoutine = StartCoroutine(PhaseChangeRoutine(boss.PhaseTransitionDuration));
+    }
+
+    private void HandleDeathCinematic()
+    {
+        if (boss == null) return;
+
+        if (activeCinematicRoutine != null) StopCoroutine(activeCinematicRoutine);
+        activeCinematicRoutine = StartCoroutine(DeathRoutine(boss.DeathDuration));
+    }
+
+    private IEnumerator PhaseChangeRoutine(float duration)
+    {
+        PlayIntroCinematic();
+
+        yield return new WaitForSeconds(duration);
+
+        StopCinematic();
+    }
+
+    private IEnumerator DeathRoutine(float duration)
+    {
+        FocusCamera();
+
+        yield return new WaitForSeconds(duration);
+
+        StopFocusCamera();
     }
 
     private void ToggleHUDs(bool isVisible)
@@ -77,14 +137,5 @@ public class CinematicBarsController : MonoBehaviour
                 canvas.enabled = isVisible;
             }
         }
-    }
-
-    private IEnumerator PhaseChangeRoutine()
-    {
-        PlayIntroCinematic();
-
-        yield return new WaitForSeconds(phaseTransitionDuration);
-
-        StopCinematic();
     }
 }

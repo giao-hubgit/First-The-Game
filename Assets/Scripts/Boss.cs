@@ -3,6 +3,8 @@ using System;
 using Unity.Cinemachine;
 using NUnit.Framework;
 using UnityEngine.Rendering.Universal;
+using System.Collections;
+using Unity.VisualScripting;
 
 public class Boss : Enemy
 {
@@ -45,6 +47,9 @@ public class Boss : Enemy
     {
         OnBossIntroStarted?.Invoke();
     }
+
+    public float PhaseTransitionDuration => bossData.phaseTransitionDuration;
+    public float DeathDuration => bossData.deathDuration;
 
     public void FinishIntro()
     {
@@ -111,6 +116,8 @@ public class Boss : Enemy
 
         OnPhaseChanged?.Invoke(currentPhase);
 
+        HitStop.Instance?.Stop(data.deadHitStopDuration, true);
+
         if (bossData.transformSFX != null) SFXManager.Instance?.PlaySFX(bossData.transformSFX, transform.position);
         if (bossData.musicSFX != null && currentPhase - 1 < bossData.musicSFX.Count) BGMManager.Instance?.PlayBGM(bossData.musicSFX[currentPhase - 1]);
     }
@@ -118,8 +125,94 @@ public class Boss : Enemy
     protected override void Die()
     {
         Debug.Log("Boss tèo, Spawn cổng qua màn");
+
         OnBossDeath?.Invoke();
+
+        animator.SetBool("isDead", true);
+
         if (bossData.musicSFX != null) BGMManager.Instance?.StopBGM();
-        base.Die();
+
+        SFXManager.Instance?.PlaySFX(data.deathSFX, transform.position);
+        HitStop.Instance?.Stop(data.deadHitStopDuration, true);
+
+        if (ObjectPooler.Instance != null)
+        {
+            GameObject deathParticle = ObjectPooler.Instance.SpawnFromPool(data.deathParticle, transform.position, Quaternion.identity);
+            if (deathParticle != null) deathParticle.transform.localScale = transform.localScale;
+
+            ObjectPooler.Instance.SpawnFromPool(data.deathAnimation, transform.position, transform.rotation);
+        }
+
+        Collider2D col = GetComponent<Collider2D>();
+        RedCubeRanged redCubeRanged = GetComponent<RedCubeRanged>();
+
+        if (redCubeRanged != null) redCubeRanged.enabled = false;
+
+        if (col != null) col.enabled = false;
+        if (rb != null)
+        {
+            rb.simulated = false;
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
+
+        StartCoroutine(FadeOutAndDestroy());
+    }
+
+    protected override IEnumerator FadeOutAndDestroy()
+    {
+        float elapsed = 0f;
+        Color startColor = spriteRenderer != null ? spriteRenderer.color : Color.white;
+
+        int lightCount = spotLights != null ? spotLights.Length : 0;
+        float[] startRadiO = new float[lightCount];
+        float[] startRadiI = new float[lightCount];
+        float[] startIntensities = new float[lightCount];
+
+        for (int i = 0; i < lightCount; i++)
+        {
+            if (spotLights[i] != null)
+            {
+                startRadiO[i] = spotLights[i].pointLightOuterRadius;
+                startRadiI[i] = spotLights[i].pointLightInnerRadius;
+                startIntensities[i] = spotLights[i].intensity;
+            }
+        }
+
+        while (elapsed < data.deadFadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / data.deadFadeDuration;
+
+            if (spriteRenderer != null)
+            {
+                float newAlpha = Mathf.Lerp(1f, 0f, t);
+                spriteRenderer.color = new Color(startColor.r, startColor.g, startColor.b, newAlpha);
+            }
+
+            for (int i = 0; i < lightCount; i++)
+            {
+                if (spotLights[i] != null)
+                {
+                    spotLights[i].pointLightOuterRadius = Mathf.Lerp(startRadiO[i], 0f, t);
+                    spotLights[i].pointLightInnerRadius = Mathf.Lerp(startRadiI[i], 0f, t);
+                    spotLights[i].intensity = Mathf.Lerp(startIntensities[i], 0f, t);
+                }
+            }
+
+            yield return null;
+        }
+
+        if (ObjectPooler.Instance != null)
+        {
+            GameObject deathParticle = ObjectPooler.Instance.SpawnFromPool(bossData.bossDeathParticle, transform.position, Quaternion.identity);
+            if (deathParticle != null) deathParticle.transform.localScale = transform.localScale;
+
+            ObjectPooler.Instance.SpawnFromPool(data.itemDrop, transform.position, transform.rotation);
+        }
+
+        SFXManager.Instance?.PlaySFX(data.deathSFX, transform.position);
+
+        Destroy(gameObject);
     }
 }

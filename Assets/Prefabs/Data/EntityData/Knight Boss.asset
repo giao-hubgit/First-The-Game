@@ -16,17 +16,18 @@ MonoBehaviour:
   baseDMG: 0.5
   collisionDMG: 40
   deadHitStopDuration: 1
+  deadFadeDuration: 5
   damageRate: 1
   aggroRange: 24
   moveSpeed: 14
   onDamageVFX_Mat: {fileID: 2100000, guid: dc295eb3434c0c94ea06d6be792c4bf9, type: 2}
-  deathParticle: EnemyDeathParticle
+  deathParticle: BossDeathParticle
   deathAnimation: Miniboss1 Death
   spawnAnimation: EnemySpawnLaser
   spawnSFX: {fileID: 8300000, guid: 6d7730b6892b7624aab93edc6daa803f, type: 3}
   deathSFX: {fileID: 8300000, guid: 7012821bbf3e894458d8da223dafc11a, type: 3}
   crashSFX: {fileID: 8300000, guid: eca835397b1ddc0468406add3ae25102, type: 3}
-  itemDrop: Pistol Pickup
+  itemDrop: DeathRay Pickup
   visionRange: 0
   lineOfSightLayer:
     serializedVersion: 2
@@ -41,6 +42,8 @@ MonoBehaviour:
   musicSFX:
   - {fileID: 8300000, guid: ea79f2753e9faa04c88e7c37dee13736, type: 3}
   - {fileID: 8300000, guid: 0724267ef2af01f44aabcbb9e17dba99, type: 3}
+  bulletSFXClip: {fileID: 8300000, guid: 6d7730b6892b7624aab93edc6daa803f, type: 3}
+  bossDeathParticle: BossDeathParticle
   movementDuration: 1
   postAttackCooldown: 0.5
   preAttackDelay: 0.5
@@ -53,7 +56,8 @@ MonoBehaviour:
   bulletsPerBurst: 4
   timeBetweenBullets: 0.2
   bulletSpread: 45
-  bulletSFXClip: {fileID: 8300000, guid: 6d7730b6892b7624aab93edc6daa803f, type: 3}
+  phaseTransitionDuration: 2
+  deathDuration: 5
   radialBulletCount: 16
   bulletBossPrefabS: Miniboss1 Bullet
   laserPrefabS: Miniboss1 Laser

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player Data
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
   maxHP: 200
-  baseDMG: 3
+  baseDMG: 1
   invulnerabilityTime: 0.5
   collisionDMG: 20
   takeDmgHitStopDuration: 0.01
