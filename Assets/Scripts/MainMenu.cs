@@ -1,9 +1,14 @@
+using System.Collections;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
     public GameObject settingMenu;
+    public GameObject LoadingScreen;
+    public UnityEngine.UI.Image LoadingCube;
     public AudioClip clickClip;
 
     private void playSFX(AudioClip clip)
@@ -14,10 +19,10 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    public void startGame()
+    public void startGame(int sceneID)
     {
         playSFX(clickClip);
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadSceneAsync(sceneID);
     }
 
     public void Setting()

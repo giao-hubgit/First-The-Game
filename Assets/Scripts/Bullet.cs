@@ -1,7 +1,4 @@
-using System;
-using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class Bullet : MonoBehaviour
 {

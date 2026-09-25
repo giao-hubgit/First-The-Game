@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fabd36133740698498f234b6eba66a10, type: 3}
   m_Name: Deathray_laser
   m_EditorClassIdentifier: Assembly-CSharp::LaserData
-  damage: 120
-  damageTick: 0.5
+  damage: 20
+  damageTick: 0.01
   ignoreTag: Player
   obstacleLayer:
     serializedVersion: 2

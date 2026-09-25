@@ -37,6 +37,14 @@ public class Player : MonoBehaviour, IDamageable, IAttacker
         currentHP = data.maxHP;
     }
 
+    private void Start()
+    {
+        Vector2 laserSpawnPos = transform.position;
+        laserSpawnPos.y += 1.5f * transform.localScale.y;
+        Instantiate(data.spawnLaser, laserSpawnPos, Quaternion.identity);
+        SFXManager.Instance?.PlaySFX(data.spawnSFX, transform.position, 0.3f, true, 0.75f, 1.25f);
+    }
+
     public void takeDmg(float damage)
     {
         if (isInvulnerable) return;
@@ -45,7 +53,7 @@ public class Player : MonoBehaviour, IDamageable, IAttacker
 
         OnTakeDamage?.Invoke();
 
-        HitStop.Instance?.Stop(data.takeDmgHitStopDuration);
+        HitStop.Instance?.Stop(damage * (1 / 1000));
         CameraShakeManager.Instance?.CameraShake(impulseSource, 0.25f);
 
         if (hpBar != null)

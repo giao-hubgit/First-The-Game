@@ -16,9 +16,10 @@ MonoBehaviour:
   baseDMG: 1
   invulnerabilityTime: 0.5
   collisionDMG: 20
-  takeDmgHitStopDuration: 0.01
   hurtSFX: {fileID: 8300000, guid: 05422b23a436ae24ab80939dda444310, type: 3}
   DeathParticle: {fileID: 631531847556192649, guid: 5771ebda4c9c8a64b955ffceef8b4999, type: 3}
+  spawnLaser: {fileID: 2676394996533991894, guid: 0dfcf42a5a199194aa9e39d43528456d, type: 3}
+  spawnSFX: {fileID: 8300000, guid: ba1d9c88fec619241ba3e4799ce842c2, type: 3}
   moveSpd: 5
   BulletPlayer: PlayerBullet
   Slowmo: {fileID: 8300000, guid: 77c1a7207bc8c5842a4ca2cfc7e8e5b5, type: 3}

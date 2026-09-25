@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Android.Gradle.Manifest;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(BoxCollider2D))]
@@ -131,10 +130,10 @@ public class Laser : MonoBehaviour
             bool isIgnored = !string.IsNullOrEmpty(laserData.ignoreTag) && collision.gameObject.CompareTag(laserData.ignoreTag);
             if (isIgnored) return;
 
-            if (!damageTimers.ContainsKey(damageable) || Time.deltaTime >= damageTimers[damageable])
+            if (!damageTimers.ContainsKey(damageable) || Time.time >= damageTimers[damageable])
             {
                 damageable.takeDmg(laserData.damage);
-                damageTimers[damageable] = Time.deltaTime + laserData.damageTick;
+                damageTimers[damageable] = Time.time + laserData.damageTick;
             }
         }
     }

@@ -1,10 +1,7 @@
 using UnityEngine;
 using System;
-using Unity.Cinemachine;
-using NUnit.Framework;
 using UnityEngine.Rendering.Universal;
 using System.Collections;
-using Unity.VisualScripting;
 
 public class Boss : Enemy
 {
@@ -43,7 +40,7 @@ public class Boss : Enemy
         BGMManager.Instance?.PlayBGM(bossData.musicSFX[currentPhase - 1]);
     }
 
-    public void Start()
+    public override void Start()
     {
         OnBossIntroStarted?.Invoke();
     }

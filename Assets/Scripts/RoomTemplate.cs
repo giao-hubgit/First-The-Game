@@ -26,6 +26,9 @@ public class RoomTemplate : MonoBehaviour
 
     private HashSet<Vector2Int> occupiedPositions = new HashSet<Vector2Int>();
 
+    public bool GenerationFinished { get; private set; }
+    public bool NavmeshFinished { get; private set; }
+
     void Awake()
     {
         if (Instance == null) Instance = this;
@@ -97,6 +100,8 @@ public class RoomTemplate : MonoBehaviour
                     rooms.Add(bossRoom);
                     Debug.Log("Boss room generated");
 
+                    GenerationFinished = true;
+
                     StartCoroutine(WaitAndBakeNavmesh());
                 }
             }
@@ -130,6 +135,7 @@ public class RoomTemplate : MonoBehaviour
         if (navManager != null)
         {
             navManager.BakeMyMap();
+            NavmeshFinished = true;
         }
         else
         {

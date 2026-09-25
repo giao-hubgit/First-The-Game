@@ -8,9 +8,10 @@ public class PlayerData : ScriptableObject
     public float baseDMG = 1f;
     public float invulnerabilityTime = 0.5f;
     public int collisionDMG = 20;
-    public float takeDmgHitStopDuration = 0.05f;
     public AudioClip hurtSFX;
     public ParticleSystem DeathParticle;
+    public GameObject spawnLaser;
+    public AudioClip spawnSFX;
 
     [Header("Movement Stats")]
     public float moveSpd = 5f;

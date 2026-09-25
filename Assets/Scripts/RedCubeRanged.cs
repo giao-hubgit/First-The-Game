@@ -5,7 +5,7 @@ public class RedCubeRanged : Enemy
     public Transform target;
     [SerializeField] private EnemyRangedWeapon rangedWeapon;
 
-    protected virtual void Start()
+    public override void Start()
     {
         if (target == null)
         {

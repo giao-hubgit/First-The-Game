@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.Rendering.Universal;
 
 public class Enemy : MonoBehaviour, IDamageable, IAttacker
@@ -38,6 +37,11 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker
         laserSpawnPos.y += 1.5f * transform.localScale.y;
         ObjectPooler.Instance?.SpawnFromPool(data.spawnAnimation, laserSpawnPos, transform.rotation);
         SFXManager.Instance?.PlaySFX(data.spawnSFX, transform.position, 0.3f, true, 0.75f, 1.25f);
+    }
+
+    public virtual void Start()
+    {
+
     }
 
     public virtual void takeDmg(float damage)
