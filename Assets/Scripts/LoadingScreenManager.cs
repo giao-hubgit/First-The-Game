@@ -9,6 +9,7 @@ public class LoadingScreenManager : MonoBehaviour
     [SerializeField] private Image loadingCube;
     [SerializeField] private RoomTemplate mapGenerator;
     [SerializeField] private Player player;
+    [SerializeField] private GameObject spawnCamera;
 
     private void Start()
     {
@@ -18,6 +19,7 @@ public class LoadingScreenManager : MonoBehaviour
     private IEnumerator LoadingRoutine()
     {
         player.gameObject.SetActive(false);
+        spawnCamera.SetActive(true);
         loadingCanvas.SetActive(true);
         AudioListener.pause = true;
 
@@ -35,6 +37,7 @@ public class LoadingScreenManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.5f);
 
         loadingCanvas.SetActive(false);
+        spawnCamera.SetActive(false);
         AudioListener.pause = false;
         player.gameObject.SetActive(true);
     }

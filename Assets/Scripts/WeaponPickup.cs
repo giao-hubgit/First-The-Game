@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class WeaponPickup : MonoBehaviour, IInteractable
@@ -8,15 +9,14 @@ public class WeaponPickup : MonoBehaviour, IInteractable
     public GameObject floatingTextPrefab;
     public AudioClip weaponPickupSFX;
 
-    private SpriteRenderer spriteRenderer;
-    private MaterialPropertyBlock propBlock;
+    public Light2D hightLight;
 
     private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        propBlock = new MaterialPropertyBlock();
+        hightLight = GetComponentInChildren<Light2D>();
 
-        SetHighlight(false);
+        if (hightLight != null)
+            hightLight.enabled = false;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -69,16 +69,9 @@ public class WeaponPickup : MonoBehaviour, IInteractable
 
     public void SetHighlight(bool isHighlighted)
     {
-        if (spriteRenderer == null) return;
+        if (hightLight == null) return;
 
-        if (propBlock == null)
-        {
-            propBlock = new MaterialPropertyBlock();
-        }
-
-        spriteRenderer.GetPropertyBlock(propBlock);
-        propBlock.SetFloat("_EnableOutline", isHighlighted ? 1f : 0f);
-        spriteRenderer.SetPropertyBlock(propBlock);
+        hightLight.enabled = isHighlighted ? true : false;
     }
 
     private void OnEnable()
@@ -99,9 +92,10 @@ public class WeaponPickup : MonoBehaviour, IInteractable
             GameObject popup = Instantiate(floatingTextPrefab, spawnPos, Quaternion.identity);
 
             FloatingText ftScript = popup.GetComponent<FloatingText>();
+
             if (ftScript != null)
             {
-                ftScript.SetText(weaponData.weaponName, Color.white);
+                ftScript.SetText(weaponData.weaponName, hightLight.color);
             }
         }
     }

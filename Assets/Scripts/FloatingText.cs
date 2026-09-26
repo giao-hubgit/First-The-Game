@@ -6,7 +6,7 @@ public class FloatingText : MonoBehaviour
     public TextMeshProUGUI textMesh;
     public float moveSpeed = 1.5f;
     public float fadeDuration = 1f;
-    private Color startColor;
+    public Color startColor;
 
     public void SetText(string content, Color color)
     {
