@@ -6,9 +6,11 @@ using System.Collections.Generic;
 
 public enum BossAttackType
 {
+    Melee1,
     Ranged1,
     Ranged2,
     Dash,
+    Melee2,
     Laser
 }
 
@@ -22,6 +24,7 @@ public class KnightBoss : MonoBehaviour
     private Animator animator;
     private Transform firePoint;
     [SerializeField] private LaserData laserData;
+    [SerializeField] private EnemyMeleeWeapon meleeWeapon;
     private TrailRenderer trail;
     private CinemachineImpulseSource impulseSource;
     private List<BossAttackType> attackBag = new List<BossAttackType>();
@@ -70,7 +73,7 @@ public class KnightBoss : MonoBehaviour
     private void RefillAndShuffleBag()
     {
         attackBag.Clear();
-        int maxAttackIndex = boss.currentPhase >= 2 ? 4 : 3;
+        int maxAttackIndex = boss.currentPhase >= 2 ? 6 : 4;
 
         for (int i = 0; i < maxAttackIndex; i++)
         {
@@ -155,6 +158,18 @@ public class KnightBoss : MonoBehaviour
                     break;
                 case BossAttackType.Laser:
                     yield return StartCoroutine(AttackLaser());
+                    break;
+                case BossAttackType.Melee1:
+                    if (IsPlayerInMeleeRange(0))
+                        yield return StartCoroutine(AttackMelee(0));
+                    else
+                        yield return StartCoroutine(AttackDash());
+                    break;
+                case BossAttackType.Melee2:
+                    if (IsPlayerInMeleeRange(1))
+                        yield return StartCoroutine(AttackMelee(1));
+                    else
+                        yield return StartCoroutine(AttackBulletType2());
                     break;
             }
 
@@ -361,6 +376,31 @@ public class KnightBoss : MonoBehaviour
         boss.isAttacking = false;
     }
 
+    private IEnumerator AttackMelee(int attackIndex)
+    {
+        if (player == null || meleeWeapon == null) yield break;
+
+        boss.isAttacking = true;
+        locomotion.StopMoving();
+
+        Vector2 targetDir = (player.position - transform.position).normalized;
+        float angleToPlayer = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg;
+
+        meleeWeapon.transform.rotation = Quaternion.Euler(0f, 0f, angleToPlayer - 90f);
+
+        bool attackStarted = meleeWeapon.ExecuteAttack(attackIndex);
+
+        if (attackStarted)
+        {
+            while (meleeWeapon.isSwinging)
+            {
+                yield return null;
+            }
+        }
+
+        boss.isAttacking = false;
+    }
+
     private Vector2 GetRandomPositionInRoom(float distance)
     {
         Vector2 randomDirection = Random.insideUnitCircle.normalized;
@@ -371,5 +411,13 @@ public class KnightBoss : MonoBehaviour
     {
         StopAllCoroutines();
         locomotion.StopMoving();
+    }
+
+    // Check xem player có trong tầm melee không
+    private bool IsPlayerInMeleeRange(int attackIndex)
+    {
+        if (player == null || meleeWeapon == null) return false;
+        float range = meleeWeapon.GetWeaponRange(attackIndex) + 0.5f;
+        return Vector2.Distance(transform.position, player.position) <= range;
     }
 }

@@ -86,11 +86,6 @@ public class Laser : MonoBehaviour
         if (hit.collider != null)
         {
             actualLength = hit.distance;
-
-            if (!string.IsNullOrEmpty(laserData.particlePoolName) && laserData.particlePoolName != "None")
-            {
-                ObjectPooler.Instance?.SpawnFromPool(laserData.particlePoolName, hit.point, Quaternion.identity);
-            }
         }
 
         UpdateLaserLength(actualLength);

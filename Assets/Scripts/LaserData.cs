@@ -12,7 +12,7 @@ public class LaserData : ScriptableObject
     [Header("Visual Settings")]
     public float length = 20f;
     public float width = 1f;
-    public string particlePoolName = "None";
+    public string laserHitParticle = "None";
     public float fadeDuration = 0.2f;
 
     [Header("Movement Settings")]

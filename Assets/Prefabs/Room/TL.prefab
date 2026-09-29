@@ -5359,6 +5359,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 270ec9484f6264a4cb7eb136163ceda2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  spawnInGroups: 1
+  groupSpacing: 0.8
   obstacleMask:
     serializedVersion: 2
     m_Bits: 17408

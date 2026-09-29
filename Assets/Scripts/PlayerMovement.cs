@@ -334,6 +334,7 @@ public class PlayerMovement : MonoBehaviour
         if (dashDir == Vector2.zero) dashDir = transform.up;
 
         SFXManager.Instance?.PlaySFX(data.dashSFX, transform.position);
+        ObjectPooler.Instance?.SpawnFromPool("DashShockWave", transform.position, transform.rotation);
 
         int originalLayer = gameObject.layer;
         gameObject.layer = LayerMask.NameToLayer("Dashing");

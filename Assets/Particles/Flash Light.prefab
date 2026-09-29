@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2413599015286928251}
   - component: {fileID: 8212887628550940040}
   - component: {fileID: 1787837793124972105}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Flash Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

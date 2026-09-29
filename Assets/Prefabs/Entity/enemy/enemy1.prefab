@@ -186,7 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Common_Enemy
   data: {fileID: 11400000, guid: 4e84ca5112972da48be0c853a4842874, type: 2}
   isCrashing: 0
-  fadeDuration: 0.5
+  isDead: 0
   spotLights: []
 --- !u!114 &2584516349395757536
 MonoBehaviour:

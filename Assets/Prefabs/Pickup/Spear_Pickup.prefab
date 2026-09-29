@@ -194,7 +194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 236728054792298691}
   - component: {fileID: 7297509017340266656}
-  m_Layer: 11
+  m_Layer: 17
   m_Name: Spot Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}

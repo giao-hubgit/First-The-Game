@@ -20,6 +20,12 @@ public class EnemyRangedWeapon : MonoBehaviour
         if (currentWeapon == null || isShootingBurst || Time.time < nextFireTime)
             return false;
 
+        if (currentWeapon.recoil > 0)
+        {
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            if (rb != null) rb.linearVelocity += (Vector2)(-transform.up * currentWeapon.recoil);
+        }
+
         nextFireTime = Time.time + currentWeapon.fireRate;
 
         if (currentWeapon.timeBetweenBullets > 0f)

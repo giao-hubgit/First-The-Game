@@ -26,5 +26,5 @@ MonoBehaviour:
   shootSFX: {fileID: 8300000, guid: 6d7730b6892b7624aab93edc6daa803f, type: 3}
   isAutomatic: 1
   maxAmmo: 30
-  recoil: 1
+  recoil: 0.1
   shakeForce: 0

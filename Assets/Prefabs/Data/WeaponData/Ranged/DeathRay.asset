@@ -17,7 +17,6 @@ MonoBehaviour:
   weaponPrefab: {fileID: 0}
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
   weaponIcon: {fileID: 21300000, guid: 9fab634111f86ee4e9f3c27bfb224c3c, type: 3}
-  bulletDetachTime: 0.25
   bulletTag: DeathRay
   bulletForce: 0
   fireRate: 2
@@ -27,5 +26,5 @@ MonoBehaviour:
   shootSFX: {fileID: 8300000, guid: 3c110a2d3f385a944838fa0f3ce954e2, type: 3}
   isAutomatic: 0
   maxAmmo: 10
-  recoil: 10
+  recoil: 2
   shakeForce: 0.5
