@@ -55,7 +55,11 @@ public class MeleeHitbox : MonoBehaviour
             if (damageable != null)
             {
                 CameraShakeManager.Instance?.CameraShake(impulseSource, hitImpact);
-                HitStop.Instance?.Stop(hitStop);
+
+                if (other.gameObject.layer != LayerMask.NameToLayer("Obstacle"))
+                {
+                    HitStop.Instance?.Stop(hitStop, true);
+                }
 
                 float finalDamage = ownerAttacker != null ? ownerAttacker.dmgDealt(damage) : damage;
                 damageable.takeDmg(finalDamage);

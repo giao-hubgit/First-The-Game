@@ -67,7 +67,7 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker
     protected virtual void Die()
     {
         SFXManager.Instance?.PlaySFX(data.deathSFX, transform.position);
-        HitStop.Instance?.Stop(data.deadHitStopDuration, true);
+        HitStop.Instance?.Stop(data.deadHitStopDuration, true, false);
 
         if (ObjectPooler.Instance != null)
         {

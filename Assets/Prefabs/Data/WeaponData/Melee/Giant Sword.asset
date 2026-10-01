@@ -30,7 +30,7 @@ MonoBehaviour:
   knockback: 8
   recoil: 0
   hitImpact: 0.5
-  hitStop: 0.2
+  hitStop: 0.1
   startSpeed: 0.1
   endSpeed: 10
   cooldown: 4

@@ -53,8 +53,8 @@ public class Player : MonoBehaviour, IDamageable, IAttacker
 
         OnTakeDamage?.Invoke();
 
-        HitStop.Instance?.Stop(damage * (1 / 1000));
-        CameraShakeManager.Instance?.CameraShake(impulseSource, 0.25f);
+        HitStop.Instance?.Stop(damage * 0.01f);
+        CameraShakeManager.Instance?.CameraShake(impulseSource, damage * 0.05f);
 
         if (hpBar != null)
         {

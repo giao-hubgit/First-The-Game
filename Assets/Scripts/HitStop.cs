@@ -6,7 +6,7 @@ public class HitStop : MonoBehaviour
     public static HitStop Instance { get; private set; }
 
     [SerializeField] private float maxHitStopCap = 0.25f;
-    [SerializeField] private float hitStopCooldown = 0.05f;
+    [SerializeField] private float hitStopCooldown = 0.1f;
 
     private Coroutine hitStopRoutine;
     private float lastValidTimeScale = 1f;
