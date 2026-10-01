@@ -66,7 +66,6 @@ public class Player : MonoBehaviour, IDamageable, IAttacker
         if (currentHP <= 0 && !isDead)
         {
             isDead = true;
-            HitStop.Instance?.Stop(0.5f);
             Die();
         }
     }

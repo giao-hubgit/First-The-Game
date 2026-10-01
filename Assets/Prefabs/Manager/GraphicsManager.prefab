@@ -46,3 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   resolutionDropdown: {fileID: 0}
   fullscreenToggle: {fileID: 0}
+  screenshakeSlider: {fileID: 0}
+  FPSDropdown: {fileID: 0}
+  vSyncToggle: {fileID: 0}

@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Bullet_player
   m_EditorClassIdentifier: Assembly-CSharp::BulletData
   damage: 20
+  knockback: 1
   bulletHitVFX: BulletHitVFX

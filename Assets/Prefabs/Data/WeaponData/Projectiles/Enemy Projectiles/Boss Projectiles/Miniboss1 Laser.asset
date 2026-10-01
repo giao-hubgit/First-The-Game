@@ -24,5 +24,5 @@ MonoBehaviour:
   fadeDuration: 0.2
   startAngleOffset: -60
   endAngleOffset: 60
-  rotationSpeed: 60
+  rotationSpeed: 80
   laserSFX: {fileID: 8300000, guid: 235860261503159458fa8e4c5f12cdee, type: 3}

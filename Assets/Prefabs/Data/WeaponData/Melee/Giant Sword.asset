@@ -20,6 +20,7 @@ MonoBehaviour:
   damage: 160
   size: 5
   radius: 1
+  noTrail: 0
   spawnOffset: {x: 0, y: 0}
   fadeInDuration: 0.5
   delayStart: 0.5
@@ -29,7 +30,7 @@ MonoBehaviour:
   knockback: 8
   recoil: 0
   hitImpact: 0.5
-  hitStop: 0.05
+  hitStop: 0.2
   startSpeed: 0.1
   endSpeed: 10
   cooldown: 4
@@ -50,3 +51,5 @@ MonoBehaviour:
   thrustEndPos: {x: 0, y: 0, z: 0}
   swingStartAngle: -150
   swingEndAngle: 90
+  isTrueMelee: 1
+  projectilePrefab: Projectile

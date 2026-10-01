@@ -6,10 +6,12 @@ public class HitStop : MonoBehaviour
     public static HitStop Instance { get; private set; }
 
     [SerializeField] private float maxHitStopCap = 0.25f;
+    [SerializeField] private float hitStopCooldown = 0.05f;
 
     private Coroutine hitStopRoutine;
     private float lastValidTimeScale = 1f;
     private float remainingHitStop = 0f;
+    private float lastTriggerTime = -999f;
 
     private void Awake()
     {
@@ -17,9 +19,16 @@ public class HitStop : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    public void Stop(float duration, bool ignoreCap = false)
+    public void Stop(float duration, bool ignoreCap = false, bool ignoreCooldown = false)
     {
         if (duration <= 0) return;
+
+        if (!ignoreCooldown && Time.unscaledTime < lastTriggerTime + hitStopCooldown)
+        {
+            return;
+        }
+
+        lastTriggerTime = Time.unscaledTime;
 
         if (hitStopRoutine == null)
         {

@@ -92,6 +92,7 @@ public class EnemyRangedWeapon : MonoBehaviour
             // Laser
             if (bullet.TryGetComponent<Laser>(out Laser laser))
             {
+                laser.Init(ownerAttacker);
                 bullet.transform.SetParent(firePoint, false);
                 bullet.transform.localPosition = Vector3.zero;
             }

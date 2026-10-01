@@ -123,9 +123,12 @@ public class PlayerMeleeWeapon : MonoBehaviour
 
         yield return StartCoroutine(DelayWeapon(currentWeapon.delayStart));
 
-        foreach (GameObject childObject in childObjects)
+        if (currentWeapon.noTrail == false)
         {
-            childObject.SetActive(true);
+            foreach (GameObject childObject in childObjects)
+            {
+                childObject.SetActive(true);
+            }
         }
 
         if (currentWeapon.recoil > 0)
@@ -202,9 +205,12 @@ public class PlayerMeleeWeapon : MonoBehaviour
 
         yield return StartCoroutine(DelayWeapon(currentWeapon.delayStart));
 
-        foreach (GameObject childObject in childObjects)
+        if (currentWeapon.noTrail == false)
         {
-            childObject.SetActive(true);
+            foreach (GameObject childObject in childObjects)
+            {
+                childObject.SetActive(true);
+            }
         }
 
         if (currentWeapon.recoil > 0)

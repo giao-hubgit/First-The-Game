@@ -17,6 +17,8 @@ public class Laser : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private SpriteRenderer headSpriteRenderer;
 
+    public IAttacker ownerAttacker;
+
     private float currentAngleOffset = 0f;
     private float nextSFXTime = 0f;
     private bool isFading = false;
@@ -39,6 +41,11 @@ public class Laser : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Kinematic;
             rb.simulated = true;
         }
+    }
+
+    public virtual void Init(IAttacker attacker)
+    {
+        ownerAttacker = attacker;
     }
 
     private void OnEnable()
@@ -127,7 +134,8 @@ public class Laser : MonoBehaviour
 
             if (!damageTimers.ContainsKey(damageable) || Time.time >= damageTimers[damageable])
             {
-                damageable.takeDmg(laserData.damage);
+                float finalDamage = ownerAttacker != null ? ownerAttacker.dmgDealt(laserData.damage) : laserData.damage;
+                damageable.takeDmg(finalDamage);
                 damageTimers[damageable] = Time.time + laserData.damageTick;
             }
         }

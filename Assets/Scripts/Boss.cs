@@ -113,8 +113,6 @@ public class Boss : Enemy
 
         OnPhaseChanged?.Invoke(currentPhase);
 
-        HitStop.Instance?.Stop(data.deadHitStopDuration, true);
-
         if (bossData.transformSFX != null) SFXManager.Instance?.PlaySFX(bossData.transformSFX, transform.position);
         if (bossData.musicSFX != null && currentPhase - 1 < bossData.musicSFX.Count) BGMManager.Instance?.PlayBGM(bossData.musicSFX[currentPhase - 1]);
     }

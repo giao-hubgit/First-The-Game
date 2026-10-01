@@ -3,7 +3,6 @@ using System.Collections;
 using Unity.Cinemachine;
 using System.Collections.Generic;
 
-
 public enum BossAttackType
 {
     Melee1,
@@ -166,10 +165,7 @@ public class KnightBoss : MonoBehaviour
                         yield return StartCoroutine(AttackDash());
                     break;
                 case BossAttackType.Melee2:
-                    if (IsPlayerInMeleeRange(1))
-                        yield return StartCoroutine(AttackMelee(1));
-                    else
-                        yield return StartCoroutine(AttackBulletType2());
+                    yield return StartCoroutine(AttackMelee(1));
                     break;
             }
 
@@ -381,6 +377,7 @@ public class KnightBoss : MonoBehaviour
         if (player == null || meleeWeapon == null) yield break;
 
         boss.isAttacking = true;
+        animator.SetTrigger("isShooting");
         locomotion.StopMoving();
 
         Vector2 targetDir = (player.position - transform.position).normalized;

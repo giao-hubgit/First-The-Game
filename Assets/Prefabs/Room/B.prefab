@@ -5634,6 +5634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   spawnInGroups: 1
   groupSpacing: 0.8
+  minGroupDistance: 3.5
   obstacleMask:
     serializedVersion: 2
     m_Bits: 17408

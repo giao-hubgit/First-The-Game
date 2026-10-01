@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Weapon", menuName = "Weapons/Melee Weapon Data")]
@@ -6,6 +7,7 @@ public class WeaponMeleeData : WeaponData
     public int damage = 10;
     public float size = 1f;
     public float radius = 1f;
+    public bool noTrail = false;
 
     [Header("Spawn Settings")]
     public Vector2 spawnOffset = Vector2.zero;
@@ -44,4 +46,8 @@ public class WeaponMeleeData : WeaponData
     [Header("Attack Type: Swing")]
     public float swingStartAngle = -90f;
     public float swingEndAngle = 90f;
+
+    [Header("True melee")]
+    public bool isTrueMelee = true;
+    public string projectilePrefab = "Projectile";
 }

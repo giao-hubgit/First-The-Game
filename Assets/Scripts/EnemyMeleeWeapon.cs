@@ -13,7 +13,8 @@ public class EnemyMeleeWeapon : MonoBehaviour
     public bool isSwinging { get; private set; } = false;
 
     private Rigidbody2D rb;
-    private float WeaponDeltaTime => Time.timeScale > 0f ? Time.unscaledDeltaTime : Time.deltaTime;
+    //private float WeaponDeltaTime => Time.timeScale > 0f ? Time.unscaledDeltaTime : Time.deltaTime;
+    private float WeaponDeltaTime => Time.deltaTime;
 
     private void Awake()
     {
@@ -113,9 +114,12 @@ public class EnemyMeleeWeapon : MonoBehaviour
 
         yield return StartCoroutine(DelayWeapon(currentWeapon.delayStart));
 
-        foreach (GameObject childObject in childObjects)
+        if (currentWeapon.noTrail == false)
         {
-            childObject.SetActive(true);
+            foreach (GameObject childObject in childObjects)
+            {
+                childObject.SetActive(true);
+            }
         }
 
         if (currentWeapon.recoil > 0 && rb != null)
@@ -191,9 +195,12 @@ public class EnemyMeleeWeapon : MonoBehaviour
 
         yield return StartCoroutine(DelayWeapon(currentWeapon.delayStart));
 
-        foreach (GameObject childObject in childObjects)
+        if (currentWeapon.noTrail == false)
         {
-            childObject.SetActive(true);
+            foreach (GameObject childObject in childObjects)
+            {
+                childObject.SetActive(true);
+            }
         }
 
         if (currentWeapon.recoil > 0 && rb != null)
@@ -311,6 +318,20 @@ public class EnemyMeleeWeapon : MonoBehaviour
 
     private IEnumerator FadeAndDestroy(GameObject weaponInstance, GameObject pivot)
     {
+        if (!currentWeapon.isTrueMelee)
+        {
+            Transform launchPoint = weaponInstance != null ? weaponInstance.transform : transform;
+            GameObject projectileObj = ObjectPooler.Instance?.SpawnFromPool(currentWeapon.projectilePrefab, launchPoint.position, launchPoint.rotation);
+
+            if (projectileObj != null && weaponInstance != null)
+            {
+                projectileObj.transform.SetParent(weaponInstance.transform, false);
+                projectileObj.transform.localPosition = Vector3.zero;
+                projectileObj.transform.localScale = Vector3.one;
+            }
+
+        }
+
         float holdDuration = 0.05f;
         float holdElapsed = 0f;
         while (holdElapsed < holdDuration)

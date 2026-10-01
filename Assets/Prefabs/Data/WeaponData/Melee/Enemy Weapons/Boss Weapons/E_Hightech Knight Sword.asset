@@ -10,35 +10,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9c5be197390a7a4e9883e3e8a1af59b, type: 3}
-  m_Name: Hightech Knight Sword
+  m_Name: E_Hightech Knight Sword
   m_EditorClassIdentifier: Assembly-CSharp::WeaponMeleeData
   weaponName: Hightech Sword
   weaponType: 1
   weaponPrefab: {fileID: 8599932454935528800, guid: 6e9a51beff5922d489689836d8e0068d, type: 3}
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  weaponIcon: {fileID: 21300000, guid: 8fb89f69dd22a8a41b907b418b45687b, type: 3}
-  damage: 40
-  size: 3
+  weaponIcon: {fileID: 0}
+  damage: 60
+  size: 5
   radius: 1
+  noTrail: 0
   spawnOffset: {x: 0, y: 0}
   fadeInDuration: 0.1
-  delayStart: 1
+  delayStart: 0.5
   fadeOutDuration: 0.1
   detachTime: 0
   reflectForce: 1
   knockback: 1.5
   recoil: 0
-  hitImpact: 0.1
-  hitStop: 0.05
-  startSpeed: 10
+  hitImpact: 0.5
+  hitStop: 0
+  startSpeed: 1
   endSpeed: 10
   cooldown: 0.5
   isAutomatic: 1
   vulnerabilityIgnore: 0
   reflectedBullet: EnemyBullet
   appearSFX: {fileID: 8300000, guid: d10bb33e33cd2ea408ce68508dd014f6, type: 3}
-  slashSFX: {fileID: 8300000, guid: 22b0dd4627f46fc4e9286acba55e3a77, type: 3}
-  hitSFX: {fileID: 8300000, guid: fa0e186676995a843a9c1fdcbc7565b9, type: 3}
+  slashSFX: {fileID: 8300000, guid: 001d3e5837277544987e3843e9b77b98, type: 3}
+  hitSFX: {fileID: 8300000, guid: eca835397b1ddc0468406add3ae25102, type: 3}
   HitTarget:
     serializedVersion: 2
     m_Bits: 2304
@@ -50,3 +51,5 @@ MonoBehaviour:
   thrustEndPos: {x: 0, y: 0, z: 0}
   swingStartAngle: -90
   swingEndAngle: 90
+  isTrueMelee: 1
+  projectilePrefab: Hightech Knight Laser Sword
