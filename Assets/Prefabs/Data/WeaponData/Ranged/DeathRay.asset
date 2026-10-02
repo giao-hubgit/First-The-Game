@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponName: DeathRay
   weaponType: 0
   weaponPrefab: {fileID: 0}
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineColor: {r: 1, g: 0, b: 0, a: 1}
   weaponIcon: {fileID: 21300000, guid: 9fab634111f86ee4e9f3c27bfb224c3c, type: 3}
   bulletTag: DeathRay
   bulletForce: 0

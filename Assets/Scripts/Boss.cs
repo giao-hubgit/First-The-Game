@@ -203,7 +203,7 @@ public class Boss : Enemy
             GameObject deathParticle = ObjectPooler.Instance.SpawnFromPool(bossData.bossDeathParticle, transform.position, Quaternion.identity);
             if (deathParticle != null) deathParticle.transform.localScale = transform.localScale;
 
-            ObjectPooler.Instance.SpawnFromPool(data.itemDrop, transform.position, transform.rotation);
+            DropEquippedWeapon();
         }
 
         SFXManager.Instance?.PlaySFX(data.deathSFX, transform.position);

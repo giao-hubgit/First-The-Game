@@ -16,6 +16,9 @@ public class PlayerRangedWeapon : MonoBehaviour
     [SerializeField] private IAttacker ownerAttacker;
     [SerializeField] private PlayerMovement pm;
 
+    [Header("Pool Settings")]
+    [SerializeField] private string pickupPoolTag = "WeaponPickup";
+
     public WeaponRangedData currentWeapon;
     public WeaponRangedData nullWeapon;
 
@@ -39,12 +42,46 @@ public class PlayerRangedWeapon : MonoBehaviour
         UpdateWeaponUI();
     }
 
-    public void Equip(WeaponRangedData newWeapon)
+    public void Equip(WeaponRangedData newWeapon, int initialAmmo = -1)
     {
         currentWeapon = newWeapon;
-        currentAmmo = currentWeapon != null ? currentWeapon.maxAmmo : 0;
-        nextFireTime = 0f;
+
+        if (currentWeapon != null && currentWeapon != nullWeapon)
+        {
+            currentAmmo = (initialAmmo >= 0) ? initialAmmo : currentWeapon.maxAmmo;
+        }
+        else
+        {
+            currentAmmo = 0;
+        }
+
         UpdateWeaponUI();
+    }
+
+    public void DropCurrentWeapon()
+    {
+        if (currentWeapon == null || currentWeapon == nullWeapon) return;
+
+        //Vector3 dropPosition = transform.position + (Vector3)Random.insideUnitCircle * 0.8f;
+        GameObject pickupObj = ObjectPooler.Instance.SpawnFromPool(pickupPoolTag, transform.position/*dropPosition*/, Quaternion.identity);
+
+        if (pickupObj != null)
+        {
+            Rigidbody2D rb = pickupObj.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                //rb.AddForce(Random.insideUnitCircle.normalized * 20f, ForceMode2D.Impulse);
+                rb.AddTorque(Random.value < 0.5f ? -16f : 16f, ForceMode2D.Impulse);
+            }
+
+            WeaponPickup pickup = pickupObj.GetComponent<WeaponPickup>();
+            if (pickup != null)
+            {
+                pickup.InitPickup(currentWeapon, currentAmmo);
+            }
+        }
+
+        Equip(nullWeapon);
     }
 
     public void OnFire(InputAction.CallbackContext context)
@@ -95,7 +132,6 @@ public class PlayerRangedWeapon : MonoBehaviour
 
             if (bullet != null)
             {
-                // Laser
                 if (bullet.TryGetComponent<Laser>(out Laser laser))
                 {
                     laser.Init(ownerAttacker);
@@ -106,7 +142,7 @@ public class PlayerRangedWeapon : MonoBehaviour
                     float sweepDuration = Mathf.Abs(laser.laserData.endAngleOffset - laser.laserData.startAngleOffset) / laser.laserData.rotationSpeed;
                     StartCoroutine(StopRotating(sweepDuration + fadeDuration));
                 }
-                else // Bullet
+                else
                 {
                     if (bullet.TryGetComponent<Bullet>(out Bullet bulletScript))
                     {
@@ -142,7 +178,6 @@ public class PlayerRangedWeapon : MonoBehaviour
     {
         isFiring = false;
         SFXManager.Instance?.PlaySFX(outOfAmmoSFX, transform.position);
-        Equip(nullWeapon);
     }
 
     private void UpdateWeaponUI()
@@ -166,16 +201,13 @@ public class PlayerRangedWeapon : MonoBehaviour
     private void ForceInstantLayoutRefresh()
     {
         if (refreshCoroutine != null) StopCoroutine(refreshCoroutine);
-
         refreshCoroutine = StartCoroutine(RefreshLayoutRoutine());
     }
 
     private IEnumerator RefreshLayoutRoutine()
     {
         yield return new WaitForEndOfFrame();
-
         Canvas.ForceUpdateCanvases();
-
         if (hudContainerTransform != null)
         {
             LayoutRebuilder.ForceRebuildLayoutImmediate(hudContainerTransform);

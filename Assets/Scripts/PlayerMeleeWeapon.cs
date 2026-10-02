@@ -8,6 +8,9 @@ public class PlayerMeleeWeapon : MonoBehaviour
 {
     public WeaponMeleeData currentWeapon;
 
+    [Header("Pool Settings")]
+    [SerializeField] private string pickupPoolTag = "WeaponPickup";
+
     [Header("UI References")]
     [SerializeField] private GameObject weaponUIContainer;
     public Image weaponIconUI;
@@ -31,6 +34,33 @@ public class PlayerMeleeWeapon : MonoBehaviour
     {
         currentWeapon = newWeapon;
         UpdateWeaponUI();
+    }
+
+    public void DropCurrentWeapon()
+    {
+        if (currentWeapon == null) return;
+
+        Vector3 dropPosition = transform.position + (Vector3)Random.insideUnitCircle * 0.8f;
+        GameObject pickupObj = ObjectPooler.Instance.SpawnFromPool(pickupPoolTag, dropPosition, Quaternion.identity);
+
+        if (pickupObj != null)
+        {
+            WeaponPickup pickup = pickupObj.GetComponent<WeaponPickup>();
+
+            Rigidbody2D rb = pickupObj.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                //rb.AddForce(Random.insideUnitCircle.normalized * 20f, ForceMode2D.Impulse);
+                rb.AddTorque(Random.value < 0.5f ? -16f : 16f, ForceMode2D.Impulse);
+            }
+
+            if (pickup != null)
+            {
+                pickup.InitPickup(currentWeapon, 0);
+            }
+        }
+
+        Equip(null);
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -60,7 +90,6 @@ public class PlayerMeleeWeapon : MonoBehaviour
     private void Attack()
     {
         if (currentWeapon == null) return;
-
         if (Time.unscaledTime < nextSlashTime || isSwinging) return;
 
         nextSlashTime = Time.unscaledTime + currentWeapon.cooldown;
@@ -412,7 +441,6 @@ public class PlayerMeleeWeapon : MonoBehaviour
     private IEnumerator RefreshLayoutRoutine()
     {
         yield return new WaitForEndOfFrame();
-
         Canvas.ForceUpdateCanvases();
 
         if (hudContainerTransform != null)

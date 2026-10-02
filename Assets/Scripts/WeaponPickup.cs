@@ -6,17 +6,73 @@ public class WeaponPickup : MonoBehaviour, IInteractable
 {
     public WeaponData weaponData;
 
+    [Header("Runtime Dynamic Data")]
+    public int currentAmmo;
+
+    [Header("Components & Effects")]
     public GameObject floatingTextPrefab;
     public AudioClip weaponPickupSFX;
-
     public Light2D hightLight;
+
+    private SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
-        hightLight = GetComponentInChildren<Light2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (hightLight == null)
+            hightLight = GetComponentInChildren<Light2D>();
 
         if (hightLight != null)
+        {
             hightLight.enabled = false;
+            if (weaponData != null)
+            {
+                hightLight.color = weaponData.outlineColor;
+            }
+        }
+
+        if (spriteRenderer != null && weaponData != null)
+        {
+            spriteRenderer.sprite = weaponData.weaponIcon;
+        }
+
+        if (weaponData != null && weaponData.weaponType == WeaponType.Ranged)
+        {
+            WeaponRangedData rangedData = weaponData as WeaponRangedData;
+            currentAmmo = rangedData.maxAmmo;
+        }
+    }
+
+    public void InitPickup(WeaponData data, int ammo = -1)
+    {
+        weaponData = data;
+
+        if (ammo >= 0)
+        {
+            currentAmmo = ammo;
+        }
+        else if (data is WeaponRangedData rangedData)
+        {
+            currentAmmo = rangedData.maxAmmo;
+        }
+        else
+        {
+            currentAmmo = 0;
+        }
+
+        if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer != null && weaponData != null)
+        {
+            spriteRenderer.sprite = weaponData.weaponIcon;
+        }
+
+        if (hightLight != null && weaponData != null)
+        {
+            hightLight.color = weaponData.outlineColor;
+        }
+
+        SetHighlight(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -58,30 +114,33 @@ public class WeaponPickup : MonoBehaviour, IInteractable
 
         if (weaponManager != null)
         {
-            weaponManager.EquipWeapon(weaponData);
+            weaponManager.EquipWeapon(weaponData, currentAmmo);
 
             SFXManager.Instance?.PlaySFX(weaponPickupSFX, transform.position);
             SpawnFloatingText();
 
+            ResetData();
             gameObject.SetActive(false);
         }
+    }
+
+    public void ResetData()
+    {
+        weaponData = null;
+        currentAmmo = 0;
+        if (spriteRenderer != null) spriteRenderer.sprite = null;
+        SetHighlight(false);
     }
 
     public void SetHighlight(bool isHighlighted)
     {
         if (hightLight == null) return;
-
-        hightLight.enabled = isHighlighted ? true : false;
-    }
-
-    private void OnEnable()
-    {
-        SetHighlight(false);
+        hightLight.enabled = isHighlighted;
     }
 
     private void OnDisable()
     {
-        SetHighlight(false);
+        ResetData();
     }
 
     private void SpawnFloatingText()
@@ -92,10 +151,10 @@ public class WeaponPickup : MonoBehaviour, IInteractable
             GameObject popup = Instantiate(floatingTextPrefab, spawnPos, Quaternion.identity);
 
             FloatingText ftScript = popup.GetComponent<FloatingText>();
-
             if (ftScript != null)
             {
-                ftScript.SetText(weaponData.weaponName, hightLight.color);
+                Color textColor = weaponData != null ? weaponData.outlineColor : Color.white;
+                ftScript.SetText(weaponData.weaponName, textColor);
             }
         }
     }

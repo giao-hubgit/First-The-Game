@@ -15,8 +15,12 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker
     protected Rigidbody2D rb;
     protected SpriteRenderer spriteRenderer;
 
+    [Header("Weapon Drop Settings")]
+    [SerializeField] private string weaponPickupPoolTag = "WeaponPickup";
+
     [Header("Death Settings")]
     [SerializeField] protected Light2D[] spotLights;
+    [Range(0f, 1f)][SerializeField] private float dropChance = 1f;
 
     public event System.Action OnTakeDamage;
 
@@ -75,7 +79,8 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker
             if (deathParticle != null) deathParticle.transform.localScale = transform.localScale;
 
             ObjectPooler.Instance.SpawnFromPool(data.deathAnimation, transform.position, transform.rotation);
-            ObjectPooler.Instance.SpawnFromPool(data.itemDrop, transform.position, transform.rotation);
+
+            DropEquippedWeapon();
         }
 
         Collider2D col = GetComponent<Collider2D>();
@@ -94,6 +99,38 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker
         }
 
         StartCoroutine(FadeOutAndDestroy());
+    }
+
+    protected virtual void DropEquippedWeapon()
+    {
+        if (Random.value > dropChance) return;
+
+        WeaponData weaponToDrop = null;
+
+        int ammoToDrop = -1;
+
+        if (data.itemDrop != null)
+        {
+            weaponToDrop = data.itemDrop;
+
+            if (data.itemDrop.weaponType == WeaponType.Melee)
+            {
+                ammoToDrop = 0;
+            }
+        }
+
+        if (weaponToDrop == null) return;
+
+        GameObject pickupObj = ObjectPooler.Instance?.SpawnFromPool(weaponPickupPoolTag, transform.position, transform.rotation);
+
+        if (pickupObj != null)
+        {
+            WeaponPickup pickup = pickupObj.GetComponent<WeaponPickup>();
+            if (pickup != null)
+            {
+                pickup.InitPickup(weaponToDrop, ammoToDrop);
+            }
+        }
     }
 
     protected virtual IEnumerator FadeOutAndDestroy()

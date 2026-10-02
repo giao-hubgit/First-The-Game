@@ -27,7 +27,7 @@ MonoBehaviour:
   spawnSFX: {fileID: 8300000, guid: 6d7730b6892b7624aab93edc6daa803f, type: 3}
   deathSFX: {fileID: 8300000, guid: 7012821bbf3e894458d8da223dafc11a, type: 3}
   crashSFX: {fileID: 8300000, guid: eca835397b1ddc0468406add3ae25102, type: 3}
-  itemDrop: Pistol Pickup
+  itemDrop: {fileID: 11400000, guid: e090f697db0a5d04aa409c9d8f7afb26, type: 2}
   visionRange: 10
   lineOfSightLayer:
     serializedVersion: 2

@@ -21,7 +21,7 @@ public class EnemyData : ScriptableObject
     public AudioClip spawnSFX;
     public AudioClip deathSFX;
     public AudioClip crashSFX;
-    public string itemDrop = "Pistol Pickup";
+    public WeaponData itemDrop = null;
 
     [Header("Ranged Stats")]
     public float visionRange = 8f;

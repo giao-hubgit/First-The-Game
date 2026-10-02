@@ -24,15 +24,20 @@ public class PlayerWeaponManager : MonoBehaviour
         return false;
     }
 
-    public void EquipWeapon(WeaponData newWeapon)
+    public void EquipWeapon(WeaponData newWeapon, int ammo = -1)
     {
         if (newWeapon.weaponType == WeaponType.Ranged)
         {
             WeaponRangedData rangedData = newWeapon as WeaponRangedData;
             if (rangedData != null)
             {
-                rangedController.Equip(rangedData);
-                Debug.Log($"Đã trang bị súng: {rangedData.weaponName}");
+                if (!IsSlotEmpty(WeaponType.Ranged))
+                {
+                    rangedController.DropCurrentWeapon();
+                }
+
+                rangedController.Equip(rangedData, ammo);
+                Debug.Log($"Ranged weapon equipped: {rangedData.weaponName}");
             }
         }
         else if (newWeapon.weaponType == WeaponType.Melee)
@@ -40,8 +45,13 @@ public class PlayerWeaponManager : MonoBehaviour
             WeaponMeleeData meleeData = newWeapon as WeaponMeleeData;
             if (meleeData != null)
             {
+                if (!IsSlotEmpty(WeaponType.Melee))
+                {
+                    meleeController.DropCurrentWeapon();
+                }
+
                 meleeController.Equip(meleeData);
-                Debug.Log($"Đã trang bị cận chiến: {meleeData.weaponName}");
+                Debug.Log($"Melee weapon equipped: {meleeData.weaponName}");
             }
         }
     }

@@ -198,7 +198,10 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 6536640d515128a4785a198d6bf3f593, type: 2}
   isCrashing: 0
   isDead: 0
+  weaponPickupPoolTag: WeaponPickup
   spotLights: []
+  dropChance: 1
+  dropWeapon: {fileID: 11400000, guid: 11ae8aed19b8b4c49bbfe743cae621c5, type: 2}
   isIntroFinished: 0
   isTransforming: 0
   isAttacking: 0
