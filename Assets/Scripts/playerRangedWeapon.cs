@@ -110,7 +110,13 @@ public class PlayerRangedWeapon : MonoBehaviour
 
     void Shoot()
     {
-        if (currentWeapon == null || currentWeapon == nullWeapon || currentAmmo <= 0) return;
+        if (currentWeapon == null || currentWeapon == nullWeapon) return;
+        if (currentAmmo <= 0)
+        {
+            OutOfAmmoLogic();
+            return;
+        }
+
         if (Time.unscaledTime < nextFireTime) return;
 
         if (currentWeapon.recoil > 0)

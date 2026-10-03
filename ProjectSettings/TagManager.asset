@@ -66,6 +66,9 @@ TagManager:
   - name: Wall
     uniqueID: 2268338305
     locked: 0
+  - name: Weapon Prefab
+    uniqueID: 1870562393
+    locked: 0
   - name: Roof
     uniqueID: 3349101969
     locked: 0

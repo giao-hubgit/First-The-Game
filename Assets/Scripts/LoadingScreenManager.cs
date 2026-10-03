@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using UnityEngine.InputSystem;
 
 public class LoadingScreenManager : MonoBehaviour
 {
@@ -9,7 +8,10 @@ public class LoadingScreenManager : MonoBehaviour
     [SerializeField] private Image loadingCube;
     [SerializeField] private RoomTemplate mapGenerator;
     [SerializeField] private Player player;
+
+    [Header("Misc Settings after loading")]
     [SerializeField] private GameObject spawnCamera;
+    [SerializeField] private string areaTitleText;
 
     private void Start()
     {
@@ -40,5 +42,7 @@ public class LoadingScreenManager : MonoBehaviour
         spawnCamera.SetActive(false);
         AudioListener.pause = false;
         player.gameObject.SetActive(true);
+
+        TitleController.Instance.SpawnTitle(areaTitleText, Color.white, fadeInDuration: 0.5f, holdDuration: 2f, fadeOutDuration: 1f, delayBeforeSpawn: 2.5f);
     }
 }

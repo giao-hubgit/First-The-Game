@@ -71,7 +71,7 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker
     protected virtual void Die()
     {
         SFXManager.Instance?.PlaySFX(data.deathSFX, transform.position);
-        HitStop.Instance?.Stop(data.deadHitStopDuration, true, false);
+        HitStop.Instance?.Stop(data.deadHitStopDuration, true, true);
 
         if (ObjectPooler.Instance != null)
         {
@@ -97,6 +97,10 @@ public class Enemy : MonoBehaviour, IDamageable, IAttacker
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
         }
+
+        LevelSystem.Instance.AddExp(25);
+        PlayerWallet.Instance.AddCurrency("Gold", 10);
+        PlayerWallet.Instance.AddCurrency("CUBE", 1);
 
         StartCoroutine(FadeOutAndDestroy());
     }

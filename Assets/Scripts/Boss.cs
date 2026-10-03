@@ -128,7 +128,7 @@ public class Boss : Enemy
         if (bossData.musicSFX != null) BGMManager.Instance?.StopBGM();
 
         SFXManager.Instance?.PlaySFX(data.deathSFX, transform.position);
-        HitStop.Instance?.Stop(data.deadHitStopDuration, true);
+        HitStop.Instance?.Stop(data.deadHitStopDuration, true, true);
 
         if (ObjectPooler.Instance != null)
         {

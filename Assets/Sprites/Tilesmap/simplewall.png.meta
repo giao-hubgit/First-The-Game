@@ -62,7 +62,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -147,7 +147,7 @@ TextureImporter:
       name: simplewall_1
       rect:
         serializedVersion: 2
-        x: 159
+        x: 157
         y: 390
         width: 64
         height: 64
@@ -169,7 +169,7 @@ TextureImporter:
       name: simplewall_2
       rect:
         serializedVersion: 2
-        x: 258
+        x: 259
         y: 390
         width: 64
         height: 64
@@ -191,7 +191,7 @@ TextureImporter:
       name: simplewall_3
       rect:
         serializedVersion: 2
-        x: 353
+        x: 352
         y: 390
         width: 64
         height: 64
@@ -235,7 +235,7 @@ TextureImporter:
       name: simplewall_5
       rect:
         serializedVersion: 2
-        x: 160
+        x: 157
         y: 293
         width: 64
         height: 64
@@ -257,8 +257,8 @@ TextureImporter:
       name: simplewall_6
       rect:
         serializedVersion: 2
-        x: 257
-        y: 293
+        x: 258
+        y: 292
         width: 64
         height: 64
       alignment: 0
@@ -279,8 +279,8 @@ TextureImporter:
       name: simplewall_7
       rect:
         serializedVersion: 2
-        x: 354
-        y: 291
+        x: 352
+        y: 292
         width: 64
         height: 64
       alignment: 0
@@ -301,8 +301,8 @@ TextureImporter:
       name: simplewall_8
       rect:
         serializedVersion: 2
-        x: 62
-        y: 194
+        x: 63
+        y: 195
         width: 64
         height: 64
       alignment: 0
@@ -323,8 +323,8 @@ TextureImporter:
       name: simplewall_9
       rect:
         serializedVersion: 2
-        x: 162
-        y: 194
+        x: 157
+        y: 195
         width: 64
         height: 64
       alignment: 0
@@ -345,9 +345,9 @@ TextureImporter:
       name: simplewall_10
       rect:
         serializedVersion: 2
-        x: 260
-        y: 192
-        width: 64
+        x: 259
+        y: 195
+        width: 63
         height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -367,8 +367,8 @@ TextureImporter:
       name: simplewall_11
       rect:
         serializedVersion: 2
-        x: 356
-        y: 191
+        x: 352
+        y: 195
         width: 64
         height: 64
       alignment: 0
@@ -389,8 +389,8 @@ TextureImporter:
       name: simplewall_12
       rect:
         serializedVersion: 2
-        x: 62
-        y: 98
+        x: 64
+        y: 97
         width: 64
         height: 64
       alignment: 0
@@ -411,8 +411,8 @@ TextureImporter:
       name: simplewall_13
       rect:
         serializedVersion: 2
-        x: 163
-        y: 98
+        x: 157
+        y: 97
         width: 64
         height: 64
       alignment: 0
@@ -434,7 +434,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 259
-        y: 98
+        y: 97
         width: 64
         height: 64
       alignment: 0
@@ -455,8 +455,8 @@ TextureImporter:
       name: simplewall_15
       rect:
         serializedVersion: 2
-        x: 356
-        y: 98
+        x: 352
+        y: 97
         width: 64
         height: 64
       alignment: 0
@@ -477,8 +477,8 @@ TextureImporter:
       name: simplewall_16
       rect:
         serializedVersion: 2
-        x: 61
-        y: 6
+        x: 64
+        y: 8
         width: 64
         height: 64
       alignment: 0
@@ -489,8 +489,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd72d23421b8b604ba852df23dc0c0e6
-      internalID: -1933747846
+      spriteID: 100ae11b312e7af4385a82695e0b42d3
+      internalID: 1414153124
       vertices: []
       indices: 
       edges: []
@@ -519,7 +519,7 @@ TextureImporter:
       simplewall_13: -1186742741
       simplewall_14: -938903160
       simplewall_15: -579183987
-      simplewall_16: -1933747846
+      simplewall_16: 1414153124
       simplewall_2: 8568646003987469329
       simplewall_3: -5439567835089943023
       simplewall_4: 71100236

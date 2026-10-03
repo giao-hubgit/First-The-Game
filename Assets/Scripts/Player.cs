@@ -84,6 +84,10 @@ public class Player : MonoBehaviour, IDamageable, IAttacker
         }
 
         onPlayerDeath?.Invoke();
+
+        PlayerWallet.Instance.OnPlayerDeath(); // Tự động reset Gold và lưu Scrap Metal xuống JSON
+        LevelSystem.Instance.ResetLevelProgress();
+
         StartCoroutine(FadeOutAndDestroy());
     }
 
